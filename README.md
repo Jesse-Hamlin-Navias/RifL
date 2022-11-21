@@ -1,3 +1,6 @@
+https://docs.google.com/spreadsheets/d/1Sn_JVcqvxeLLwwbMTKXrVnL_m1w7c8UdgIJZGvFj4QM/edit?usp=sharing
+https://gravel-gymnast-f22.notion.site/RifL-315a248ac08f4a3aaad3684dda3e5f80
+
 # RifL
 RifL is a tactile esoteric coding langauge. Tactile means that code in RifL can be represented by physical objects, in this case a deck of playing cards. This provides the opportunity to perform code step by step, and to learn how computers execute code, creating a intimate understanding of the language. Esoteric means that RifL is not intended for software programming. Instead, it pushes the boundaries of what is possible in coding languages, and to entertain with outlandish and novel coding patterns. 
 
