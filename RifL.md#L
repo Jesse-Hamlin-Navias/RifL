@@ -257,19 +257,6 @@
             (else (find-deck (cdr decks) name))))
 
     ;This returns the first argument of the given stack
-    ;(define (get-data stack)
-    ;  (define (get-data2 stack)
-    ;    (cond ((= (stack 'length) 0) '())
-    ;          ((joker? (stack 'top)) '())
-    ;          ((face-down? (stack 'top)) '())
-    ;          (else (let ((card (stack 'pop))) (cons card (get-data2 stack))))))
-   ; 
-    ;  (cond ((= (stack 'length) 0) '())
-    ;        ((joker? (stack 'top)) (cons (stack 'pop) '()))
-    ;        ((face-down? (stack 'top)) (begin (stack 'pop) (get-data stack)))
-    ;        (else (let ((card (stack 'pop))) (reverse (cons card (get-data2 stack))))))
-    ;  )
-
      (define (get-data deck)
          (define (get-facedown-cards)
            (cond [(= (deck 'length) 0) '()]
@@ -312,7 +299,6 @@
          (cons facedown-cards data)
          )
       )
-    
     (define (insert-data pile l)
       ;(display "insert-data: ") (pile 'display) (print l) (newline)
       (if (null? l) pile (begin (pile 'push (car l)) (insert-data pile (cdr l)))))
@@ -345,7 +331,6 @@
       )
   )
 )
-
 (define (print-struc str)
       (cond ((null? str) '())
             ((pair? str) (begin (print-struc (car str)) (print-struc (cdr str))))

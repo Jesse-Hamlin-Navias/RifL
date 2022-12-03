@@ -1,3 +1,6 @@
+https://docs.google.com/spreadsheets/d/1Sn_JVcqvxeLLwwbMTKXrVnL_m1w7c8UdgIJZGvFj4QM/edit?usp=sharing
+https://gravel-gymnast-f22.notion.site/RifL-315a248ac08f4a3aaad3684dda3e5f80
+
 # RifL
 RifL is a tactile esoteric coding langauge. Tactile means that code in RifL can be represented by physical objects, in this case a deck of playing cards. This provides the opportunity to perform code step by step, and to learn how computers execute code, creating a intimate understanding of the language. Esoteric means that RifL is not intended for software programming. Instead, it pushes the boundaries of what is possible in coding languages, and to entertain with outlandish and novel coding patterns. 
 
@@ -5,7 +8,7 @@ RifL is a tactile esoteric coding langauge. Tactile means that code in RifL can 
 Below is an introdcution to RifL. It will provide a guided overview of the concepts needed to code and run RifL. Later, in the Nitty Gritty, those beginning concepts will be completed and connected to all the others, giving you the tools you need to run RifL.
 
 ### Numbers
-The first thing needed to learn RifL is understanding how RifL represent numbers. Playing cards have numbered cards 2 through 10. In RifL, 10 cards represents 0s, and Aces represent 1s. With this structure, we have access to all digits 0 through 9. If we wanted to represent the number 301 in RifL, we would use the series of cards: 3 of spades, 10 of spades, Ace of spades.
+The first thing needed to learn RifL is understanding how RifL represent numbers. Playing cards have numbered cards 2 through 10. In RifL, 10 cards represent the number 0, and Aces represent the number 1. With this structure, we have access to all digits 0 through 9. If we wanted to represent the number 301 in RifL, we would use the series of cards: 3 of spades, 10 of spades, Ace of spades.
 
 ### Data Structure
 Code for RifL is placed into a 2D grid. A pile of cards can be placed in each grid space. The grid has four columns, from left to right: the spades column, hearts, clubs, and diamonds. The grid has a bottom row, row 1. The row above that is row 2, and so on. Each grid spaces has a name. For example, the bottom leftmost grid space is row 1 column spades, or, written differently, the grid space Ace of spades. The grid space above that is the 2 of spades, then 3 of spades, and so on. In this way, we have named every grid space using cards.
