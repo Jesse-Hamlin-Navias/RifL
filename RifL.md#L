@@ -34,7 +34,7 @@
                (if (= count 0)
                    (comment s count t)
                    (comment s count (j-append t (transform (string-head s count)))))]
-              ;else we've encountered characters that are not in our langue, print an error
+              ;else we've encountered characters that are not in our language, print an error
               [else (begin (print char) (print error))]
         )
       )
@@ -83,10 +83,24 @@
   )
 )
 
+(define (untransform s)
+  (if (> (string-length s) 1)
+      (cond ((equal? "F" (string-head s 1)) (string-append "F" (untransform (string-tail s 1))))
+            ((equal? "1" (string-head s 1)) (string-append "A" (string-tail s 1)))
+            ((equal? "0" (string-head s 1)) (string-append "10" (string-tail s 1)))
+            (else s))
+      s
+  )
+)
+
 (define (display-all . args)
   (define (mprinter output args)
-    (if (null? args) (display output) (mprinter (string-append output (car args)) (cdr args)))
+    (if (null? args) (display output)
+        (cond [(char? (car args)) (mprinter (string-append output (string (car args))) (cdr args))]
+              [(number? (car args)) (mprinter (string-append output (number->string (car args))) (cdr args))]
+              [else (mprinter (string-append output (car args)) (cdr args))])
     )
+  )
   (mprinter "" args)
  ) 
 
@@ -196,6 +210,15 @@
              ((null? (cdr stack)) (car stack))
              (else (drop (cdr stack)))))
 
+     (define (display-stack stack)
+       (if (zero? (length stack)) '()
+           (begin
+             (display-all (untransform (car stack)) " ")
+             (display-stack (cdr stack))
+             )
+       )
+     )
+
      ; takes in 2 arguments: cmd (push, pop, top, display) rest (operator or operand), any number of arguments
      (lambda (cmd . rest) 
               ;if 'cmd' = top, return first token of 's'
@@ -203,7 +226,7 @@
               ;if 'cmd' = length, return length of 's'
               ((eq? 'length cmd)   (length s))
               ;if 'cmd' = display, display 's'
-              ((eq? 'display cmd)  (begin (display s) (newline)))
+              ((eq? 'display cmd)  (begin (display-stack s) (newline)))
               ;if 'cmd' = push, put the first element of 'rest' ontop of 's'
               ((eq? 'push cmd)     (set! s (cons (car rest) s)))
               ;if 'cmd' = pop, then we remove the first element of 's' and return it
@@ -234,24 +257,61 @@
             (else (find-deck (cdr decks) name))))
 
     ;This returns the first argument of the given stack
-    (define (get-data stack)
-      (define (get-data2 stack)
-        (cond ((= (stack 'length) 0) '())
-              ((joker? (stack 'top)) '())
-              ((face-down? (stack 'top)) '())
-              (else (let ((card (stack 'pop))) (cons card (get-data2 stack))))))
-    
-      (cond ((= (stack 'length) 0) '())
-            ((joker? (stack 'top)) (cons (stack 'pop) '()))
-            ((face-down? (stack 'top)) (begin (stack 'pop) (get-data stack)))
-            (else (let ((card (stack 'pop))) (reverse (cons card (get-data2 stack))))))
+    ;(define (get-data stack)
+    ;  (define (get-data2 stack)
+    ;    (cond ((= (stack 'length) 0) '())
+    ;          ((joker? (stack 'top)) '())
+    ;          ((face-down? (stack 'top)) '())
+    ;          (else (let ((card (stack 'pop))) (cons card (get-data2 stack))))))
+   ; 
+    ;  (cond ((= (stack 'length) 0) '())
+    ;        ((joker? (stack 'top)) (cons (stack 'pop) '()))
+    ;        ((face-down? (stack 'top)) (begin (stack 'pop) (get-data stack)))
+    ;        (else (let ((card (stack 'pop))) (reverse (cons card (get-data2 stack))))))
+    ;  )
+
+     (define (get-data deck)
+         (define (get-facedown-cards)
+           (cond [(= (deck 'length) 0) '()]
+                 [(face-down? (deck 'top)) (let ((card (deck 'pop))) (cons card (get-facedown-cards)))]
+                 [else '()]
+           )
+         )
+
+         (define (get-data2 data?)
+           (cond [(= (deck 'length) 0) '()]
+                 [(joker? (deck 'top)) (if (not data?) (cons (deck 'pop) '()) '())]
+                 [(royal-card? (deck 'top)) (if (not data?) (cons (deck 'pop) '()) '())]
+                 [(face-down? (deck 'top)) '()]
+                 [else (let ((card (deck 'pop))) (cons card (get-data2 #t)))]
+           )
+         )
+       (let* ((data       (reverse (get-data2 #f)))
+              (facedown-cards (reverse (get-facedown-cards))))
+         (cons facedown-cards data)
+         )
       )
 
-    (define (print-struc str)
-      (cond ((null? str) '())
-            ((pair? str) (begin (print-struc (car str)) (print-struc (cdr str))))
-            ((procedure? str) (str 'display))
-            ((string? str) (begin (print str) (newline)))))
+    (define (get-stack stack)
+         (define (get-facedown-cards)
+           (cond [(= (stack 'length) 0) '()]
+                 [(face-down? (stack 'top)) (let ((card (stack 'pop))) (cons card (get-facedown-cards)))]
+                 [else '()]
+           )
+         )
+
+         (define (get-data2 data?)
+           (cond [(= (stack 'length) 0) '()]
+                 [(joker? (stack 'top)) (if (not data?) (cons (stack 'pop) '()) '())]
+                 [(face-down? (stack 'top)) '()]
+                 [else (let ((card (stack 'pop))) (cons card (get-data2 #t)))]
+           )
+         )
+       (let* ((facedown-cards (reverse (get-facedown-cards)))
+              (data       (reverse (get-data2 #f))))
+         (cons facedown-cards data)
+         )
+      )
     
     (define (insert-data pile l)
       ;(display "insert-data: ") (pile 'display) (print l) (newline)
@@ -266,10 +326,11 @@
       (cond  ((eq? 'stack cmd)      (car table))
              ;if cmd = find, return stack in table with matching name, or create new stack with name
              ((eq? 'find cmd)  (find-deck (cdr table) (car rest)))
-             ;if cmd = get-data, pop top data of rest (rest must be a pile, not just a name)
+             ;if cmd = get-data, pop top data & tailing face-down of rest
+             ;(rest must be a pile, not just a name, and should never be the stack)
              ((eq? 'get-data cmd)  (get-data (car rest)))
-             ;if cmd = get-stack, pop top data of the table's stack
-             ((eq? 'get-stack cmd)  (get-data (car table)))
+             ;if cmd = get-stack, pop the leading face-downs of stack & top data of the stack
+             ((eq? 'get-stack cmd)  (get-stack (car table)))
              ;if cmd = instert-data, push data (second argument) onto pile (first argument)
              ((eq? 'insert-data cmd) (insert-data (car rest) (cadr rest)))
              ;if cmd = print, print table
@@ -284,6 +345,12 @@
       )
   )
 )
+
+(define (print-struc str)
+      (cond ((null? str) '())
+            ((pair? str) (begin (print-struc (car str)) (print-struc (cdr str))))
+            ((procedure? str) (str 'display))
+            ((string? str) (begin (print str) (newline)))))
 ;------------------------------------------------------------------------------------------------------
 ;P--------------------------------------------------------------------------------------------
 
@@ -293,7 +360,7 @@
     (cond ((= (string-length c) 0) #f)
           ((number-card? c) #t)
           ((face-down? c) #t)
-          ((face-card? c) #t)
+          ((royal-card? c) #t)
           ((joker? c) #t)
           (else #f)
     )
@@ -307,7 +374,7 @@
       #f)))
 
 ;Takes a string 'card' and returns 'true' if its a face card
-(define (face-card? card)
+(define (royal-card? card)
   (let ((p (pip card)))
     (if (or (equal? "J" p) (equal? "Q" p) (equal? "K" p)) (suit? (string-tail card 1)) #f)))
 
@@ -363,8 +430,7 @@
 
 ;Passed a number, string/char, or bool and returns the coresponding pile of cards
 (define (data->cards data)
-  (cond [(integer? data) (integer->cards data)]
-        [(real? data) (decimal->cards data)]
+  (cond [(number? data) (number->cards data)]
         [(boolean? data) (bool->cards data)]
         [(or (string? data) (char? data)) (string->cards data)]
         [else '()])
@@ -380,7 +446,14 @@
   (if (card-decimal? cards) (cards->decimal cards) (cards->integer cards))
 )
 
-;Passeds an integer, returns the coresponding integer
+;Passed a number, returns the coresponding integer or real number
+(define (number->cards data)
+  (cond [(integer? data) (integer->cards data)]
+        [(real? data) (decimal->cards data)]
+        [else '()])
+  )
+
+;Passeds an integer, returns the coresponding cards
 (define (integer->cards num)
   ;(display "integer->cards: ") (print num) (newline)
   (define (int->c num count)
@@ -395,7 +468,7 @@
     (if (> count num) (cons (string-append (number->string (/ (modulo num count) (/ count 10))) "c")
               '())
         (cons (string-append (number->string (/ (modulo num count) (/ count 10))) "c")
-              (int->c (- num (modulo num count)) (* count 10))))
+              (-int->c (- num (modulo num count)) (* count 10))))
     )
   (if (> 0 num) (reverse (-int->c (* -1 num) 10)) (reverse (int->c num 10)))
  )
@@ -492,9 +565,28 @@
   )
 )
 
-;Passed a char, returns the coresponding pile of cards
+;Passed a string or char, returns the coresponding pile of cards
+;When passed a string, will return multiple arguments seperated by "F" cards.
+;The last card will not have a "F" seperating it, to match how all the other conversion funcitons work
 (define (string->cards str)
-  (integer->cards (char->integer str)))
+  (define (char->cards num count)
+    (if (> count num) (cons (string-append (number->string (/ (modulo num count) (/ count 10))) "h")
+              '())
+        (cons (string-append (number->string (/ (modulo num count) (/ count 10))) "h")
+              (char->cards (- num (modulo num count)) (* count 10))))
+    )
+  (define (str->c str)
+    (cond [(null? str) '()]
+        [(= 1 (length str))
+            (append (reverse (char->cards (char->integer (car str)) 10)) (str->c (cdr str)))]
+        [else (append (append (reverse (char->cards (char->integer (car str)) 10)) '("F")) (str->c (cdr str)))]
+    )
+  )
+  (if (char? str)
+      (reverse (char->cards (char->integer str) 10))
+      (str->c (string->list str))
+  )
+)
 
 ;Passed a pile of cards, returns the coresponding char
 (define (cards->string cards)
@@ -523,8 +615,8 @@
       ;if the current pile is empty, end executing and return the stack
       (if (= (pile 'length) 0) (table 'stack)
           ;otherwise if the top card of the current pile is a face card, perform an operation
-          (cond ((face-card? (pile 'top)) (evaluate (pile 'pop) pile table name))
-                ;((face-card? (pile 'top)) (begin (table 'display) (evaluate (pile 'pop) pile table name)))
+          (cond ((royal-card? (pile 'top)) (evaluate (pile 'pop) pile table name))
+                ;((royal-card? (pile 'top)) (begin (table 'display) (evaluate (pile 'pop) pile table name)))
                 ;otherwise move the top card of the current pile onto the stack and call execute again
                 ((card? (pile 'top)) (begin ((table 'stack) 'push (pile 'pop)) (executer table name)))
           )
@@ -538,25 +630,34 @@
 ;Passed a face card 'card', the current pile, the table, and the name of the current pile.
 ;Executes code from the stack based on the given face card.
 (define (evaluate card pile table name)
-  (cond ((equal? "Js" card) (Jack-spade table))
-        ((equal? "Jc" card) (Jack-club table name))
-        ((equal? "Jh" card) (Jack-heart table name))
-        ((equal? "Jd" card) (Jack-diamond table name))
-        ((equal? "Qs" card) (Queen-spade table name))
-        ((equal? "Qc" card) (Queen-club table name))
-        ((equal? "Qh" card) (Queen-heart pile table name))
-        ((equal? "Qd" card) (Queen-diamond pile table name))
-        ((equal? "Ks" card) (King-spade pile table name))
-        ((equal? "Kc" card) (King-club pile table name))
-        ((equal? "Kh" card) (King-heart pile table name))
-        ((equal? "Kd" card) (King-diamond pile table name))
-        (else (display-all "error: tried to use " card " as a face card"))
-        )
-)
+  (let ((rank (pip card))
+        (suit_ (suit card)))
+    (cond [(equal? "J" rank) (cond
+                               [(equal? "s" suit_) (Jack-spade table)]
+                               [(equal? "c" suit_) (Jack-club table name)]
+                               [(equal? "h" suit_) (Jack-heart table name)]
+                               [(equal? "d" suit_) (Jack-diamond table name)]
+                               )]
+          [(equal? "Q" rank) (cond
+                               [(equal? "s" suit_) (Queen-spade table name)]
+                               [(equal? "c" suit_) (Queen-club table name)]
+                               [(equal? "h" suit_) (Queen-heart pile table name)]
+                               [(equal? "d" suit_) (Queen-diamond pile table name)]
+                               )]
+          [(equal? "K" rank) (cond
+                               [(equal? "s" suit_) (King-spade pile table name)]
+                               [(equal? "c" suit_) (King-club pile table name)]
+                               [(equal? "h" suit_) (King-heart pile table name)]
+                               [(equal? "d" suit_) (King-diamond pile table name)]
+                               )]
+          [else (display-all "error: tried to use " card " as a face card")]
+          )
+    )
+  )
 
-;[X], Js -> moves the pointer to deck [X]
+;[X], Js -> moves the pointer to deck [X].
 (define (Jack-spade table)
-  (let ((name (table 'get-stack)))
+  (let ((name (cdr (table 'get-stack))))
     ;(display "name: ") (print name) (newline)
     (if (name? name)
         (execute table name)
@@ -564,16 +665,13 @@
    )
 )
 
-;[X], [Y], Jc -> puts the name of the deck that is to the right [X] times and up [Y] times onto the stack.
+;[X], [Y], Jc, F -> puts the name of the deck that is to the right [X] times and up [Y] times onto the stack.
 ;If [X] or [Y] is negative, move in the opposite direction. If [X] or [Y] that are Jokers act as 0.
 ;Moving below an Ac deck throws an out of bounds error.
-
-;Bugs:
-;If a negative number down is returning a positive deck, its because double digit negative inputs arnt working
 (define (Jack-club table name)
-  (let ((vertical   (table 'get-stack))
-        (horizontal (table 'get-stack))
-        (num        (abs (cards->integer name))))
+  (let* ((vertical        (cdr (table 'get-stack)))
+         (horizontal      (cdr (table 'get-stack)))
+         (num             (abs (cards->integer name))))
     ;(display-all "name: " (number->string num) "\n" "vertical: " (number->string (cards->integer vertical)))
     (define (suit-cycle suit count)
       (if (equal? count 0) suit
@@ -583,7 +681,7 @@
                 [(equal? suit "d") (suit-cycle "s" (- count 1))]))
     )
     (define (compose-name suit cards)
-      (if (equal? cards '()) '("F")
+      (if (equal? cards '()) '()
           (cons (string-append (pip (car cards)) suit)
                 (compose-name suit (cdr cards))))
     )
@@ -600,122 +698,194 @@
                   (if (equal? (car vertical) "R")
                       (set! vertical 0)
                       (set! vertical (cards->integer vertical))))
-                  (table 'insert-data (table'stack) (compose-name
-                                                     (suit-cycle (suit (car name)) (modulo horizontal 4))
-                                                     (integer->cards (+ num vertical))))
+                (table 'insert-data (table'stack) (compose-name
+                                                   (suit-cycle (suit (car name)) (modulo horizontal 4))
+                                                   (integer->cards (+ num vertical))))
                 )
               (execute table name)))
-           )
-    )
+     )
+  )
 )
 
-;Needs in depth testing
+;[X], Jh, F -> puts the number of arguments of deck [x] onto the stack. If [X] joker,
+;number of arguments in stack onto the stack.
 (define (Jack-heart table name)
-  (let ((deck (table 'get-stack)))
-    (define (Jh)
-      (table 'insert-data (table 'stack)
-                 (integer->cards (length (table 'find deck))))
+  (let ((name-of-deck (cdr (table 'get-stack))))
+    ;(display "Face down cards: ") (display face-downs) (newline)
+    ;(display "Name of deck: ") (display name-of-deck) (newline)
+    (define (Jh deck last-card)
+      (cond [(= 0 (length deck)) 0]
+            [(or (royal-card? (car deck)) (joker? (car deck)))
+               (if (number-card? last-card)
+                   (+ 2 (Jh (cdr deck) (car deck)))
+                   (+ 1 (Jh (cdr deck) (car deck))))]
+            [(face-down? (car deck)) (if (number-card? last-card)
+                                         (+ 1 (Jh (cdr deck) (car deck)))
+                                         (+ 0 (Jh (cdr deck) (car deck))))]
+            [else (+ 0 (Jh (cdr deck) (car deck)))]
+        )
     )
-    (if (name? deck)
-        (begin (Jh) (execute table name))   
-        (begin (print deck) (print "error: Jack of Hearts")))
+    (if (name? name-of-deck)
+        (begin
+          (table 'insert-data (table 'stack) (integer->cards (Jh ((table 'find name-of-deck) 'copy) "  ")))
+          (execute table name))
+        (if (joker? (car name-of-deck))
+            (begin
+              (table 'insert-data (table 'stack) (integer->cards (Jh ((table 'stack) 'copy) "  ")))
+              (execute table name))
+            (begin (begin (display "error: ") (print-struc name-of-deck)) " is not a valid deck for Jack of Hearts"))
     )
+  )
 )
 
-;[X] Jd, inputs or outputs the stack based on the leading suit of [X]
-;spades: output cards,  clubs: output data, hearts:input cards, diamonds:input data
-
-;Bugs:
-;Currently cards as inputs, ie hearts, does not work. It has strange behavior
-;Currently double digit negative numberd inputs get outputed as positive integers (-13->13)
+;[X] Jd inputs or outputs the stack based on the leading suit of [X]
+;spades: output cards,  clubs: output data, hearts:input cards, diamonds:input data & puts F ontop
 (define (Jack-diamond table name)
-  (let ((port (table 'get-stack)))
+  (let ((port (cdr (table 'get-stack))))
     (define (Jd port table name)
       ;(display "Jd: ") (print port) (newline)
       ;(display "table: ") (print ((table 'stack) 'copy)) (newline)
       (cond ((equal? (suit (car port)) "s") (begin ((table 'stack) 'display) (execute table name)))
             ((equal? (suit (car port)) "c") (output ((table 'stack) 'copy) table name))
-            ;The problem with hearts is that i use tokenize on the input string. My origional tokenize
-            ;is looking for deck names, and as such cuts off the first card thinking its a name
-            ;This does not explain all of the weirdness, but some
-            ;Writing a custom tokenize just for this card will likely fix all the other issues.
-            ((equal? (suit (car port)) "h") (begin (table 'insert-data (table 'stack) (reverse (tokenize (read-string "")))) (execute table name)))
-            ((equal? (suit (car port)) "d") (insert-input (tokenize2 (read-line))))
+            ((equal? (suit (car port)) "h") (begin (table 'insert-data (table 'stack) (Jd-reverse (Jd-tokenize (read-line)))) (execute table name)))
+            ;((equal? (suit (car port)) "h") (begin (display (Jd-reverse (Jd-tokenize (read-line)))) (execute table name)))
+            ((equal? (suit (car port)) "d") (insert-input (input->cards (read-line))))
             (else (begin (display "Jack of Diamonds: ") (print port))))
       )
 
-    (define (insert-input list)
-      ;(display "insert-input: ") (print list) (newline)
-      (if (zero? (length list))
-          (begin (newline) (execute table name))
-          (begin
-            (begin
-              (table 'insert-data (table 'stack) (car list))
-              (table 'insert-data (table 'stack) (cons "F" '())))
-            (insert-input (cdr list))))
+  ;------ For a clubs input -------
+    (define (output list table name)
+      ;(display "output: ") (print list) (newline)
+      (define (data->string out-s data)
+        (string-append
+         (cond [(null? data) ""]
+               [(number? data) (number->string data)]
+               [(boolean? data) (if data "#t" "#f")]
+               [(char? data) (string data)]
+               [(string? data) data]
+               [else ""])
+         out-s)
+       )
+      (define (outputer list out-c out-s)
+        ;(display "outputer: ") (print list) (display " ") (print out) (newline)
+        (cond [(zero? (length list)) (if (null? out-c)
+                                         (begin (display-all out-s "\n") (execute table name))
+                                         (begin (display-all (data->string out-s (cards->data out-c)) "\n")
+                                                (execute table name)))]
+              [(face-down? (car list)) (if (null? out-c)
+                                           (outputer (cdr list) '() out-s)
+                                           (outputer (cdr list) '() (data->string out-s (cards->data out-c))))]
+              [(joker? (car list)) (if (null? out-c)
+                                       (outputer (cdr list) '() out-s)
+                                       (outputer (cdr list) '() (data->string out-s (cards->data out-c)))
+                                       )]
+              [(royal-card? (car list)) (outputer (cdr list) out-c out-s)]
+              [else (outputer (cdr list) (cons (car list) out-c) out-s)])
+        )
+      (outputer list '() "")
       )
 
-    (define (transform2 s)
-      ;(display "transform2: ") (print s) (newline)
-      (cond [(null? s) '()]
-            [(equal? s "#t") (bool->cards #t)]
-            [(equal? s "#f") (bool->cards #f)]
-            [(integer? (string->number s)) (integer->cards (string->number s))]
-            [else (string->cards s)])
-      )
+  ;------ For a hearts input ------
+    ;Passed a string 's' and returns a tokenized list of 's'
+    (define (Jd-tokenize s)
+      (if (eof-object? s) (Jd-token "" 0 '())
+          (Jd-token s 0 '())))
 
-    ;(define (read-string s)
-      ;(display "read-string: ") (print s) (newline)
-      ;(if (eof-object? (peek-char)) s (begin (set! s (string-append s (string (read-char)))) (read-string s)))
-      ;)
-
-    (define (tokenize2 s)
-     ;(display "tokenize2: ") (print s) (newline)
-      (token2 s 0 '()))
-
-    (define (token2 s count t)
-      ;(display "token2: ") (print s) (display " ") (print count) (display " ") (print t) (newline)
+    ;Passed a string 's', a number 'count' which is a character pointer, and a token list 't'.
+    (define (Jd-token s count t)
+      ;If the character pointer hasnt reached the end of the string
       (if (< count (string-length s))
+          ;char = the character at in 's' at index 'count' 
           (let ((char (string-ref s count)))
-            (cond ((or (eq? '#\space char) (eq? '#\newline char))
+            (display-all "Jd-token " count ": " char "\n")
+            ;if 'char' is a letter or number, increase 'count' by 1
+            (cond [(char-alphanumeric? char) (Jd-token s (+ count 1) t)]
+                  ;else if 'char' is an empty character
+                  [(or (eq? '#\space char) (eq? '#\tab char) (eq? '#\, char))
+                   ;if the first character of 's' is an empty character
                    (if (= count 0)
-                       (token-inc2 s count t)
-                       (token-inc2 s count (j-append t (transform2 (string-head s count))))))
-                  ((char? char) (token2 s (+ count 1) t))
-                  (else (begin (print char) (print "Error: tokenize2")))
+                       ;chop of that first character of 's' and continue tokenizing
+                       (Jd-token-inc s count t)
+                       ;otherwise add everything before 'count' to 't' as a token,
+                       ;then chop of everything in 's' thats before 'count' and keep Jd-tokenizing
+                       (Jd-token-inc s count (j-append t (transform (string-head s count)))))]
+                  [else (begin (display-all "error Jd: " char " not a card character\n") '())]
                   )
             )
-          (if (< 0 (string-length s)) (j-append t (transform2 s)) t)
+          ;if weve emptiede the string 's', tokenize anything thats left and return 't'
+          (if (< 0 (string-length s)) (j-append t (transform s)) t)
           )
       )
 
-    (define (token-inc2 s count t)
-     ;(display "token-inc2: ") (print s) (display " ") (print count) (display " ") (print t) (newline)
-      (token2 (string-tail s (+ 1 count)) 0 t))
-
-    (define (output list table name)
-      ;(display "output: ") (print list) (newline)
-      (define (outputer list out)
-        ;(display "outputer: ") (print list) (display " ") (print out) (newline)
-        (cond [(zero? (length list)) (if (null? out)
-                                         (begin (newline) (execute table name))
-                                         (begin (begin (display (cards->data out))
-                                                       (newline))
-                                                (execute table name)))]
-              [(face-down? (car list)) (if (null? out) (outputer (cdr list) '())
-                                           (begin (display (cards->data out))
-                                              (outputer (cdr list) '())))]
-              [(joker? (car list)) (if (null? out)
-                                       (begin (display (cards->data out))
-                                              (outputer (cdr list) '()))
-                                       (begin
-                                         (begin (display (cards->data out))
-                                                     (print '()))
-                                              (outputer (cdr list) '())))]
-              [(face-card? (car list)) (outputer (cdr list) out)]
-              [else (outputer (cdr list) (cons (car list) out))])
+    (define (leadingF t)
+      (if (null? t) '()
+          (if (face-down? (car t)) t
+              (append ))
       )
-      (outputer list '())
+    )
+
+    (define (Jd-token-inc s count t)
+      (Jd-token (string-tail s (+ 1 count)) 0 t))
+
+    (define (Jd-reverse l)
+      (cond [(zero? (length l)) '()]
+            [(face-down? (car l))  (Jd-reverser l)]
+            [(joker? (car l))  (Jd-reverser l)]
+            [else (Jd-reverser (cons "F" l))]
+     )
+    )
+    
+    (define (Jd-reverser l)
+      (cond [(zero? (length l)) '()]
+            [(royal-card? (car l))  (display-all "Jack of Diamonds tried inputing a face card: " (car l))]
+            [(not (card? (car l))) (display-all "Jack of Diamonds tried inputing something that wasn't a card: " (car l))]
+            [else (j-append (Jd-reverser (cdr l)) (car l))]
+     ))
+    
+  ;----- For a diamonds input -----
+    (define (insert-input list)
+      (if (zero? (length list))
+          (begin (newline) (execute table name))
+          (begin
+            (table 'insert-data (table 'stack) (car list))
+            (insert-input (cdr list))))
+      )
+
+    (define (input->cards s)
+      ;(display "input->cards: ") (print s) (newline)
+      (define (in->c s count t)
+        ;(display "in->c: ") (print s) (display " ") (print count) (display " ") (print t) (newline)
+        ;if the index 'count' is in bounds of string 's'
+        (if (< count (string-length s))
+            (let ((char (string-ref s count)))
+              (display-all (number->string count) ": " char "\n")
+              (cond [(or (eq? '#\space char) (eq? '#\newline char) (eq? '#\tab char))
+                     (if (= count 0) 
+                         (token-inc2 s count (j-append t (transform2 char)))
+                         (token-inc2 s count (j-append
+                                              (j-append t (transform2 (string-head s count)))
+                                              (transform2 char))))]
+                    [(char? char) (in->c s (+ count 1) t)]
+                    [else (begin (print char) (print "Error: input->cards"))]
+                    )
+              )
+            (if (< 0 (string-length s)) (j-append t (transform2 s)) t)
+            )
+        )
+      (define (token-inc2 s count t)
+        ;(display "token-inc2: ") (print s) (display " ") (print count) (display " ") (print t) (newline)
+        (in->c (string-tail s (+ 1 count)) 0 t))
+      (define (transform2 s)
+        ;(display "transform2: ") (print s) (newline)
+        (append (cond [(null? s) '()]
+              [(equal? s "#t") (bool->cards #t)]
+              [(equal? s "#f") (bool->cards #f)]
+              [(char? s) (string->cards s)]
+              [(string->number s) (number->cards (string->number s))]
+              [else (string->cards s)]) '("F"))
+        )
+      (if (eof-object? s) (in->c "" 0 '())
+          (in->c s 0 '()))
     )
     
     (if (null? port)
@@ -994,13 +1164,10 @@ Ac: Ac, F, Ac, Ks 3c, F, 2c, Ks 2s, F, As, F, 2c, Kc As, Jh Ac, F, Ac, Ks
 Ad: Ad, F, Ad, Ks 2s, F, As, F, R, Kc F, 1c, Qc F, R, R, Ks R, As, F, 2s, Kc F, 1c, Qc R, As, F, 2s, Kc As, Jh Ad, F, Ad, Ks")
 
 ;output test
-(define input-test "As:\tAd, Jd, Ad, Jd, As, Jd, Ac, Jd")
+(define output-test "As:\tAs, 3c, F, As, Jd, Ac, Jd")
 
-;Jc test
-(define Jc-test "As:\tAd, Jd, Ad, Jd, Jc, As, Jd, Ac, Jd\n2c:\tAd, Jd, Ad, Jd, Jc, As, Jd, Ac, Jd")
-
-;Jc test for when moving pointer works
-(define Jc+Js-test "As:\tAd, Jd, Ad, Jd, Jc, As, Jd, Ac, Jd, Js\n2c:\tAd, Jd, Ad, Jd, Jc, As, Jd, Ac, Jd")
+;input test
+(define input-test "As:\tAh, Jd, As, Jd, Ac, Jd")
 
 ;truth-machine
 (define truth-machine "As:\t2d, Jd, Jh > input As or 10s, go to that deck\n\tAs, F > push 1 to stack\n\tAs, F, As, Ks > copy As onto As\n\t2c, Jd > output stack\n\tAs, F, As, Ks > copy As onto As\n10s:\t10s, F, 2c, Jd > output 0")
