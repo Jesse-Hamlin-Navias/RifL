@@ -32,3 +32,5 @@ Normaly, we write mathmatical and logical expressions in Infix Notation. The exp
 Here is a more complex example of Infix notation: 6 - 7 * 4 / 2. Without the use of parenthases or PEMDAS, how cane we know the intended order of operations? Its always a guess. Parenthases and PEMDAS help make up for this weakness of Infix notation. Using parenthases, let us rewrite the expression to: (6 - 7) * (4 / 2). Now it is clear what order to execute the operands in. If we rewrite this expression in Postfix, it will show how Postfix does not have this same confusion: 6 7 - 4 2 / *.
 
 RifL is written in this same Postfix notation. If we wanted to add two numbers in RifL, we use the Queen of spades, which is the math face card. The Queen of spades requires three arguments: two numbers, and an operator. If we wanted to execute 3 + 2, we rewrite that in postfix as 3 2 +, and then convert those to cards: 3 of spades, Face Down, 2 of spades, Face Down, Ace of Spades, Queen of spades. The Ace of spades is interpreted by the queen of spades as a + symbol.
+
+Reference: https://www.greghendershott.com/fear-of-macros/index.html
