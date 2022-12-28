@@ -1,0 +1,14 @@
+#lang br
+(require brag/support)
+
+(define basic-lexer
+  (lexer-srcloc
+   ["\n" (token 'NEWLINE lexeme)]
+   [whitespace (token lexeme #:skip? #t)]
+   [(from/stop-before ">" "\n") (token 'REM lexeme)]
+   [(from/to ">" "<") (token 'REM lexeme)]
+   [":" (token 'DIVIDER lexeme)]
+   ["," (token lexeme #:skip? #t)]
+   [any-string (token lexeme lexeme)]))
+
+(provide basic-lexer)

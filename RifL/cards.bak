@@ -1,0 +1,67 @@
+#lang racket
+
+(struct card (pip ;int: the number value of the card. #f if Joker
+              suit ;symbol: the suit of the card. r if Joker (so Joker? should see if suit is R)
+              bool ;boolean: the true or false value of the card
+              royal? ;boolean: if the suit is royal. #f is Joker
+              func ;#f if not royal. If royal, is the definition of that royal. <- is there some effecient way to nest execute in royal?
+              ))
+;One things I could do is have all non-royal cards have the executer in their func
+;value, and all the royal functions in func call the executer, like I have it rn.
+;This way, the executer doesnt have to test for royal, instead just treat all face up card the same?
+;This is close but not quite it because it doesnt handle how royals dont go on the stack.
+
+(struct face_down (card))
+
+(define-for-syntax (create_card_data id)
+  (if (= id 0) (cons "R" (list (lambda x #f) (lambda x 'r) #f #f (void)))
+      (let* ((pip (modulo id 13))
+              (pip_string (cond [(= pip 1) "A"]
+                                [(= pip 11) "J"]
+                                [(= pip 12) "Q"]
+                                [(= pip 0) "K"]
+                                [else (number->string pip)] ))
+              (suit (let ((suit_1 (/ id 13)))
+                      (cond [(<= suit_1 1) "s"]
+                            [(<= suit_1 2) "c"]
+                            [(<= suit_1 3) "h"]
+                            [else "d"])))
+              )
+         (cons (string-append pip_string suit)
+               (cond [(zero? pip) (list (lambda x 'K)  (lambda x (string->symbol suit)) #t #t (lambda x (print (string-append pip_string suit))))]
+                     [(= pip 10)  (if (equal? suit "d")
+                                  (list (lambda x 0)   (lambda x (string->symbol suit)) #f #f (void))
+                                  (list (lambda x 0)   (lambda x (string->symbol suit)) #t #f (void)))]
+                     [(= pip 11)  (list (lambda x 'J)  (lambda x (string->symbol suit)) #t #t (lambda x (print (string-append pip_string suit))))]
+                     [(= pip 12)  (list (lambda x 'Q)  (lambda x (string->symbol suit)) #t #t (lambda x (print (string-append pip_string suit))))]
+                     [else        (list (lambda x pip) (lambda x (string->symbol suit)) #t #f (void))]))
+         )
+      )
+  )
+
+;Creates all card structs (up and face_down) with the initial call of (make_cards 52)
+;current problems: Tries to replace 's with something, will only take "s" (same for all suits and royal symbols)
+(define-syntax (make_cards stx)
+  (syntax-case stx ()
+    [(_ id)
+     (if (> (syntax->datum #'id) -1)
+         (with-syntax ([(name_1 pip suit bool royal ex) (create_card_data (syntax->datum #'id))])
+           (with-syntax ([name_2 (datum->syntax #'id (syntax->datum #'name_1))]
+                         [next_num (datum->syntax #'id (- (syntax->datum #'id) 1))])
+             #'(begin
+                 (hash-set! card-hash name_2 (card (pip) (suit) bool royal ex))
+                 (make_cards next_num))))
+         (if (> (syntax->datum #'id) -54)
+             (with-syntax ([(name_1 pip suit bool royal ex) (create_card_data (+ (syntax->datum #'id) 53))])
+               (with-syntax ([F_name (datum->syntax #'id (string-append "F" (syntax->datum #'name_1)))]
+                             [next_num (datum->syntax #'id (- (syntax->datum #'id) 1))])
+                 #'(begin
+                     (hash-set! card-hash F_name (face_down (card (pip) (suit) bool royal ex)))
+                     (make_cards next_num))))
+             #'(void)))
+     ])
+  )
+
+(define card-hash (make-hash))
+(make_cards 52)
+(provide card-hash)

@@ -1,0 +1,7 @@
+#lang br
+(require "lexer.rkt" brag/support)
+
+(define (make-tokenizer ip)
+  (port-count-lines! ip)
+  (define (next-token) (basic-lexer ip))
+    next-token)

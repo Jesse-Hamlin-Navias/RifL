@@ -1,0 +1,3 @@
+#lang RifL
+(require "parser.rkt")
+(parse-to-datum "")
