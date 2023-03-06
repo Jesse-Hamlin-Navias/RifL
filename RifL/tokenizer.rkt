@@ -4,7 +4,7 @@
 (define (make-tokenizer ip [path #f])
   (port-count-lines! ip)
   (lexer-file-path path)
-  (define (next-token) (basic-lexer ip))
+  (define (next-token) (RifL-lexer ip))
     next-token)
 
 (provide make-tokenizer)

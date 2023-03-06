@@ -1,12 +1,11 @@
 #lang brag
-RifL-program: deck*
-deck: name ":" stack
-name: pip_card+
-stack: ((face_down | card)* "\n")+
-face_down : "F" card
-card: joker | pip_card | royal_card
-joker: "R"
-pip_card: ("A" | "2" | "3" | "4" | "5" |
-           "6" | "7" | "8" | "9" | "10" | "0") suit
-royal_card: ("J" | "Q" | "K") suit
-suit: "s" | "c" | "h" | "d"
+RifL-program: (/WHITESPACE)* [deck] (/NEWLINE (/WHITESPACE)* [deck])*
+deck: name /DIVIDER (/WHITESPACE)* convert-to-stack
+name: ((S-PIP-CARD COMMA (/WHITESPACE)+)* S-PIP-CARD (/WHITESPACE)*) |
+      ((C-PIP-CARD COMMA (/WHITESPACE)+)* C-PIP-CARD (/WHITESPACE)*) |
+      ((H-PIP-CARD COMMA (/WHITESPACE)+)* H-PIP-CARD (/WHITESPACE)*) |
+      ((D-PIP-CARD COMMA (/WHITESPACE)+)* D-PIP-CARD (/WHITESPACE)*)
+convert-to-stack: ([entry] ((/WHITESPACE)+ entry)* (/WHITESPACE)* /NEWLINE)*
+       ([entry] ((/WHITESPACE)+ entry)* (/WHITESPACE)*)
+@entry: (pip-card| ROYAL-CARD | JOKER | FACE-DOWN) COMMA
+@pip-card: S-PIP-CARD | C-PIP-CARD | H-PIP-CARD | D-PIP-CARD

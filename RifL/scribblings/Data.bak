@@ -1,0 +1,8 @@
+#lang scribble/manual
+
+@title{Data}
+
+This chapter will be dealing exclusivly with
+number cards (A-10), and Jokers.
+
+@section{Numbers}

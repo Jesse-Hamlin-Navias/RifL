@@ -1,1 +1,158 @@
 #lang br/quicklang
+(require "cards.rkt")
+
+(define-macro (RifL-module-begin PROGRAM)
+  #'(#%module-begin
+     PROGRAM))
+(provide (rename-out [RifL-module-begin #%module-begin]))
+;decl-name->string
+(define (deck-name->string p)
+       (if (zero? (length p)) ""
+           (begin
+             (string-append " " (card->name-string (car p))
+             (deck-name->string (cdr p))))))
+
+(define step-by-step #f)
+
+(define royal-by-royal #f)
+
+(define end-reveal #f)
+
+(define (swap-step)
+  (set! step-by-step (not step-by-step)))
+
+(define grid (make-hash))
+
+(define pointer (name "As"))
+;(make-stack)
+(define stack (make-stack))
+;cards->integer
+(define (print-table)
+    (display "--------------------------------------\n")
+    (display " stack: ") (stack 'display)
+    (define (print-decks deck-names)
+      (if (null? deck-names) (display "--------------------------------------\n")
+          (begin (display (deck-name->string (car deck-names))) (display ": ")
+                 ((hash-ref grid (car deck-names)) 'display)
+                 (print-decks (cdr deck-names))))
+      )
+    (define (sort-suit l)
+      (let ([sl '()][cl '()][hl '()][dl '()])
+        (define (sep-suit l)
+          (if (zero? (length l))
+              (apply append
+                     (map (lambda (n) (sort n < #:key (lambda (e) (cards->integer e))))
+                          (list sl cl hl dl)))
+              (begin (case (card-suit (caar l))
+                       ['s (set! sl (cons (car l) sl))]
+                       ['c (set! cl (cons (car l) cl))]
+                       ['h (set! hl (cons (car l) hl))]
+                       ['d (set! dl (cons (car l) dl))])
+                     (sep-suit (cdr l))))
+          )
+        (sep-suit l))
+      )
+    (print-decks (sort-suit (hash-keys grid)))
+  )
+;face-down all the errors
+(define (execute cur-deck)
+  (if step-by-step
+      (print-table)
+      (void))
+  (if (zero? (cur-deck 'length)) (if (and (not step-by-step) end-reveal) (print-table) (void)) 
+      (let ([cur-card (cur-deck 'pop)]) ;get the top card of current deck
+        (if (face_down? cur-card)
+            (begin (stack 'push cur-card) (execute cur-deck))
+            (with-handlers
+                ([missing-data?
+                  (lambda (md)
+                    (error
+                     (format "error at card ~a in deck~a: not enough cards left in stack for ~a argument."
+                             (card->name-string (missing-data-card md))
+                             (deck-name->string (missing-data-pointer md))
+                             (missing-data-arg_num md))))]
+                 [unacceptable-joker?
+                  (lambda (uj)
+                    (error
+                     (format "error at card ~a in deck~a: cannot accept Joker as ~a argument."
+                             (card->name-string (unacceptable-joker-card uj))
+                             (deck-name->string (unacceptable-joker-pointer uj))
+                             (unacceptable-joker-arg_num uj))))]
+                 [unacceptable-data?
+                  (lambda (ud)
+                    (error
+                     (format "error at card ~a in deck~a: cannot accept~a as ~a argument."
+                             (card->name-string (unacceptable-data-card ud))
+                             (deck-name->string (unacceptable-data-pointer ud))
+                             (deck-name->string (unacceptable-data-data ud))
+                             (unacceptable-data-arg_num ud))))]
+                 [royal-in-stack?
+                  (lambda (ris)
+                    (error
+                     (format "~a leaked into the stack"
+                             (card->name-string (royal-in-stack-card ris)))))]
+                 [not-a-name?
+                  (lambda (nan)
+                    (error
+                     (format "error at card ~a in deck~a:~a is not a valid deck name."
+                             (card->name-string (not-a-name-card nan))
+                             (deck-name->string (not-a-name-pointer nan))
+                             (deck-name->string (not-a-name-name nan)))))]
+                 [not-a-card?
+                  (lambda (nac)
+                    (error
+                     (format "~a is not a valid card."
+                             (not-a-card-card nac))))]
+                 [out-of-bounds?
+                  (lambda (oob)
+                    (error
+                     (format "error at card ~a in deck~a: ~a argument resulted in out of bounds"
+                             (card->name-string (out-of-bounds-card oob))
+                             (deck-name->string (out-of-bounds-pointer oob))
+                             (out-of-bounds-arg_num oob))))])
+              (if (and (not step-by-step) royal-by-royal (card-royal? cur-card)) (print-table) (void))
+              (execute ((card-func cur-card) cur-card stack pointer cur-deck grid)))
+            )
+          
+        )
+      )
+    ;)
+  )
+
+#;(with-handlers
+          ([change-line-signal?
+            (λ (cls)
+              (define clsv (change-line-signal-val cls))
+              (or
+               (and (exact-positive-integer? clsv)
+                    (vector-member clsv line-vec))
+               (error
+                (format "error in line ~a: line ~a not found"
+                        line-num clsv))))])
+        (line-func)
+        (add1 line-idx))
+
+(define-macro (RifL-program DECK ...)
+  #'(begin
+      (hash-set! grid (car DECK) (cdr DECK)) ...
+      (execute (hash-ref grid pointer (lambda () (make-stack)))))
+)
+(provide RifL-program)
+
+(define-macro (deck NAME STACK)
+  #'(cons NAME STACK)
+)
+(provide deck)
+;card-hash
+(define-macro (name CARD ...)
+  #'(list (hash-ref card-hash CARD) ...)
+)
+(provide name)
+;card-search
+(define-macro (convert-to-stack CARD ...)
+  #'(make-stack (card-search CARD) ...)
+)
+(provide convert-to-stack)
+;(define test (name "As" "2s" "3d" "4s" "5s"))
+;(cards->integer test)
+; (cards->data test)

@@ -7,5 +7,17 @@
    #`(module RifL-mod RifL/expander
        #,parse-tree)))
 
+(define (get-info port src-mod src-line src-col src-pos)
+    (define (handle-query key default)
+      (case key
+        [(color-lexer)
+           (dynamic-require 'RifL/colorer 'RifL-colorer)]
+        #;[(drracket:indentation)
+           (dynamic-require 'jsonic/indenter 'indent-jsonic)]
+        #;[(drracket:toolbar-buttons)
+           (dynamic-require 'RifL/buttons 'button-list)]
+        [else default]))
+    handle-query)
+
 (module+ reader
-  (provide read-syntax))
+  (provide read-syntax get-info))

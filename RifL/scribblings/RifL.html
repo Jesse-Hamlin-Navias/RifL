@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>RifL: a playing card stack language</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="tocviewselflink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Introduction%29" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Data%29" class="tocviewlink" data-pltdoc="x">Data</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Royal_.Cards%29" class="tocviewlink" data-pltdoc="x">Royal Cards</a></td></tr></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber"></span><a href="#%28part._.Rif.L__a_playing_card_stack_language%29" class="tocsubseclink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="#%28part._.Introduction%29" class="tocsubseclink" data-pltdoc="x">Introduction</a></td></tr><tr><td><span class="tocsublinknumber">1.1<tt>&nbsp;</tt></span><a href="#%28part._.Card_.Notation%29" class="tocsubseclink" data-pltdoc="x">Card Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.2<tt>&nbsp;</tt></span><a href="#%28part._.Cards_as_.Numbers%29" class="tocsubseclink" data-pltdoc="x">Cards as Numbers</a></td></tr><tr><td><span class="tocsublinknumber">1.3<tt>&nbsp;</tt></span><a href="#%28part._.Decks%29" class="tocsubseclink" data-pltdoc="x">Decks</a></td></tr><tr><td><span class="tocsublinknumber">1.4<tt>&nbsp;</tt></span><a href="#%28part._.Instructions%29" class="tocsubseclink" data-pltdoc="x">Instructions</a></td></tr><tr><td><span class="tocsublinknumber">1.5<tt>&nbsp;</tt></span><a href="#%28part._.Postfix_.Notation%29" class="tocsubseclink" data-pltdoc="x">Postfix Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.6<tt>&nbsp;</tt></span><a href="#%28part._.The_.Stack%29" class="tocsubseclink" data-pltdoc="x">The Stack</a></td></tr><tr><td><span class="tocsublinknumber">1.7<tt>&nbsp;</tt></span><a href="#%28part._.Structure_of_.Code%29" class="tocsubseclink" data-pltdoc="x">Structure of Code</a></td></tr><tr><td><span class="tocsublinknumber">1.8<tt>&nbsp;</tt></span><a href="#%28part._.Writing_.Rif.L_.Code%29" class="tocsubseclink" data-pltdoc="x">Writing Rif<span class="mywbr"> &nbsp;</span>L Code</a></td></tr><tr><td><span class="tocsublinknumber">1.9<tt>&nbsp;</tt></span><a href="#%28part._.Physically_.Running%29" class="tocsubseclink" data-pltdoc="x">Physically Running</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="#%28part._.Data%29" class="tocsubseclink" data-pltdoc="x">Data</a></td></tr><tr><td><span class="tocsublinknumber">2.1<tt>&nbsp;</tt></span><a href="#%28part._.Card_.Sequences%29" class="tocsubseclink" data-pltdoc="x">Card Sequences</a></td></tr><tr><td><span class="tocsublinknumber">2.2<tt>&nbsp;</tt></span><a href="#%28part._.Leading_.Suits%29" class="tocsubseclink" data-pltdoc="x">Leading Suits</a></td></tr><tr><td><span class="tocsublinknumber">2.3<tt>&nbsp;</tt></span><a href="#%28part._.Interpretation_.Types%29" class="tocsubseclink" data-pltdoc="x">Interpretation Types</a></td></tr><tr><td><span class="tocsublinknumber">2.3.1<tt>&nbsp;</tt></span><a href="#%28part._.Cards%29" class="tocsubseclink" data-pltdoc="x">Cards</a></td></tr><tr><td><span class="tocsublinknumber">2.3.2<tt>&nbsp;</tt></span><a href="#%28part._.Name%29" class="tocsubseclink" data-pltdoc="x">Name</a></td></tr><tr><td><span class="tocsublinknumber">2.3.3<tt>&nbsp;</tt></span><a href="#%28part._.Forced_.Integer%29" class="tocsubseclink" data-pltdoc="x">Forced Integer</a></td></tr><tr><td><span class="tocsublinknumber">2.3.4<tt>&nbsp;</tt></span><a href="#%28part._.Forced_.Number%29" class="tocsubseclink" data-pltdoc="x">Forced Number</a></td></tr><tr><td><span class="tocsublinknumber">2.3.5<tt>&nbsp;</tt></span><a href="#%28part._.Boolean%29" class="tocsubseclink" data-pltdoc="x">Boolean</a></td></tr><tr><td><span class="tocsublinknumber">2.3.6<tt>&nbsp;</tt></span><a href="#%28part._.Print%29" class="tocsubseclink" data-pltdoc="x">Print</a></td></tr><tr><td><span class="tocsublinknumber">3<tt>&nbsp;</tt></span><a href="#%28part._.Royal_.Cards%29" class="tocsubseclink" data-pltdoc="x">Royal Cards</a></td></tr><tr><td><span class="tocsublinknumber">3.1<tt>&nbsp;</tt></span><a href="#%28part._.Jacks%29" class="tocsubseclink" data-pltdoc="x">Jacks</a></td></tr><tr><td><span class="tocsublinknumber">3.1.1<tt>&nbsp;</tt></span><a href="#%28part._.Js%29" class="tocsubseclink" data-pltdoc="x">Js</a></td></tr><tr><td><span class="tocsublinknumber">3.1.2<tt>&nbsp;</tt></span><a href="#%28part._.Jc%29" class="tocsubseclink" data-pltdoc="x">Jc</a></td></tr><tr><td><span class="tocsublinknumber">3.1.3<tt>&nbsp;</tt></span><a href="#%28part._.Jh%29" class="tocsubseclink" data-pltdoc="x">Jh</a></td></tr><tr><td><span class="tocsublinknumber">3.1.4<tt>&nbsp;</tt></span><a href="#%28part._.Jd%29" class="tocsubseclink" data-pltdoc="x">Jd</a></td></tr><tr><td><span class="tocsublinknumber">3.2<tt>&nbsp;</tt></span><a href="#%28part._.Queens%29" class="tocsubseclink" data-pltdoc="x">Queens</a></td></tr><tr><td><span class="tocsublinknumber">3.2.1<tt>&nbsp;</tt></span><a href="#%28part._.Qs%29" class="tocsubseclink" data-pltdoc="x">Qs</a></td></tr><tr><td><span class="tocsublinknumber">3.2.2<tt>&nbsp;</tt></span><a href="#%28part._.Qc%29" class="tocsubseclink" data-pltdoc="x">Qc</a></td></tr><tr><td><span class="tocsublinknumber">3.2.3<tt>&nbsp;</tt></span><a href="#%28part._.Qh%29" class="tocsubseclink" data-pltdoc="x">Qh</a></td></tr><tr><td><span class="tocsublinknumber">3.2.4<tt>&nbsp;</tt></span><a href="#%28part._.Qd%29" class="tocsubseclink" data-pltdoc="x">Qd</a></td></tr><tr><td><span class="tocsublinknumber">3.3<tt>&nbsp;</tt></span><a href="#%28part._.Kings%29" class="tocsubseclink" data-pltdoc="x">Kings</a></td></tr><tr><td><span class="tocsublinknumber">3.3.1<tt>&nbsp;</tt></span><a href="#%28part._.Ks%29" class="tocsubseclink" data-pltdoc="x">Ks</a></td></tr><tr><td><span class="tocsublinknumber">3.3.2<tt>&nbsp;</tt></span><a href="#%28part._.Kc%29" class="tocsubseclink" data-pltdoc="x">Kc</a></td></tr><tr><td><span class="tocsublinknumber">3.3.3<tt>&nbsp;</tt></span><a href="#%28part._.Kh%29" class="tocsubseclink" data-pltdoc="x">Kh</a></td></tr><tr><td><span class="tocsublinknumber">3.3.4<tt>&nbsp;</tt></span><a href="#%28part._.Kd%29" class="tocsubseclink" data-pltdoc="x">Kd</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">8.5</span></div><h2><a name="(part._.Rif.L__a_playing_card_stack_language)"></a><a name="(mod-path._.Rif.L)"></a>RifL: a playing card stack language</h2><div class="SAuthorListBox"><span class="SAuthorList"><p class="author">Jesse P. Hamlin-Navias</p></span></div><p><table cellspacing="0" cellpadding="0" class="defmodule"><tr><td align="left"><span class="hspace">&nbsp;</span><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="hspace">&nbsp;</span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a></td><td align="right"><span class="RpackageSpec"><span class="Smaller">&nbsp;package:</span> <a href="https://pkgs.racket-lang.org/package/RifL" title="Install this package using `raco pkg install RifL`"><span class="stt">RifL</span></a></span></td></tr></table></p><p>RifL is a tactile auto-imperative esoteric coding language.</p><p>Tactile means that RifL can be fully represented with real-world
+objects: RifL is written in playing cards. You can spread cards out
+on a table and perform RifL code by hand.</p><p>Auto-imperative means that RifL code sets a state, and then
+augments its own state. The cards represent information, but
+can also represent instruction to transform that information.</p><p>Esoteric means that the language is not meant for practical use.
+RifL is intended as a educational tool, to teach to students who
+learn best physically. It is also meant as an affordable method of introducing
+programming concepts. RifL can help teach computer memory and algorithms.</p><p>If you wish to run RifL code physically, you will need a bunch
+of decks of cards (they don&rsquo;t need to all be the same brand, size, or
+even complete decks, just make sure you have Jokers), as well
+as masking tape, a sharpie, and the documentation below.</p><p>The first chapter, Introduction, teaches you how to read,
+write, and execute RifL code both physically and on a computer.
+The second chapter, Data, explains how RifL turns cards into
+numbers, words, and refrences. The final chapter, Royals, thouroly covers
+how RifL can manipulate that data.</p><h3>1<tt>&nbsp;</tt><a name="(part._.Introduction)"></a>Introduction</h3><p>The best way to start learning RifL is from a top down view.
+You will need to be familiar with a 52 card deck (along with Jokers),
+so if you are unfamiliar, go and grab one now and look through it.
+This chapter overviews how RifL operates, and teaches you to read,
+write, and execute RifL code both physically and on a computer.</p><h4>1.1<tt>&nbsp;</tt><a name="(part._.Card_.Notation)"></a>Card Notation</h4><p>To write and read RifL code, a notation system for cards is needed.
+All cards have a pip value, followed by a suit letter (except for Jokers
+which have no suit). The pips are: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, and R.
+A means Ace, J is Jack, Q is Queen, K is King, and R is Joker.
+The numbers signify themselves. The four suits are: spades, clubs, hearts, diamonds, and they are
+represented by the four letters: s, c, h, d.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As &gt; The Ace of Spades</span></p></td></tr><tr><td><p><span class="stt">10d &gt; The Ten of Diamonds</span></p></td></tr></table></p><p>Aces can also be written as 1, so As can be written as 1s instead.
+Tens can be written as 0, so the 10d can be written as 0d instead.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">1s &gt; The Ace of Spades</span></p></td></tr><tr><td><p><span class="stt">0d &gt; The Ten of Diamonds</span></p></td></tr></table></p><p>All of the cards we have discussed so far as face-up. Cards in RifL
+can also be face-down. Face-down cards are written with a F in front.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">FJc &gt; The face-down Jack of Clubs</span></p></td></tr><tr><td><p><span class="stt">F0d &gt; The face-down Ten of Diamonds</span></p></td></tr></table></p><p>A face-down Joker can be written as FR, or shorthanded as just F.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">FR &gt; A face-down Joker</span></p></td></tr><tr><td><p><span class="stt">F</span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">&gt; Also a face-down Joker</span></p></td></tr></table></p><p>Most of the time RifL code does not rely on the value of face-down cards,
+so it&rsquo;s ok to just write F whenever we need a face-down card. When running
+RifL physically, in most cases you can use whatever extra cards you have
+as face-down cards, except in special cases where the Kh is used.</p><h4>1.2<tt>&nbsp;</tt><a name="(part._.Cards_as_.Numbers)"></a>Cards as Numbers</h4><p>RifL represents numbers using the cards A to 10. Aces will represent the digit 1,
+Two cards the digit 2, and so on. However Ten cards will represent the digit 0.
+The cards are laid out left to right, with the rightmost card representing
+the 1s places, the second card the 10s place, the third card the 100s place,
+and so on.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As 2s &gt; 12, the number twelve</span></p></td></tr><tr><td><p><span class="stt">As 2s 3s &gt; 123, the number one-hundred and twenty-three</span></p></td></tr><tr><td><p><span class="stt">9s 10s &gt; 90, the number ninety</span></p></td></tr></table></p><p>Leading zeros can be ignored.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">10s &gt; 0</span></p></td></tr><tr><td><p><span class="stt">10s 6s &gt; 6</span></p></td></tr><tr><td><p><span class="stt">10s 5s 10s 6s &gt; 506</span></p></td></tr><tr><td><p><span class="stt">10s 10s &gt; 0</span></p></td></tr></table></p><h4>1.3<tt>&nbsp;</tt><a name="(part._.Decks)"></a>Decks</h4><p>RifL code is separated into decks of cards, with the top card
+written at the left, and the bottom card written on the right.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">5s, 10s, 6s</span></p></td></tr></table></p><p>In this deck, the Five of spades is the top card, the Six of
+spades is the bottom card. This deck represents the number 506.</p><p>Decks can have multiple pieces of information in them, separated
+by face-down cards. Face-down cards work much the same way the
+spaces between words and numbers work, signifying and end to one
+piece of information and the beginning of the next.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">5s, F, 10s, F, 6s</span></p></td></tr></table></p><p>In this deck, the Five of spades is the top card, the Six of
+spades is the bottom card. This deck represents the number 5,
+followed by the number 0, followed by the number 6. This deck
+is not the number 506, but three separate and distinct values.</p><p>The number of face-down cards between values does not matter unless
+your code uses the Kh. The following two decks are essentially identical:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">Deck 1: 5s, F, 10s, F, 6s</span></p></td></tr><tr><td><p><span class="stt">Deck 2: F, 5s, F, F, F, 10s, F, F, 6s F, F</span></p></td></tr></table></p><p>Royal Cards and Jokers are special in regards to spacing. They don&rsquo;t
+need face-down cards between them and other information to be separated.
+The following two decks are essentially identical:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">Deck 1: 5s, F, R, F, R, F, Ks, F, Qc, F, As</span></p></td></tr><tr><td><p><span class="stt">Deck 2: 5s, R, R, Ks, Qc, As</span></p></td></tr></table></p><p>Face-down cards between Jokers and Royal cards is optional, however
+it is almost always best practice to separate everything out with
+face-down cards, but when the Kh is later covered, this flexibility
+will become useful.</p><h4>1.4<tt>&nbsp;</tt><a name="(part._.Instructions)"></a>Instructions</h4><p>Number cards, that is from A-10, represent numbers and information.
+Jokers also represent information, but are wild cards, and are interpreted
+differently in different contexts, and are not valid in all contexts.
+Royal cards, that is Jacks, Queens and Kings, are instructions to
+manipulate that information. RifL resolves these instructions from
+the top of a deck to the bottom.</p><p>To illustrate this, the Qc will stand as an example.
+The Qc is the math royal card, used to add, subtract, multiply, and
+divide numbers. Subtracting the number 3 from 5 in RifL looks as follows:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">5s F 3s F Ac F Qc</span></p></td></tr></table></p><p>The Qc takes three arguments. From top to bottom, the first two arguments
+are numbers (5 and 3 in this example), while the third argument ignores card
+pip and only looks at suit (clubs in this example). This third argument determines
+if the Qc adds, subtracts, multiplies, or divides the first two arguments. A club
+tells the Qc to subtract.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">5s F 3s F Ac F Qc &gt; Represents 5 - 3</span></p></td></tr></table></p><h4>1.5<tt>&nbsp;</tt><a name="(part._.Postfix_.Notation)"></a>Postfix Notation</h4><p>RifL is coded in what is known as Postfix-notation.
+In Postfix, the operators are written after the operands.
+5 - 3 is written as 5 3 - in postfix. 2 * 5 - 3 is written
+as 2 5 * 3 - in postfix. 13 - (2 * 5) is written as
+13 2 5 * - in postfix.</p><p>This system may feel unintuitive at first, but it is very useful.
+Postfix notation is always clear about the order of operations.
+With classic infix notation, parentheses are needed to clarify if the order is
+different than just reading left to right. Postfix never encounters this problem,
+and so it is much better for writing code.</p><p>The Qc interprets a heart in its third argument as multiplication, so
+the above three examples written in RifL look like this:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">Deck 1: 5s F 3s F Ac Qc &gt; 5 3 -</span></p></td></tr><tr><td><p><span class="stt">Deck 2: 2s F 5s F Ah Qc F 3s F Ac Qc &gt; 2 5 * 3 -</span></p></td></tr><tr><td><p><span class="stt">Deck 3: As 3s F 2s F 5s F Ah Qc F Ac Qc &gt; 13 2 5 * -</span></p></td></tr></table></p><h4>1.6<tt>&nbsp;</tt><a name="(part._.The_.Stack)"></a>The Stack</h4><p>To resolve instructions, RifL uses a special deck called the stack.
+RifL proceeds in steps. Each step, RifL looks at the top of our deck,
+and if it is not a Royal card, puts that card on top of the stack.
+If the top card of our deck is a Royal card, RifL pulls information
+from the top of the stack to fill the Royal card&rsquo;s needed arguements,
+and then follows that Royal
+card&rsquo;s instructions. The Royal card does not go on top of the stack.
+RifL would process 5 - 3 as follows:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">Stack:</span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">&gt; Starts empty</span></p></td></tr><tr><td><p><span class="stt">Deck: 5s F 3s F Ac Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 1</span></p></td></tr><tr><td><p><span class="stt">Stack: 5s</span></p></td></tr><tr><td><p><span class="stt">Deck: F 3s F Ac Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 2</span></p></td></tr><tr><td><p><span class="stt">Stack: F 5s</span></p></td></tr><tr><td><p><span class="stt">Deck: 3s F Ac Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 3</span></p></td></tr><tr><td><p><span class="stt">Stack: 3s F 5s</span></p></td></tr><tr><td><p><span class="stt">Deck: F Ac Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 4</span></p></td></tr><tr><td><p><span class="stt">Stack: F 3s F 5s</span></p></td></tr><tr><td><p><span class="stt">Deck: Ac Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 5</span></p></td></tr><tr><td><p><span class="stt">Stack: Ac F 3s F 5s</span></p></td></tr><tr><td><p><span class="stt">Deck: Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 6</span></p></td></tr><tr><td><p><span class="stt">Stack: 2s</span></p></td></tr><tr><td><p><span class="stt">Deck:</span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">&gt; Empty</span></p></td></tr></table></p><p>The Qc inserts the answer, 2, back onto the stack.
+RifL stops running when its current deck is empty. Notice
+how the stack holds the information in backwards order. When
+the Qc is at the top of the deck, RifL retrieves the first three
+pieces of information from the stack, and reverses them. For
+this reason, multi-digit numbers are reversed in the stack.</p><p>2 * 34 would resolve like this:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">Stack: &gt; Starts Empty</span></p></td></tr><tr><td><p><span class="stt">Deck: 2s F 3s 4s F Ah Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 6</span></p></td></tr><tr><td><p><span class="stt">Stack: Ah F 4s 3s F 2s</span></p></td></tr><tr><td><p><span class="stt">Deck: Qc</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt">&gt; Step 7</span></p></td></tr><tr><td><p><span class="stt">Stack: 8s 6s &gt; The number 68</span></p></td></tr><tr><td><p><span class="stt">Deck: &gt; Empty</span></p></td></tr></table></p><h4>1.7<tt>&nbsp;</tt><a name="(part._.Structure_of_.Code)"></a>Structure of Code</h4><p>The decks are laid on a table, with the following structure:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">image</span></p></td></tr></table></p><p>The table has four columns from left to right: spades, clubs, hearts, diamonds.
+Each row is given a number, starting at the bottom with 1, and increasing upwards indefinitely.
+This gives the bottom left deck space the identifier 1 of spades, or rewritten,
+the name As. The deck space directly above that
+has the name 2s, and so on. Each deck space on the table has a card sequence identity.</p><p>The pointer determines which deck RifL takes the top card from and moves onto
+the stack. The pointer is the name of a space on the table.
+In any RifL program, the pointer always starts at the As deck.
+The Js moves the pointer to other deck spaces, so the pointer can change
+over the runtime of a RifL program.</p><p>If the table starts with an empty As deck, the program will
+immediately terminate, since RifL programs end when the current deck is empty.</p><p>Some Royal cards can refer not only to decks in the table, but also
+the stack. The stack has the card reference R. The Royal card
+specifications later in the documentation will always declare
+if royal cards that refer to decks can refer to the stack.</p><h4>1.8<tt>&nbsp;</tt><a name="(part._.Writing_.Rif.L_.Code)"></a>Writing RifL Code</h4><p>When writing RifL, each non-empty deck will have its name, followed by a colon,
+followed by the cards in that deck from top to bottom:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As: 2c, 4c, Js</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; The deck 1 of spades, with some cards in it</span></p></td></tr><tr><td><p><span class="stt">2c 4c: 1d, F, As, Jd &gt; The deck 24 of clubs, with some cards in it</span></p></td></tr></table></p><p>Cards can optionally have a comma after them, depending
+if you find that more readable.</p><p>Decks can be broken up into any number of lines, but a new deck
+must always start on a new line.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As: As 3s F 2s F 5s &gt; The number 13, 2, 5</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">F Ah Qc &gt; Multiply</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">F Ac Qc &gt; Substract</span></p></td></tr><tr><td><p><span class="stt">2s: R R R</span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; The 2 of spades deck</span></p></td></tr></table></p><p>Anything that follows a &gt; will not be
+read by the RifL executor, until either a line break or a &lt;.
+These are called comments.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">&gt;This is a comment</span></p></td></tr><tr><td><p><span class="stt">&gt;This is also a comment&lt; As: 3c &gt;That was a deck</span></p></td></tr></table></p><h4>1.9<tt>&nbsp;</tt><a name="(part._.Physically_.Running)"></a>Physically Running</h4><p>All the same rules of RifL apply when running RifL physically.
+A good way to run RifL by hand is to draw the table out on
+a large piece of paper, or take masking tape to mark out the grid
+of the table, and a sharpie to write the name of each grid space
+that you delineate on the masking tape. Grid spaces need to be
+large enough to place decks of cards onto.
+You&rsquo;ll need a space to one
+side of the grid to use as your stack. Additionally, a token of some
+sort is useful to mark which grid space the pointer is at. Finally,
+you will need the list of what each Royal card does.</p><p>To begin, set up all the cards in the code in their corresponding
+deck spaces. Place the token on the As deck space.
+Most RifL programs will need extra sets of cards, so keep a
+handful of decks ready. When running physically, Face-down cards
+can be any card, unless the code you are running uses the Kh.</p><p>At each step of RifL, take the top card of the deck the pointer is at,
+and put it on top of the stack. If the top card of the pointer deck
+is a Royal card, instead look up how many arguments it needs.
+One by one take cards
+from the top of the stack, and put them on top of a temporary pile. Do this
+until you get the required number of arguments for the Royal card, and
+the top card of the stack is a face-down card, a Joker, or the stack
+is empty.
+Then follow the instructions of the Royal card.
+Once you are done following the instructions,
+take the Royal card and any cards in that temporary pile
+and put them in a discard to the side.</p><p>If at anytime a Royal card requires an argument from the stack,
+and there are no more arguments in the stack, the code has
+hit an error and the code stops. If at any time a Royal card
+makes its way into the stack, the code hits an error and stops.</p><h3>2<tt>&nbsp;</tt><a name="(part._.Data)"></a>Data</h3><p>This chapter will be dealing exclusivly with
+number cards (A-10), and Jokers.</p><h4>2.1<tt>&nbsp;</tt><a name="(part._.Card_.Sequences)"></a>Card Sequences</h4><p>A datum is made up of a sequence of cards.
+Data in decks is seperated by face-down cards,
+unless the data is R, in which case seperation
+is optional.</p><h4>2.2<tt>&nbsp;</tt><a name="(part._.Leading_.Suits)"></a>Leading Suits</h4><p>The leading suit of a card sequence is the suit of the
+top card of the datum. Most data types that
+use suit only use the leading suit of the datum.</p><p>When a card sequence is in the stack, the leading suit
+is the bottom card of that sequence, since the stack
+reverse all data that goes into it.</p><h4>2.3<tt>&nbsp;</tt><a name="(part._.Interpretation_.Types)"></a>Interpretation Types</h4><p>Royal cards will specify how each of the arguments they
+require are interpreted. Below are the possible interpretations.</p><h5>2.3.1<tt>&nbsp;</tt><a name="(part._.Cards)"></a>Cards</h5><p>No interpretation is made. The data is taken literally
+as the cards in the sequence.</p><h5>2.3.2<tt>&nbsp;</tt><a name="(part._.Name)"></a>Name</h5><p>Inteprets the card sequence as the name of a deck space
+on the table. The sequence R represents the stack.
+Name interpretations are either stack inclusive and
+will accept R, others are not stack exclusive and
+will not accept R.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As &gt; the 1 of spades deck</span></p></td></tr><tr><td><p><span class="stt">2c 0c 3c &gt; the 203 of clubs deck</span></p></td></tr><tr><td><p><span class="stt">R &gt; the stack</span></p></td></tr></table></p><p>A card sequence that has more than one suit type in
+it is invalid for a name. A card sequence that starts
+with a Ten card is invalid for a name.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">0s As &gt; error</span></p></td></tr><tr><td><p><span class="stt">2c 0s 3s &gt; error</span></p></td></tr></table></p><h5>2.3.3<tt>&nbsp;</tt><a name="(part._.Forced_.Integer)"></a>Forced Integer</h5><p>Interprets the card sequence as a positive whole number,
+unless the leading suit is clubs, in which case the
+number is a negative whole number.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">3s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3c &gt; -3</span></p></td></tr><tr><td><p><span class="stt">3h &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3d &gt; 3</span></p></td></tr><tr><td><p><span class="stt">0s 4c &gt; 4</span></p></td></tr><tr><td><p><span class="stt">0c 4s &gt; -4</span></p></td></tr></table></p><p>R is invalid for forced integers.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; error</span></p></td></tr></table></p><h5>2.3.4<tt>&nbsp;</tt><a name="(part._.Forced_.Number)"></a>Forced Number</h5><p>Inteprets the card sequence as a positive whole number,
+unless the leading suit is spades or clubs, and the suit
+of a card in the sequence is diamonds. In that case,
+the first diamonds card represents the decimal point
+(and not a digit), and all cards after the first diamonds
+card are the fractional part of the number.
+If the leading suit of a forced number is clubs, the
+number is negative.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">3s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 0s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 1s 4s 1s 5s 9s &gt; 3.14159</span></p></td></tr><tr><td><p><span class="stt">3c 0d 1c 4c 1c 5c 9c &gt; -3.14159</span></p></td></tr><tr><td><p><span class="stt">3h 0d 1h 4h 1h 5h 9h &gt; 3,014,159</span></p></td></tr><tr><td><p><span class="stt">3d 0d 1d 4d 1d 5d 9d &gt; 3,014,159</span></p></td></tr><tr><td><p><span class="stt">0s 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.1</span></p></td></tr><tr><td><p><span class="stt">0s 0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.01</span></p></td></tr><tr><td><p><span class="stt">0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 1</span></p></td></tr></table></p><p>R is invalid for forced numbers.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; error</span></p></td></tr></table></p><h5>2.3.5<tt>&nbsp;</tt><a name="(part._.Boolean)"></a>Boolean</h5><p>All card sequences evalutate as #t, except for
+0d, and any number of repeating zeros that have a
+leading suit of diamonds, which evaluates as #f.
+R evalute as null.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">0s &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0c &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0h &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0d &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 0c &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 1c &gt; #t</span></p></td></tr><tr><td><p><span class="stt">1d &gt; #t</span></p></td></tr><tr><td><p><span class="stt">R</span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">&gt; null</span></p></td></tr></table></p><h5>2.3.6<tt>&nbsp;</tt><a name="(part._.Print)"></a>Print</h5><p>Interprets each datum differently based on its leading suit.
+This data type is used to turn RifL data into human readable
+information, and vice versa.</p><p>Interprets data with leading suit spades or clubs as a forced number.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">3s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 0s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 1h 4h 1h 5h 9h &gt; 3.14159</span></p></td></tr><tr><td><p><span class="stt">3c 0d 1c 4c 1c 5c 9c &gt; -3.14159</span></p></td></tr><tr><td><p><span class="stt">0s 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.1</span></p></td></tr><tr><td><p><span class="stt">0s 0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.01</span></p></td></tr><tr><td><p><span class="stt">0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 1</span></p></td></tr></table></p><p><div class="SIntrapara">Interprets data with leading suit hearts as an ascii character.
+RifL will throw an error if the ascii number it to large.
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;</span></p></td></tr></table></div></p><p><div class="SIntrapara">Interprets data with a leading suit diamonds as a boolean.
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">0d &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 0c &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 1c &gt; #t</span></p></td></tr><tr><td><p><span class="stt">1d &gt; #t</span></p></td></tr></table></div></p><p><div class="SIntrapara">Inteprets R as no character.
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; ""</span></p></td></tr></table></div></p><h3>3<tt>&nbsp;</tt><a name="(part._.Royal_.Cards)"></a>Royal Cards</h3><h4>3.1<tt>&nbsp;</tt><a name="(part._.Jacks)"></a>Jacks</h4><h5>3.1.1<tt>&nbsp;</tt><a name="(part._.Js)"></a>Js</h5><p><span style="font-weight: bold">Form: [Name (stack exclusive)], Js</span></p><p><span style="font-weight: bold">Instruction:</span> Move the pointer to the named deck.</p><h5>3.1.2<tt>&nbsp;</tt><a name="(part._.Jc)"></a>Jc</h5><p><span style="font-weight: bold">Form: [Force Integer X], [Force Integer Y], Js</span></p><p><span style="font-weight: bold">Instruction:</span> Starting at the current deck space, count to the right
+[X] times, and up [Y] times. Diamonds wrap around to spades.
+Negative [X] moves left. Negative [Y] moves down.
+Push the name of the landed on deck space onto the stack (reversed).
+If the landed on deck space is below the bottom row of the table,
+throw an error.</p><h5>3.1.3<tt>&nbsp;</tt><a name="(part._.Jh)"></a>Jh</h5><p><span style="font-weight: bold">Form: [Name (stack inclusive)], Jh</span></p><p><span style="font-weight: bold">Instruction:</span> Count the number of arguments of the named deck.
+Royal cards count as arguments. Turn that number into
+a card sequence, and put it on top of the stack (reversed).</p><h5>3.1.4<tt>&nbsp;</tt><a name="(part._.Jd)"></a>Jd</h5><p><span style="font-weight: bold">Form: [Name (stack inclusive)], [Operation], Jd</span></p><p><span style="font-weight: bold">Instruction:</span> The leading suit of [Operation] changes the function.</p><p><span style="font-style: italic">Spades: Print Cards</span> Output the named deck as a list of cards.
+Outputing a deck does not change it.</p><p><span style="font-style: italic">Clubs: Print Data</span> Output the named deck as interpreted data. If the
+named deck is the stack, it gets outputed in reversed order.
+Data with the leading suit spades or clubs
+gets interpreted as a forced number. Data with the leading suit hearts
+gets interpreted as a character. Data with the leading suit diamonds gets
+interpreted as a boolean. Jokers and Royal cards do not get outputed.
+Outputing a deck does not change it.</p><p><span style="font-style: italic">Hearts: Read Cards</span> Take an input of cards and puts
+it on top of the named deck. If the named deck is the stack,
+reverse the inputed cards before puting them on top of the stack.</p><p><span style="font-style: italic">Diamonds: Read Data</span> Take an input of characters,
+and transform it into cards, and put it on top of the named deck.
+If the named deck is the stack, reverse the cards before putting it
+on top of the stack.
+Every character gets turned into its ascii number, then that
+number gets turned into a card sequence with the suit hearts.
+A face-down R is put between each datum read in.</p><p>However, there are special characters that get turned into
+cards differently.</p><ul><li><p>A string of characters that are all digits
+gets turned into a number, then turned into a spades card sequence.
+If the string of digits starts with a #\- the cards are
+club suit. If a #\. appears before the digits, the
+card sequence starts with a 10s (or 10c if the digits
+have a #\- before them), then a 10d, then the digits as cards.
+If a #\. appears in between digits, a 10d is placed in
+between those digits.</p></li><li><p>The string "#t" gets turned into the card As.
+The string "#f" gets turned into the card 10d.</p></li></ul><p><span style="font-style: italic">Joker:</span> Error</p><h4>3.2<tt>&nbsp;</tt><a name="(part._.Queens)"></a>Queens</h4><h5>3.2.1<tt>&nbsp;</tt><a name="(part._.Qs)"></a>Qs</h5><p><span style="font-weight: bold">Form: [A], [B], [Operation] Qs</span></p><p><span style="font-weight: bold">Instruction:</span> The leading suit of [Operation] changes the function.</p><p><span style="font-style: italic">Spades: Greater-than/OR:</span> If [A] &amp; [B] have the same leading suit, put the larger
+of [Force Number A] &amp; [Force Number B] onto stack (reversed). If they
+are both equal to 0, the one with less cards is the larger value.</p><p>If [A] &amp; [B] have different leading suits, put the one with the
+"larger" leading suit. <span style="font-style: italic">spades &gt; clubs &gt; hearts &gt; diamonds &gt; Jokers</span></p><p><span style="font-style: italic">Clubs: Less-than/AND:</span> If [A] &amp; [B] have the same leading suit, put the smaller
+of [Force Number A] &amp; [Force Number B] onto stack (reversed). If they
+are both equal to 0, the one with more cards is the smaller value.</p><p>If [A] &amp; [B] have different leading suits, put the one with the
+"smaller" leading suit. <span style="font-style: italic">spades &gt; clubs &gt; hearts &gt; diamonds &gt; Jokers</span></p><p><span style="font-style: italic">Hearts: Equal/XNOR:</span> If [Card Sequence A] is exactly the same as [Card Sequence B],
+put [Card Sequence A] on top of the stack. Otherwise, put 0d on top of the stack.</p><p><span style="font-style: italic">Diamonds: Equivilant/NOT:</span> If [Force Integer A] is the same as [Force Integer B],
+put [A] on top of the stack. If both [Boolean A] &amp; [Boolean B] are false,
+put Ad on top of the stack. Otherwise, put 10d on top of the stack.</p><p><span style="font-style: italic">Joker:</span> Error</p><h5>3.2.2<tt>&nbsp;</tt><a name="(part._.Qc)"></a>Qc</h5><p><span style="font-weight: bold">Form: [Force Number A], [Force Number B], [Operation] Qc</span></p><p><span style="font-weight: bold">Instruction:</span> The leading suit of [Operation] changes the function.</p><p><span style="font-style: italic">Spades: Add:</span> Put [A] + [B] on top of the stack (reversed).</p><p><span style="font-style: italic">Clubs: Subtract:</span> Put [A] - [B] on top of the stack (reversed).</p><p><span style="font-style: italic">Hearts: Multiply:</span> Put [A] * [B] on top of the stack (reversed).</p><p><span style="font-style: italic">Diamonds: Divide:</span> Put [A] / [B] on top of the stack (reversed).
+If [B] is zero, throw an error.</p><p><span style="font-style: italic">Joker: Concatonate:</span> Put [Card Sequence A] on top of the stack (reversed),
+then put [Card Sequence B] on top of the stack (reversed). Do not put any
+face-down cards between them.</p><h5>3.2.3<tt>&nbsp;</tt><a name="(part._.Qh)"></a>Qh</h5><p><span style="font-weight: bold">Form: [A], [B], [Boolean Operation] Qh</span></p><p><span style="font-weight: bold">Instruction:</span> If [Boolean Operation] is #t,
+put [A] on top of the stack (reversed). If
+[Boolean Operation] if #f, put [B] on top of the stack
+(reversed). If [Boolean Operation] is null,
+do nothing.</p><h5>3.2.4<tt>&nbsp;</tt><a name="(part._.Qd)"></a>Qd</h5><p><span style="font-style: italic">Currently does nothing. Will be added in the future.</span></p><h4>3.3<tt>&nbsp;</tt><a name="(part._.Kings)"></a>Kings</h4><h5>3.3.1<tt>&nbsp;</tt><a name="(part._.Ks)"></a>Ks</h5><p><span style="font-weight: bold">Form: [Name (stack inclusive) Origin], [Name (stack exclusive) Destination], [Force Integer Operation] Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Find the [Operation] argument of deck [Origin].
+If there are not enough arguments in deck [Origin], throw an error.
+The leading suit of [Operation] changes the function.</p><p><span style="font-style: italic">Spades: Copy One:</span> Copy the the found argument and the face-down
+cards directly below it and put it on top of deck [Destination].
+If [Origin] is the stack, instead copy the found arugment and the
+face-down cards directly above it, reverse all of those cards,
+and put it on top of deck [Destination].</p><p><span style="font-style: italic">Clubs: Copy Up To:</span> Copy all the cards above and including
+the found argument, and put it on top of deck [Destination].
+If [Origin] is the stack, reverse all of those cards before
+putting it on top of deck [Destination].</p><p><span style="font-style: italic">Hearts: Move One:</span> Remove the the found argument and the face-down
+cards directly below it and put them on top of deck [Destination].
+If [Origin] is the stack, instead remove the found arugment and the
+face-down cards directly above it, reverse all of those cards,
+and put them on top of deck [Destination].</p><p><span style="font-style: italic">Diamonds: Move Up To:</span> Remove all the cards above and including
+the found argument, and put them on top of deck [Destination].
+If [Origin] is the stack, reverse all of those cards before
+putting them on top of deck [Destination].</p><p><span style="font-style: italic">Joker: Copy Whole:</span> Copy deck [Origin] and put it on top
+of deck [Destination]. If [Origin] is the stack, reverse the copy
+before putting in on top of [Destination]</p><h5>3.3.2<tt>&nbsp;</tt><a name="(part._.Kc)"></a>Kc</h5><p><span style="font-style: italic">Currently does nothing. Will be added in the future.</span></p><h5>3.3.3<tt>&nbsp;</tt><a name="(part._.Kh)"></a>Kh</h5><p><span style="font-weight: bold">Form: [Name (stack inclusive)], Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Flip the named deck over.
+The deck is in reverse order, and each card that
+was face-down becomes face-up. Each card that was
+face-up becomes face-down.</p><h5>3.3.4<tt>&nbsp;</tt><a name="(part._.Kd)"></a>Kd</h5><p><span style="font-weight: bold">Form: [Name (stack inclusive)], Kd</span></p><p><span style="font-weight: bold">Instruction:</span> Shuffle the named deck.
+The order of the cards in that deck are randomly
+re-ordered.</p></div></div><div id="contextindicator">&nbsp;</div></body></html>

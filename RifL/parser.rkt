@@ -1,11 +1,9 @@
 #lang brag
-RifL-program: (/WHITESPACE)* [deck] (/NEWLINE (/WHITESPACE)* [deck])*
-deck: name /DIVIDER (/WHITESPACE)* convert-to-stack
-name: ((S-PIP-CARD [/","] (/WHITESPACE)+)* S-PIP-CARD (/WHITESPACE)*) |
-      ((C-PIP-CARD [/","] (/WHITESPACE)+)* C-PIP-CARD (/WHITESPACE)*) |
-      ((H-PIP-CARD [/","] (/WHITESPACE)+)* H-PIP-CARD (/WHITESPACE)*) |
-      ((D-PIP-CARD [/","] (/WHITESPACE)+)* D-PIP-CARD (/WHITESPACE)*)
-convert-to-stack: ([entry] ((/WHITESPACE)+ entry)* (/WHITESPACE)* /NEWLINE)*
-       ([entry] ((/WHITESPACE)+ entry)* (/WHITESPACE)*)
-@entry: (pip-card| ROYAL-CARD | JOKER | FACE-DOWN) [/","]
-@pip-card: S-PIP-CARD | C-PIP-CARD | H-PIP-CARD | D-PIP-CARD
+RifL-program: [convert-to-deck] (/NEWLINE [convert-to-deck])*
+convert-to-deck: convert-to-name /DIVIDER convert-to-stack
+convert-to-name: ((S-PIP-CARD [/COMMA])* S-PIP-CARD) |
+                 ((C-PIP-CARD [/COMMA])* C-PIP-CARD) |
+                 ((H-PIP-CARD [/COMMA])* H-PIP-CARD) |
+                 ((D-PIP-CARD [/COMMA])* D-PIP-CARD)
+convert-to-stack: (entry* /NEWLINE)* entry*
+entry: (S-PIP-CARD | C-PIP-CARD | H-PIP-CARD | D-PIP-CARD| ROYAL-CARD | JOKER | FACE-DOWN) [/COMMA]
