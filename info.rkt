@@ -9,4 +9,4 @@
 (define build-deps '("racket-doc"
                      "scribble-lib"
                      "wxme-lib"))
-(define license '("MIT"))
+(define license '(MIT))
