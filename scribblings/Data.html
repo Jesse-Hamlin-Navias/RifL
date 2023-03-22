@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>Data</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Data.html" class="tocviewselflink" data-pltdoc="x">Data</a></td></tr></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Data.html#%28part._.Leading_.Suit%29" class="tocviewlink" data-pltdoc="x">Leading Suit</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Data.html#%28part._.Interpretations%29" class="tocviewlink" data-pltdoc="x">Interpretations</a></td></tr></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber"></span><a href="#%28part._.Data%29" class="tocsubseclink" data-pltdoc="x">Data</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="#%28part._.Leading_.Suit%29" class="tocsubseclink" data-pltdoc="x">Leading Suit</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="#%28part._.Interpretations%29" class="tocsubseclink" data-pltdoc="x">Interpretations</a></td></tr><tr><td><span class="tocsublinknumber">2.1<tt>&nbsp;</tt></span><a href="#%28part._.Cards%29" class="tocsubseclink" data-pltdoc="x">Cards</a></td></tr><tr><td><span class="tocsublinknumber">2.2<tt>&nbsp;</tt></span><a href="#%28part._.Name%29" class="tocsubseclink" data-pltdoc="x">Name</a></td></tr><tr><td><span class="tocsublinknumber">2.3<tt>&nbsp;</tt></span><a href="#%28part._.Integer%29" class="tocsubseclink" data-pltdoc="x">Integer</a></td></tr><tr><td><span class="tocsublinknumber">2.4<tt>&nbsp;</tt></span><a href="#%28part._.Real_.Number%29" class="tocsubseclink" data-pltdoc="x">Real Number</a></td></tr><tr><td><span class="tocsublinknumber">2.5<tt>&nbsp;</tt></span><a href="#%28part._.Boolean%29" class="tocsubseclink" data-pltdoc="x">Boolean</a></td></tr><tr><td><span class="tocsublinknumber">2.6<tt>&nbsp;</tt></span><a href="#%28part._.Character%29" class="tocsubseclink" data-pltdoc="x">Character</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">8.5</span></div><h2><a name="(part._.Data)"></a>Data</h2><p>RifL code is broken up into arguments. Each
+argument is either:</p><ul><li><p>A sequence of number cards (A-10)</p></li><li><p>A single Joker</p></li><li><p>A single Royal card</p></li></ul><p>Data is a specific type of argument; either
+a sequence of number cards, or a single Joker.
+Each data argument can be interpreted in different
+ways, depending on the context.
+This chapter will cover all the different ways
+data can be interpreted, as well as a guide to the most common
+contexts in which that interpretation will happen.</p><h3>1<tt>&nbsp;</tt><a name="(part._.Leading_.Suit)"></a>Leading Suit</h3><p>Many Royal cards rely on the suit of a data argument.
+However, a sequence of number cards can have different
+suits in it:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">10s Ac 2h 3d</span></p></td></tr></table></p><p>To resolve this, when the documentation refers to
+the suit of a sequence of number cards, the suit
+of the top card of the sequence is all that matters.
+In the above example, the suit of the sequence
+would be spades, since the top cards in 10s.</p><p>A detail to remember is that arguments that go
+into the stack get reversed. To account for this,
+the leading suit
+of an argument in the stack is determined
+by the bottom card of the sequence, not the top.</p><p>Jokers are a special case, and act like a 5th suit.
+When the documentation uses the suit of a
+argument, the interpretation of a Joker
+will also be listed. Sometimes a Joker in certain
+contexts will result in an error, which stops the code
+from running.</p><h3>2<tt>&nbsp;</tt><a name="(part._.Interpretations)"></a>Interpretations</h3><h4>2.1<tt>&nbsp;</tt><a name="(part._.Cards)"></a>Cards</h4><p>This is the default interpretation if
+none is listed.
+No interpretation is made.
+The argument is taken literally
+as the cards in the sequence.
+This is most often used when the suit
+of an argument is the only thing that matters.</p><h4>2.2<tt>&nbsp;</tt><a name="(part._.Name)"></a>Name</h4><p>Interprets the card sequence as the name of a deck space
+on the table. The sequence R represents the stack.
+Name interpretations are either stack inclusive and
+will accept R, others are not stack exclusive and
+will not accept R.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As &gt; the 1 of spades deck</span></p></td></tr><tr><td><p><span class="stt">2c 0c 3c &gt; the 203 of clubs deck</span></p></td></tr><tr><td><p><span class="stt">R &gt; the stack</span></p></td></tr></table></p><p>A card sequence that has more than one suit type in
+it is invalid for a name. A card sequence that starts
+with a Ten card is invalid for a name, unless the
+sequence is a single card.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">2c 0s 3s &gt; error</span></p></td></tr><tr><td><p><span class="stt">0s As &gt; error</span></p></td></tr><tr><td><p><span class="stt">0s 0s &gt; error</span></p></td></tr><tr><td><p><span class="stt">0s &gt; 0 of spades deck</span></p></td></tr></table></p><h4>2.3<tt>&nbsp;</tt><a name="(part._.Integer)"></a>Integer</h4><p>Interprets the card sequence as a zero or positive whole number,
+unless the leading suit is clubs, in which case the
+number is a negative zero or negative whole number.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">3s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3c &gt; -3</span></p></td></tr><tr><td><p><span class="stt">3h &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3d &gt; 3</span></p></td></tr><tr><td><p><span class="stt">0s 4c &gt; 4</span></p></td></tr><tr><td><p><span class="stt">0c 4s &gt; -4</span></p></td></tr><tr><td><p><span class="stt">0s &gt; 0</span></p></td></tr><tr><td><p><span class="stt">0c &gt; -0</span></p></td></tr></table></p><p>R is invalid for Integers.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; error</span></p></td></tr></table></p><p>When converting integers into cards, RifL
+converts zero and positive integers
+into all spades, but converts negative
+numbers into all clubs.</p><h4>2.4<tt>&nbsp;</tt><a name="(part._.Real_.Number)"></a>Real Number</h4><p>Interprets the card sequence as zero or a positive whole number,
+unless the leading suit is spades or clubs, and the suit
+of a card in the sequence is diamonds. In that case,
+the first diamonds card represents the decimal point
+(and not a digit), and all cards after the first diamonds
+card are the fractional part of the number.
+If the leading suit of a real number is clubs, the
+number is negative.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">3s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 0s &gt; 3</span></p></td></tr><tr><td><p><span class="stt">3s 0d 1s 4s 1s 5s 9s &gt; 3.14159</span></p></td></tr><tr><td><p><span class="stt">3c 0d 1c 4c 1c 5c 9c &gt; -3.14159</span></p></td></tr><tr><td><p><span class="stt">3h 0d 1h 4h 1h 5h 9h &gt; 3,014,159</span></p></td></tr><tr><td><p><span class="stt">3d 0d 1d 4d 1d 5d 9d &gt; 3,014,159</span></p></td></tr><tr><td><p><span class="stt">0s 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.1</span></p></td></tr><tr><td><p><span class="stt">0s 0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 0.01</span></p></td></tr><tr><td><p><span class="stt">0d 0d 1c</span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">&gt; 1</span></p></td></tr></table></p><p>R is invalid for a real number.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; error</span></p></td></tr></table></p><p>When converting numbers into cards, RifL
+always converts whole numbers into the <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Data.html#%28part._.Integer%29" data-pltdoc="x">Integer</a>
+card form. Positive non-whole numbers get
+converted into spades, with the decimal point
+being a 10d. Negative non-whole numbers get
+converted into clubs, with the decimal
+point being a 10d.</p><h4>2.5<tt>&nbsp;</tt><a name="(part._.Boolean)"></a>Boolean</h4><p>All card sequences evaluate as #t, except for
+0d, and any number of repeating zeros that have a
+leading suit of diamonds, which evaluates as #f.
+R evaluates as null.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">0s &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0c &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0h &gt; #t</span></p></td></tr><tr><td><p><span class="stt">0d &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 0c &gt; #f</span></p></td></tr><tr><td><p><span class="stt">0d 0s 0h 1c &gt; #t</span></p></td></tr><tr><td><p><span class="stt">1d &gt; #t</span></p></td></tr><tr><td><p><span class="stt">R</span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">&gt; null</span></p></td></tr></table></p><p>When converting booleans into cards, RifL
+converts true into Ad, and false into
+0d.</p><h4>2.6<tt>&nbsp;</tt><a name="(part._.Character)"></a>Character</h4><p>Interprets the argument as zero or a positive
+whole number, and uses that number to reference
+the ascii.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">6h 5h &gt; 'A'</span></p></td></tr><tr><td><p><span class="stt">Ah 2h 2h &gt; 'z'</span></p></td></tr></table></p><p><div class="SIntrapara">Inteprets R as no character.
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">R &gt; ''</span></p></td></tr></table></div></p><p>Character interpretation is only used with card sequences
+that have a leading suit of hearts, or with Jokers.</p><p>When converting characters into cards, RifL
+converts the character into its ascii number,
+and then turns that number into a hearts
+sequence.</p></div></div><div id="contextindicator">&nbsp;</div></body></html>

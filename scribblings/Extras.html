@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>Extras</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Extras.html" class="tocviewselflink" data-pltdoc="x">Extras</a></td></tr></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Extras.html#%28part._.Program_.Examples%29" class="tocviewlink" data-pltdoc="x">Program Examples</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Extras.html#%28part._.Development%29" class="tocviewlink" data-pltdoc="x">Development</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/Extras.html#%28part._.Aknowledgments%29" class="tocviewlink" data-pltdoc="x">Aknowledgments</a></td></tr></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber"></span><a href="#%28part._.Extras%29" class="tocsubseclink" data-pltdoc="x">Extras</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="#%28part._.Program_.Examples%29" class="tocsubseclink" data-pltdoc="x">Program Examples</a></td></tr><tr><td><span class="tocsublinknumber">1.1<tt>&nbsp;</tt></span><a href="#%28part._.Hello_.World_%29" class="tocsubseclink" data-pltdoc="x">Hello World!</a></td></tr><tr><td><span class="tocsublinknumber">1.2<tt>&nbsp;</tt></span><a href="#%28part._.Truth_.Machine%29" class="tocsubseclink" data-pltdoc="x">Truth Machine</a></td></tr><tr><td><span class="tocsublinknumber">1.3<tt>&nbsp;</tt></span><a href="#%28part._.Fibonacci%29" class="tocsubseclink" data-pltdoc="x">Fibonacci</a></td></tr><tr><td><span class="tocsublinknumber">1.4<tt>&nbsp;</tt></span><a href="#%28part._.Quine%29" class="tocsubseclink" data-pltdoc="x">Quine</a></td></tr><tr><td><span class="tocsublinknumber">1.5<tt>&nbsp;</tt></span><a href="#%28part._.Brainfuck%29" class="tocsubseclink" data-pltdoc="x">Brainfuck</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="#%28part._.Development%29" class="tocsubseclink" data-pltdoc="x">Development</a></td></tr><tr><td><span class="tocsublinknumber">3<tt>&nbsp;</tt></span><a href="#%28part._.Aknowledgments%29" class="tocsubseclink" data-pltdoc="x">Aknowledgments</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">8.5</span></div><h2><a name="(part._.Extras)"></a>Extras</h2><h3>1<tt>&nbsp;</tt><a name="(part._.Program_.Examples)"></a>Program Examples</h3><h4>1.1<tt>&nbsp;</tt><a name="(part._.Hello_.World_)"></a>Hello World!</h4><p><div class="SIntrapara">Prints out "Hello World!"
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><font class="badlink"><span class="RktModLink"><span class="RktSym">RifL</span></span></font><span class="RktSym">
+&#160;
+0s: 3h 3h F Ah 10h 10h F Ah 10h 8h F Ah Ah 4h F Ah Ah Ah F 8h 7h F &gt; "!dlroW"
+    3h 2h F &gt; space
+    Ah Ah Ah F Ah 10h 8h F Ah 10h 8h F Ah 10h Ah F 7h 2h &gt; "olleh"
+    F R F Ac Jd</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h4>1.2<tt>&nbsp;</tt><a name="(part._.Truth_.Machine)"></a>Truth Machine</h4><p><div class="SIntrapara">Takes an input.
+If input starts with 0 or #f, print input &amp; terminate.
+Otherwise print input infinitley.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><font class="badlink"><span class="RktModLink"><span class="RktSym">RifL</span></span></font><span class="RktSym">
+&#160;
+0s: 2s F, 0s, F, &gt; Results of if statment
+    0d, F, &gt; load concatonation
+    2c, F, Ad, Jd &gt; Take data input onto 2c
+    2c, F, 0s, F, 0s, Ks &gt; Copy top arg 2c onto As
+    &gt;0d, F, input,&lt; R, Qc &gt; Concat 0d + input
+    &gt;2s, F, 0s, F, 0d, input,&lt; Qh &gt;If top arg input is not 0, 2c. Else As.
+    &gt;2s or 0s&lt; Js &gt; Move to As or 2s
+    2c, F Ac, Jd &gt; Print deck 2c
+&#160;
+2s: 2s, F, 2s, R, Ks &gt; Copy 2s deck onto 2s deck
+    2c, F, Ac, Jd &gt; Print out deck 2c
+    2s, F, 2s, R, Ks</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">Copy</span><span class="hspace">&nbsp;</span><span class="RktCmt">2s</span><span class="hspace">&nbsp;</span><span class="RktCmt">deck</span><span class="hspace">&nbsp;</span><span class="RktCmt">onto</span><span class="hspace">&nbsp;</span><span class="RktCmt">2s</span><span class="hspace">&nbsp;</span><span class="RktCmt">deck</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h4>1.3<tt>&nbsp;</tt><a name="(part._.Fibonacci)"></a>Fibonacci</h4><p><div class="SIntrapara">Takes a positive whole number input,
+and outputs the nth number of the Fibonacci
+sequence, where n0 = 0 and n1=1.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><font class="badlink"><span class="RktModLink"><span class="RktSym">RifL</span></span></font><span class="RktSym">
+&#160;
+0s: 2c, F Ad, Jd &gt; input data to 2c
+    Ah, F, 0s, R Ks &gt; copy Ah onto 0s
+&#160;
+Ac: 0s, F, 1s, F &gt; 0th and 1st term of Fib
+&#160;
+2c: &gt;input deck
+&#160;
+Ah: &gt;(if input less than 2)
+    Ad, F, 2d, F, &gt; load if results
+    2c, F 0s, R Ks &gt; copy input to 0s
+    &gt;input&lt; F 1s, F, As, Qs &gt; greater of input and 1
+    &gt;result&lt; F, 1s, F, Ad Qs &gt; is input less than 2?
+    &gt;Ad, F, 2d, F, result&lt; Qh &gt;if result, Ad, else 2d
+    &gt;result&lt; F, 0s R Ks &gt; copy result deck onto 0s
+&#160;
+Ad: &gt;(true case: print result)
+    Ac, F, 0s, F, &gt; load for Ks
+    2c, F, 0s, R, Ks &gt; copy input to 0s
+    &gt;Ac, F, 0s, F, input&lt; Ks &gt; get input arg of Ac onto 0s
+    R, Ac, Jd &gt; print out input arg of Ac
+&#160;
+2d: Ac, F, 3c, F, 1s Ks &gt; copy 2nd args of Ac onto deck 3c
+    Ac, F, 0s, F, 1d Ks &gt; move full 2s onto 0s
+    &gt;2s args&lt; F, As, Qc &gt; add args of 2s together
+    F, R, Ac F 0h Ks &gt; move result onto Ac
+    3c, F, Ac, F, 0h, Ks &gt; move 3s onto 2s
+    2c, F, 0s, F, 0h, Ks &gt; move input to 0s
+    &gt;input&lt; F, 1s, F Ac Qc &gt; input - 1
+    R, 2c, F, 0h, Ks &gt; move result onto 2c
+    Ah, F, 0s, R Ks</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">copy</span><span class="hspace">&nbsp;</span><span class="RktCmt">Ah</span><span class="hspace">&nbsp;</span><span class="RktCmt">onto</span><span class="hspace">&nbsp;</span><span class="RktCmt">0s</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h4>1.4<tt>&nbsp;</tt><a name="(part._.Quine)"></a>Quine</h4><p><div class="SIntrapara">A RifL program that prints out itself (ignoring "#lang RifL").
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><font class="badlink"><span class="RktModLink"><span class="RktSym">RifL</span></span></font><span class="RktSym">
+10s: 10s FR As R Ks As FR 2s FR 2d Ad Ks As FR 2s R Ks 2s FR As R Ks 3h 2h FR 5h 8h FR Ah Ah 5h FR As 10s FR R Ac Jd As FR As Jd 10s FR As R Ks</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h4>1.5<tt>&nbsp;</tt><a name="(part._.Brainfuck)"></a>Brainfuck</h4><p><div class="SIntrapara">A interpreter for the esoteric language Brainfuck.
+This is a very limited interpreter. It does not handle
+errors, so any Brainfuck code that would result in an
+error will have undefined outputs.
+It takes character inputs, but because of RifL&rsquo;s strange
+data input interpretation, numbers and the strings "#t" or "#f"
+will cause errors to the Brainfuck code.
+The interpreter can take multiple input characters at a time,
+and will only ask for a new input when it has run out of
+inputed characters to use.
+Inputing nothing when the interpreter asks for input characters
+will result in an error.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><font class="badlink"><span class="RktModLink"><span class="RktSym">RifL</span></span></font><span class="RktSym">
+&gt;Brainfuck
+&#160;
+&gt;cells
+0s: 0c, Js, 0h &gt; Move to 0c as starting deck, initilize 0 with 0h
+As: 0h &gt; initialize 1 with 0h
+&#160;
+&gt;functions
+0c: 4d, F, Ad, Jd &gt; new start, take data input
+    &gt;If code index = code size, stop
+    1c 0c, F, 2c, F,&gt; load if results
+    4d, Jh &gt; get code size
+    R, 3d, F, 0s Ks &gt; copy code size to 3d
+    F, 2d, F, 0c, R Ks &gt; copy code index to here
+    &gt;code size F code index&lt; F Ad Qs &gt; code size = code index equivilant
+    &gt;0c, F, 2c, F, (index=size)&lt; Qh
+    &gt;0c or 2c&lt; F, 0c, R Ks &gt; copy 2c onto 0c if code index is less than code size
+&#160;
+Ac: &gt;If code index = code size, stop
+    1c 0c, F, 2c F&gt; load if results
+    2d, F, 0c, F 0h, Ks &gt; move code index here
+    &gt;code index,&lt; F, As, F, As, Qc &gt; code index + 1
+    F, R, 2d, F, 0s, Ks &gt; copy code index + 1 to 2d
+    F 3d, F, 0c, R Ks &gt; copy code size to here
+    &gt;index F code size&lt; F Ad Qs &gt; code index = code size equivilant
+    &gt;0c, F, 2c, F, (index=size)&lt; Qh
+    &gt;0c or 2c&lt; F, 0c, R Ks &gt; copy 2c onto here if code index is less than code size
+&#160;
+2c: Ac, F, 3c, F &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    &gt;cur char&lt; F, 4h 3h, F, Ac Qs&gt; lesser of 43 and cur char
+    &gt;result&lt; F, 4h 3h, F, Ah, Qs &gt; greater or equal to 43
+    F,
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    &gt;cur char&lt; F, 4h 6h, F, As Qs&gt; greater of 46 and cur char
+    &gt;result&lt; F, 4h 6h, F, Ah, Qs &gt; less than or equal to 46
+    &gt;greater or equal 43&lt; &gt;F&lt; &gt;less or equal 46&lt; F, Ac Qs&gt; AND
+    &gt;Ac, F, 3c,&lt; &gt;Ad or 0d&lt; Qh &gt; if cur char is between, Ac, else 3c
+    &gt;Ac or 3c&lt; F, 0c, R, Ks &gt; copy Ac or 3c onto 0c
+&#160;
+3c: 4c, F, 5c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 9h 1h, F, Ah, Qs &gt; cur char == 91
+    &gt;4c, F, 5c, F,&lt; &gt;91 or 0d&lt; Qh &gt; if cur char == 91 4c, else 5c
+    &gt;4c or 5c&lt; F, 0c, R, Ks &gt; copy 4c or 5c onto 0c
+&#160;
+4c: 2d, F 0c, R Ks &gt; copy code index to 0c
+    &gt;F, As, F, As, Qc &gt; index + 1
+    F, Ah Qd &gt; index to hearts
+    F, R, 5d, F 0h Ks&gt; move heart index to 5d
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+5c: 6c, F, 7c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 9h 3h, F, Ah, Qs &gt; cur char == 93
+    &gt;6c, F, 7c, F,&lt; &gt;93 or 0d&lt; Qh &gt; if cur char == 93 6c, else 7c
+    &gt;6c or 7c&lt; F, 0c, R, Ks &gt; copy 6c or 7c onto 0c
+&#160;
+6c: 5d, F, 0c, F, 0s, Ks &gt; copy last [ pos onto 0c
+    F, Ah, Qd &gt; to hearts
+    R &gt; load
+    2d, F, 0c, R, Ks F, Ah, Qd &gt; copy ] pos to hearts
+    &gt;R, F, index hearts&lt; F, 0h, Ks &gt; move last [ pos+1 onto deck hearts ]
+    &gt;&gt;&gt;&gt;
+    2d, F, 0c, R, Ks F, Ah, Qd &gt; copy ] pos+1 to hearts
+    R &gt; load
+    5d, F, 0c, F, 0h Ks &gt; move last [ pos to 0c
+    &gt;R&lt; &gt;last [ pos&lt; F, 0h, Ks &gt; copy ] pos+1 to deck [
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+7c: Ac, F, 8c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 6h 0h, F, Ah, Qs &gt; cur char == 60
+    &gt;Ac, F, 8c, F,&lt; &gt;61 or 0d&lt; Qh &gt; if cur char == 61 Ac, else 8c
+    &gt;Ac or 8c&lt; F, 0c, R, Ks &gt; copy Ac or 8c onto 0c
+&#160;
+8c: Ac, F, 9c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 6h 2h, F, Ah, Qs &gt; cur char == 62
+    &gt;Ac, F, 9c, F,&lt; &gt;62 or 0d&lt; Qh &gt; if cur char == 62 Ac, else 9c
+    &gt;Ac or 9c&lt; F, 0c, R, Ks &gt; copy Ac or 9c onto 0c
+&#160;
+9c: 4d, F, R, &gt; load deletion
+    2d, F, 0c, R Ks &gt; copy code index
+    &gt;index&lt; F, Ah, Qd &gt; turn index to hearts
+    &gt;4d, F, R,&lt; &gt;index h&lt; Ks &gt; delete cur char
+    2d, F, 0c, F, 0h, Ks &gt; move code index 0c
+    &gt;index&lt; F, As, F, Ac, Qc &gt; index - 1
+    F, R, 2d, F, 0h, Ks &gt; move index - 1 to 2d
+    3d, F, 0c, F 0h, Ks &gt; move code size 0c
+    &gt;index&lt; F, As, F, Ac, Qc &gt; size - 1
+    F, R, 3d, F, 0h, Ks &gt; move size - 1 to 3d
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+1c 0c: 2d, R, 0h Ks &gt; delete code index
+       Ac &gt; -1
+       R, 2d, F, 0h, Ks &gt; set code index = -1
+       1c 1c F, 0c, R Ks &gt; copy 11c onto 0c
+&#160;
+1c 1c: &gt;If code index = code size, stop
+       0c, F, 1c 2c F &gt; load if results
+       2d, F, 0c, F 0h, Ks &gt; move code index here
+       &gt;code index,&lt; F, As, F, As, Qc &gt; code index + 1
+       F, R, 2d, F, 0s, Ks &gt; copy code index + 1 to 2d
+       F 3d, F, 0c, R Ks &gt; copy code size to here
+       &gt;index F code size&lt; F Ad Qs &gt; code index = code size equivilant
+       &gt;0c, F, 1c 2c, F, (index=size)&lt; Qh
+       &gt;0c or 1c 2c&lt; F, 0c, R Ks &gt; copy 1c 2c onto here if code index is less than code size
+&#160;
+1c 2c: 4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+       F, Ac, Qd &gt; turn cur char to clubs
+       &gt;cur char as deck,&lt; F, 0c, R, Ks &gt; copy cur char deck onto 0c
+       &gt;cur char happens&lt;
+       1c 1c F, 0c, R, Ks &gt; copy 11c onto 0c
+&#160;
+4c 3c: &gt; + &gt; 43
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index,&lt; F, 0c, F, 0h, Ks &gt; move cell index [data] to 0c
+       &gt;cur data&lt; F, As, F, As, Qc &gt; cur-data++
+       R, &gt; load move
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell-index,&lt; F, 0h, Ks &gt; move top of R to cell index
+&#160;
+4c 2c: 4c 2c, F, 4c 2c, R Ks &gt; copy this onto this
+       5d, R, R, Ks &gt; delete 5d
+       5d, F, Ad, Jd &gt; input data onto 5d
+       0c, Js &gt; move back to 0c
+       4c 2c, F, 4c 2c, R Ks &gt; copy this onto this
+&#160;
+4c 4c: &gt; , &gt; 44
+       4c 2c, F, 0c, F, &gt; load ifs
+       5d, Jh&gt; get # args 5d
+       &gt;5d&lt; F, 0s, F, Ad, Qs &gt; # args = 0
+       &gt;4c 2c, F, 0c, F,&lt; &gt;true or false&lt; Qh &gt; if true, get input, then replace, if false, just replace
+       Js &gt; move to 42c or stay here
+       &gt;replace \/
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index&lt; R, R, Ks &gt; delete cell [index]
+       5d, F, &gt; load
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;5d, F, cell-index&lt; F, 0h, Ks &gt; move top 5d to cell [index]
+&#160;
+4c 5c: &gt; - &gt; 45
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index,&lt; F, 0c, F, 0h, Ks &gt; move cell index [data] to 0c
+       &gt;cur data&lt; F, As, F, Ac, Qc &gt; cur-data--
+       R, &gt; load move
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell-index,&lt; F, 0h, Ks &gt; move top of R to cell index
+&#160;
+4c 6c: &gt; . &gt; 46
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index&lt; F, 0c, F, 0h, Ks &gt; move cell [index] to 0c
+       &gt;cur data&lt; F, Ah, Qd &gt; turn cur-data to heart
+       R, &gt; load
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell index,&lt; F, 0h, Ks &gt; move top of Stack to cell index
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       F, Ac, Jd &gt; print cell index
+&#160;
+6c 0c: &gt; &lt; &gt; 60
+       0d, F, 0c, F, 0h, Ks &gt; move cell index to 0c
+       F, As, F, Ac, Qc &gt; cell index--
+       R, 0d, F, 0h, Ks &gt; move top stack onto 0d
+&#160;
+6c 2c: &gt; &gt; &gt; 62
+       0d, F, 0c, F, 0h, Ks &gt; move cell index to 0c
+       F, As, F, As, Qc &gt; cell index++
+       R, 0d, F, 0h, Ks &gt; move top stack onto 0d
+       6c 3c, F, 6c 4c, F,&gt; load if
+       0d, F, 0c, F, R, Ks &gt; Copy cell index to 0c
+       F, 1d, F, 0c, F, R, Ks &gt; Copy max cell index to 0c
+       &gt;cell index, F, max cell,&lt; F, Ad, Qs &gt; max cell = cell index?
+       &gt;6c 3c, F, 6c 4c, F, max=index&lt; Qh &gt; if max=index -63, else -64
+       &gt;-63 or -64&lt; F, 0c, R, Ks &gt; Copy 63 or 64 onto 0c
+&#160;
+6c 3c: 1d, F, 0c, F, 0h, Ks &gt; move max cell index to 0c
+       F, As, F, As, Qc &gt; max cell++
+       R, 1d, F 0h, Ks &gt; move new max cell to 1d
+       0h, R, &gt; load
+       1d, F, 0c, R, Ks &gt; copy max cell to 0c
+       &gt;R, max cell&lt; F, 0h, Ks &gt; move 0h from stack to max-cell
+&#160;
+
+9c 1c: &gt; [ &gt; 91
+       9c 2c F, 9c 0c F, &gt; load
+       0d, F, 0c, R, Ks &gt; get copy of cell index
+       &gt;cell index&lt; F, 0c, R, Ks &gt; get value at deck [cell index]
+       &gt;value&lt; F, 0s, F, Ad Qs &gt; is value = 0
+       &gt;9c 2c F, 9c 0c F, val=0&lt; Qh &gt; if so, 92c, else 90
+       F, 0c, R Ks &gt; copy either 92c or 90c onto 0c
+&#160;
+9c 2c: 2d, F, 0c, F 0h, Ks &gt; move code index to 0c
+       &gt;code index&lt; F, Ah Qd &gt; hearted
+       &gt;[ key&lt; F, 0c, R, Ks &gt; get value at deck [code index]
+       R, 2d, F, 0h, Ks &gt; set code index to resulting number
+&#160;
+9c 3c: &gt; ] &gt; 93
+       9c 5c F, 9c 4c F,
+       0d, F, 0c, R, Ks &gt; get copy of cell index
+       &gt;cell index&lt; F, 0c, R, Ks &gt; get value at deck [cell index]
+       &gt;value&lt; F, 0s, F, Ad Qs &gt; is value = 0
+       &gt;9c 5c F, 9c 4c F, val=0&lt; Qh &gt; if so, 95c, else 94c
+       F, 0c, R Ks &gt; copy either 95c or 94c onto 0c
+&#160;
+9c 4c: 2d, F, 0c, F 0h, Ks &gt; move code index to 0c
+       &gt;code index&lt; F, Ah Qd &gt; hearted
+       &gt;[ key&lt; F, 0c, R, Ks &gt; get value at deck [code index]
+       R, 2d, F, 0h, Ks &gt; set code index to resulting number
+&#160;
+&gt;variables &amp; constants
+0d: 0s &gt; cell index
+1d: As &gt; largest cell tracker. +1 if reach new max
+2d: 0s &gt; code index
+3d:    &gt; code size
+4d:</span><span class="RktSym"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">bf</span><span class="hspace">&nbsp;</span><span class="RktCmt">code</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h3>2<tt>&nbsp;</tt><a name="(part._.Development)"></a>Development</h3><p>RifL was started in the Sophmore year of colege, with
+the goal of creating an esoteric language that could
+be run physically. It was parshally finished there,
+and a first build was completed 3 years later.</p><p>I intend RifL to recieve updates in the future, for
+a few reasions:</p><p>First, the functionality of RifL is not complete.
+I intentionally left some Royal cards incomplete
+or not implemented at all. This is the first
+language I have designed, and as such, I know
+that letting some of the functionality grow out
+of user needs rather than design ideas is healthy.
+In a language like RifL that can have only 12 functions,
+leaving myself some open space is required to do this.</p><p>Second, the parser is slow. When running RifL code
+of large enough size, including the Brainfuck interpreter,
+you may find it anoying having to wait a few seconds.
+I used <a href="https://docs.racket-lang.org/brag/">Brag</a> to
+build my interpreter, but it turns out Brag is not effecient
+with run time or memory usage.
+I will rebuild the parser in a future update when I am feeling
+interested in this project again.</p><p>Third, debugging systems. The current debugging systems
+RifL gives you to step through code is crude and inefficient.
+In the future I will provide more natural feeling ways
+to see what RifL code is doing while it is running. Luckily,
+you can just run RifL code physically for yourself to see what is
+happening. That is always the best aproach for debugging RifL.</p><h3>3<tt>&nbsp;</tt><a name="(part._.Aknowledgments)"></a>Aknowledgments</h3><p><a href="https://drablab.org/keithohara/">Keith O&rsquo;Hara</a>, my
+computer science professor of my design of programming languages,
+as well as my thesis advisor, and all around great guy. If you
+ever get a chance to learn from this man, take that opportunity.
+He is what so few manage to be: a good programer, a excelent teacher,
+and a great person. If you see him, tell him I say hi.</p><p><a href="https://beautifulracket.com/">Matthew Butt&#173;erick</a> and
+his great online textbook, beautiful racket, as well as the
+<a href="https://docs.racket-lang.org/br/">Beautiful Racket</a>
+and <a href="https://docs.racket-lang.org/brag/">Brag</a> libraries.
+If you are interested in building a coding language in Racket,
+I recommend you start here.</p><p><a href="https://www.greghendershott.com/fear-of-macros/index.html">Greg Hendershott</a>,
+a good online teacher and expert in the weird and strange
+world of Racket and Racket macros. I have not yet had the
+pleasure of meeting this Racket wizard in his tower, but
+if you do, listen carfully.</p></div></div><div id="contextindicator">&nbsp;</div></body></html>
