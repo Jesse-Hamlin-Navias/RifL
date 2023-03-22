@@ -1,7 +1,0 @@
-#lang br
-(require "lexer.rkt" brag/support)
-(provide RifL-colorer)
-
-(define (RifL-colorer port)
-  (define srcloc-tok (RifL-lexer port))
-  ···)
