@@ -262,7 +262,7 @@ this reason, multi-digit numbers are reversed in the stack.
 
 The decks are laid on a table, with the following structure:
 
-@image{scribblings/RifL_Grid.png}
+@;image{scribblings/RifL_Grid.png}
 
 Each space on the table is a deck name, starting at 0 on the bottom
 row and increasing indefinitely upwards. Each deck is given its name
