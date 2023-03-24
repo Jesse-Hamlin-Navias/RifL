@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>RifL: a playing card stack language</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="tocviewselflink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Introduction%29" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Data%29" class="tocviewlink" data-pltdoc="x">Data</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Royal%29" class="tocviewlink" data-pltdoc="x">Royal</a></td></tr></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber"></span><a href="#%28part._.Rif.L__a_playing_card_stack_language%29" class="tocsubseclink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="#%28part._.Introduction%29" class="tocsubseclink" data-pltdoc="x">Introduction</a></td></tr><tr><td><span class="tocsublinknumber">1.1<tt>&nbsp;</tt></span><a href="#%28part._.Card_.Notation%29" class="tocsubseclink" data-pltdoc="x">Card Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.2<tt>&nbsp;</tt></span><a href="#%28part._.Cards_as_.Numbers%29" class="tocsubseclink" data-pltdoc="x">Cards as Numbers</a></td></tr><tr><td><span class="tocsublinknumber">1.3<tt>&nbsp;</tt></span><a href="#%28part._.Decks%29" class="tocsubseclink" data-pltdoc="x">Decks</a></td></tr><tr><td><span class="tocsublinknumber">1.4<tt>&nbsp;</tt></span><a href="#%28part._.Jokers%29" class="tocsubseclink" data-pltdoc="x">Jokers</a></td></tr><tr><td><span class="tocsublinknumber">1.5<tt>&nbsp;</tt></span><a href="#%28part._.Instructions%29" class="tocsubseclink" data-pltdoc="x">Instructions</a></td></tr><tr><td><span class="tocsublinknumber">1.5.1<tt>&nbsp;</tt></span><a href="#%28part._.Postfix_.Notation%29" class="tocsubseclink" data-pltdoc="x">Postfix Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.5.2<tt>&nbsp;</tt></span><a href="#%28part._.The_.Stack%29" class="tocsubseclink" data-pltdoc="x">The Stack</a></td></tr><tr><td><span class="tocsublinknumber">1.6<tt>&nbsp;</tt></span><a href="#%28part._.Structure_of_.Code%29" class="tocsubseclink" data-pltdoc="x">Structure of Code</a></td></tr><tr><td><span class="tocsublinknumber">1.7<tt>&nbsp;</tt></span><a href="#%28part._.Writing_.Rif.L_.Code%29" class="tocsubseclink" data-pltdoc="x">Writing Rif<span class="mywbr"> &nbsp;</span>L Code</a></td></tr><tr><td><span class="tocsublinknumber">1.8<tt>&nbsp;</tt></span><a href="#%28part._.Physically_.Running%29" class="tocsubseclink" data-pltdoc="x">Physically Running</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="#%28part._.Data%29" class="tocsubseclink" data-pltdoc="x">Data</a></td></tr><tr><td><span class="tocsublinknumber">2.1<tt>&nbsp;</tt></span><a href="#%28part._.Leading_.Suit%29" class="tocsubseclink" data-pltdoc="x">Leading Suit</a></td></tr><tr><td><span class="tocsublinknumber">2.2<tt>&nbsp;</tt></span><a href="#%28part._.Interpretations%29" class="tocsubseclink" data-pltdoc="x">Interpretations</a></td></tr><tr><td><span class="tocsublinknumber">2.2.1<tt>&nbsp;</tt></span><a href="#%28part._.Cards%29" class="tocsubseclink" data-pltdoc="x">Cards</a></td></tr><tr><td><span class="tocsublinknumber">2.2.2<tt>&nbsp;</tt></span><a href="#%28part._.Name%29" class="tocsubseclink" data-pltdoc="x">Name</a></td></tr><tr><td><span class="tocsublinknumber">2.2.3<tt>&nbsp;</tt></span><a href="#%28part._.Integer%29" class="tocsubseclink" data-pltdoc="x">Integer</a></td></tr><tr><td><span class="tocsublinknumber">2.2.4<tt>&nbsp;</tt></span><a href="#%28part._.Real_.Number%29" class="tocsubseclink" data-pltdoc="x">Real Number</a></td></tr><tr><td><span class="tocsublinknumber">2.2.5<tt>&nbsp;</tt></span><a href="#%28part._.Boolean%29" class="tocsubseclink" data-pltdoc="x">Boolean</a></td></tr><tr><td><span class="tocsublinknumber">2.2.6<tt>&nbsp;</tt></span><a href="#%28part._.Character%29" class="tocsubseclink" data-pltdoc="x">Character</a></td></tr><tr><td><span class="tocsublinknumber">3<tt>&nbsp;</tt></span><a href="#%28part._.Royal%29" class="tocsubseclink" data-pltdoc="x">Royal</a></td></tr><tr><td><span class="tocsublinknumber">3.1<tt>&nbsp;</tt></span><a href="#%28part._.Instruction_.Notation%29" class="tocsubseclink" data-pltdoc="x">Instruction Notation</a></td></tr><tr><td><span class="tocsublinknumber">3.2<tt>&nbsp;</tt></span><a href="#%28part._.Jacks%29" class="tocsubseclink" data-pltdoc="x">Jacks</a></td></tr><tr><td><span class="tocsublinknumber">3.2.1<tt>&nbsp;</tt></span><a href="#%28part._.Js%29" class="tocsubseclink" data-pltdoc="x">Js</a></td></tr><tr><td><span class="tocsublinknumber">3.2.2<tt>&nbsp;</tt></span><a href="#%28part._.Jc%29" class="tocsubseclink" data-pltdoc="x">Jc</a></td></tr><tr><td><span class="tocsublinknumber">3.2.3<tt>&nbsp;</tt></span><a href="#%28part._.Jh%29" class="tocsubseclink" data-pltdoc="x">Jh</a></td></tr><tr><td><span class="tocsublinknumber">3.2.4<tt>&nbsp;</tt></span><a href="#%28part._.Jd%29" class="tocsubseclink" data-pltdoc="x">Jd</a></td></tr><tr><td><span class="tocsublinknumber">3.3<tt>&nbsp;</tt></span><a href="#%28part._.Queens%29" class="tocsubseclink" data-pltdoc="x">Queens</a></td></tr><tr><td><span class="tocsublinknumber">3.3.1<tt>&nbsp;</tt></span><a href="#%28part._.Qs%29" class="tocsubseclink" data-pltdoc="x">Qs</a></td></tr><tr><td><span class="tocsublinknumber">3.3.2<tt>&nbsp;</tt></span><a href="#%28part._.Qc%29" class="tocsubseclink" data-pltdoc="x">Qc</a></td></tr><tr><td><span class="tocsublinknumber">3.3.3<tt>&nbsp;</tt></span><a href="#%28part._.Qh%29" class="tocsubseclink" data-pltdoc="x">Qh</a></td></tr><tr><td><span class="tocsublinknumber">3.3.4<tt>&nbsp;</tt></span><a href="#%28part._.Qd%29" class="tocsubseclink" data-pltdoc="x">Qd</a></td></tr><tr><td><span class="tocsublinknumber">3.4<tt>&nbsp;</tt></span><a href="#%28part._.Kings%29" class="tocsubseclink" data-pltdoc="x">Kings</a></td></tr><tr><td><span class="tocsublinknumber">3.4.1<tt>&nbsp;</tt></span><a href="#%28part._.Ks%29" class="tocsubseclink" data-pltdoc="x">Ks</a></td></tr><tr><td><span class="tocsublinknumber">3.4.2<tt>&nbsp;</tt></span><a href="#%28part._.Kc%29" class="tocsubseclink" data-pltdoc="x">Kc</a></td></tr><tr><td><span class="tocsublinknumber">3.4.3<tt>&nbsp;</tt></span><a href="#%28part._.Kh%29" class="tocsubseclink" data-pltdoc="x">Kh</a></td></tr><tr><td><span class="tocsublinknumber">3.4.4<tt>&nbsp;</tt></span><a href="#%28part._.Kd%29" class="tocsubseclink" data-pltdoc="x">Kd</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">8.5</span></div><h2><a name="(part._.Rif.L__a_playing_card_stack_language)"></a><a name="(mod-path._.Rif.L)"></a>RifL: a playing card stack language</h2><div class="SAuthorListBox"><span class="SAuthorList"><p class="author">Jesse P. Hamlin-Navias</p></span></div><p><table cellspacing="0" cellpadding="0" class="defmodule"><tr><td align="left"><span class="hspace">&nbsp;</span><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="hspace">&nbsp;</span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a></td><td align="right"><span class="RpackageSpec"><span class="Smaller">&nbsp;package:</span> <a href="https://pkgs.racket-lang.org/package/RifL" title="Install this package using `raco pkg install RifL`"><span class="stt">RifL</span></a></span></td></tr></table></p><p>RifL is a tactile auto-imperative esoteric coding language.</p><p>Tactile means that RifL can be fully represented with real-world
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>RifL: a playing card stack language</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="tocviewselflink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr></table></div><div class="tocviewsublistonly" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Introduction%29" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Data%29" class="tocviewlink" data-pltdoc="x">Data</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Royal%29" class="tocviewlink" data-pltdoc="x">Royal</a></td></tr><tr><td align="right">4&nbsp;</td><td><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Extras%29" class="tocviewlink" data-pltdoc="x">Extras</a></td></tr></table></div></div></div><div class="tocsub"><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber"></span><a href="#%28part._.Rif.L__a_playing_card_stack_language%29" class="tocsubseclink" data-pltdoc="x">Rif<span class="mywbr"> &nbsp;</span>L:<span class="mywbr"> &nbsp;</span> a playing card stack language</a></td></tr><tr><td><span class="tocsublinknumber">1<tt>&nbsp;</tt></span><a href="#%28part._.Introduction%29" class="tocsubseclink" data-pltdoc="x">Introduction</a></td></tr><tr><td><span class="tocsublinknumber">1.1<tt>&nbsp;</tt></span><a href="#%28part._.Card_.Notation%29" class="tocsubseclink" data-pltdoc="x">Card Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.2<tt>&nbsp;</tt></span><a href="#%28part._.Cards_as_.Numbers%29" class="tocsubseclink" data-pltdoc="x">Cards as Numbers</a></td></tr><tr><td><span class="tocsublinknumber">1.3<tt>&nbsp;</tt></span><a href="#%28part._.Decks%29" class="tocsubseclink" data-pltdoc="x">Decks</a></td></tr><tr><td><span class="tocsublinknumber">1.4<tt>&nbsp;</tt></span><a href="#%28part._.Jokers%29" class="tocsubseclink" data-pltdoc="x">Jokers</a></td></tr><tr><td><span class="tocsublinknumber">1.5<tt>&nbsp;</tt></span><a href="#%28part._.Instructions%29" class="tocsubseclink" data-pltdoc="x">Instructions</a></td></tr><tr><td><span class="tocsublinknumber">1.5.1<tt>&nbsp;</tt></span><a href="#%28part._.Postfix_.Notation%29" class="tocsubseclink" data-pltdoc="x">Postfix Notation</a></td></tr><tr><td><span class="tocsublinknumber">1.5.2<tt>&nbsp;</tt></span><a href="#%28part._.The_.Stack%29" class="tocsubseclink" data-pltdoc="x">The Stack</a></td></tr><tr><td><span class="tocsublinknumber">1.6<tt>&nbsp;</tt></span><a href="#%28part._.Structure_of_.Code%29" class="tocsubseclink" data-pltdoc="x">Structure of Code</a></td></tr><tr><td><span class="tocsublinknumber">1.7<tt>&nbsp;</tt></span><a href="#%28part._.Writing_.Rif.L_.Code%29" class="tocsubseclink" data-pltdoc="x">Writing Rif<span class="mywbr"> &nbsp;</span>L Code</a></td></tr><tr><td><span class="tocsublinknumber">1.8<tt>&nbsp;</tt></span><a href="#%28part._.Debugging%29" class="tocsubseclink" data-pltdoc="x">Debugging</a></td></tr><tr><td><span class="tocsublinknumber">1.9<tt>&nbsp;</tt></span><a href="#%28part._.Physically_.Running%29" class="tocsubseclink" data-pltdoc="x">Physically Running</a></td></tr><tr><td><span class="tocsublinknumber">2<tt>&nbsp;</tt></span><a href="#%28part._.Data%29" class="tocsubseclink" data-pltdoc="x">Data</a></td></tr><tr><td><span class="tocsublinknumber">2.1<tt>&nbsp;</tt></span><a href="#%28part._.Leading_.Suit%29" class="tocsubseclink" data-pltdoc="x">Leading Suit</a></td></tr><tr><td><span class="tocsublinknumber">2.2<tt>&nbsp;</tt></span><a href="#%28part._.Interpretations%29" class="tocsubseclink" data-pltdoc="x">Interpretations</a></td></tr><tr><td><span class="tocsublinknumber">2.2.1<tt>&nbsp;</tt></span><a href="#%28part._.Cards%29" class="tocsubseclink" data-pltdoc="x">Cards</a></td></tr><tr><td><span class="tocsublinknumber">2.2.2<tt>&nbsp;</tt></span><a href="#%28part._.Name%29" class="tocsubseclink" data-pltdoc="x">Name</a></td></tr><tr><td><span class="tocsublinknumber">2.2.3<tt>&nbsp;</tt></span><a href="#%28part._.Integer%29" class="tocsubseclink" data-pltdoc="x">Integer</a></td></tr><tr><td><span class="tocsublinknumber">2.2.4<tt>&nbsp;</tt></span><a href="#%28part._.Real_.Number%29" class="tocsubseclink" data-pltdoc="x">Real Number</a></td></tr><tr><td><span class="tocsublinknumber">2.2.5<tt>&nbsp;</tt></span><a href="#%28part._.Boolean%29" class="tocsubseclink" data-pltdoc="x">Boolean</a></td></tr><tr><td><span class="tocsublinknumber">2.2.6<tt>&nbsp;</tt></span><a href="#%28part._.Character%29" class="tocsubseclink" data-pltdoc="x">Character</a></td></tr><tr><td><span class="tocsublinknumber">3<tt>&nbsp;</tt></span><a href="#%28part._.Royal%29" class="tocsubseclink" data-pltdoc="x">Royal</a></td></tr><tr><td><span class="tocsublinknumber">3.1<tt>&nbsp;</tt></span><a href="#%28part._.Instruction_.Notation%29" class="tocsubseclink" data-pltdoc="x">Instruction Notation</a></td></tr><tr><td><span class="tocsublinknumber">3.2<tt>&nbsp;</tt></span><a href="#%28part._.Jacks%29" class="tocsubseclink" data-pltdoc="x">Jacks</a></td></tr><tr><td><span class="tocsublinknumber">3.2.1<tt>&nbsp;</tt></span><a href="#%28part._.Js%29" class="tocsubseclink" data-pltdoc="x">Js</a></td></tr><tr><td><span class="tocsublinknumber">3.2.2<tt>&nbsp;</tt></span><a href="#%28part._.Jc%29" class="tocsubseclink" data-pltdoc="x">Jc</a></td></tr><tr><td><span class="tocsublinknumber">3.2.3<tt>&nbsp;</tt></span><a href="#%28part._.Jh%29" class="tocsubseclink" data-pltdoc="x">Jh</a></td></tr><tr><td><span class="tocsublinknumber">3.2.4<tt>&nbsp;</tt></span><a href="#%28part._.Jd%29" class="tocsubseclink" data-pltdoc="x">Jd</a></td></tr><tr><td><span class="tocsublinknumber">3.3<tt>&nbsp;</tt></span><a href="#%28part._.Queens%29" class="tocsubseclink" data-pltdoc="x">Queens</a></td></tr><tr><td><span class="tocsublinknumber">3.3.1<tt>&nbsp;</tt></span><a href="#%28part._.Qs%29" class="tocsubseclink" data-pltdoc="x">Qs</a></td></tr><tr><td><span class="tocsublinknumber">3.3.2<tt>&nbsp;</tt></span><a href="#%28part._.Qc%29" class="tocsubseclink" data-pltdoc="x">Qc</a></td></tr><tr><td><span class="tocsublinknumber">3.3.3<tt>&nbsp;</tt></span><a href="#%28part._.Qh%29" class="tocsubseclink" data-pltdoc="x">Qh</a></td></tr><tr><td><span class="tocsublinknumber">3.3.4<tt>&nbsp;</tt></span><a href="#%28part._.Qd%29" class="tocsubseclink" data-pltdoc="x">Qd</a></td></tr><tr><td><span class="tocsublinknumber">3.4<tt>&nbsp;</tt></span><a href="#%28part._.Kings%29" class="tocsubseclink" data-pltdoc="x">Kings</a></td></tr><tr><td><span class="tocsublinknumber">3.4.1<tt>&nbsp;</tt></span><a href="#%28part._.Ks%29" class="tocsubseclink" data-pltdoc="x">Ks</a></td></tr><tr><td><span class="tocsublinknumber">3.4.2<tt>&nbsp;</tt></span><a href="#%28part._.Kc%29" class="tocsubseclink" data-pltdoc="x">Kc</a></td></tr><tr><td><span class="tocsublinknumber">3.4.3<tt>&nbsp;</tt></span><a href="#%28part._.Kh%29" class="tocsubseclink" data-pltdoc="x">Kh</a></td></tr><tr><td><span class="tocsublinknumber">3.4.4<tt>&nbsp;</tt></span><a href="#%28part._.Kd%29" class="tocsubseclink" data-pltdoc="x">Kd</a></td></tr><tr><td><span class="tocsublinknumber">4<tt>&nbsp;</tt></span><a href="#%28part._.Extras%29" class="tocsubseclink" data-pltdoc="x">Extras</a></td></tr><tr><td><span class="tocsublinknumber">4.1<tt>&nbsp;</tt></span><a href="#%28part._.Program_.Examples%29" class="tocsubseclink" data-pltdoc="x">Program Examples</a></td></tr><tr><td><span class="tocsublinknumber">4.1.1<tt>&nbsp;</tt></span><a href="#%28part._.Hello_.World_%29" class="tocsubseclink" data-pltdoc="x">Hello World!</a></td></tr><tr><td><span class="tocsublinknumber">4.1.2<tt>&nbsp;</tt></span><a href="#%28part._.Truth_.Machine%29" class="tocsubseclink" data-pltdoc="x">Truth Machine</a></td></tr><tr><td><span class="tocsublinknumber">4.1.3<tt>&nbsp;</tt></span><a href="#%28part._.Fibonacci%29" class="tocsubseclink" data-pltdoc="x">Fibonacci</a></td></tr><tr><td><span class="tocsublinknumber">4.1.4<tt>&nbsp;</tt></span><a href="#%28part._.Quine%29" class="tocsubseclink" data-pltdoc="x">Quine</a></td></tr><tr><td><span class="tocsublinknumber">4.1.5<tt>&nbsp;</tt></span><a href="#%28part._.Brainfuck%29" class="tocsubseclink" data-pltdoc="x">Brainfuck</a></td></tr><tr><td><span class="tocsublinknumber">4.2<tt>&nbsp;</tt></span><a href="#%28part._.Development%29" class="tocsubseclink" data-pltdoc="x">Development</a></td></tr><tr><td><span class="tocsublinknumber">4.3<tt>&nbsp;</tt></span><a href="#%28part._.Aknowledgments%29" class="tocsubseclink" data-pltdoc="x">Aknowledgments</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="versionbox"><span class="versionNoNav">8.5</span></div><h2><a name="(part._.Rif.L__a_playing_card_stack_language)"></a><a name="(mod-path._.Rif.L)"></a>RifL: a playing card stack language</h2><div class="SAuthorListBox"><span class="SAuthorList"><p class="author">Jesse P. Hamlin-Navias</p></span></div><p><table cellspacing="0" cellpadding="0" class="defmodule"><tr><td align="left"><span class="hspace">&nbsp;</span><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="hspace">&nbsp;</span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a></td><td align="right"><span class="RpackageSpec"><span class="Smaller">&nbsp;package:</span> <a href="https://pkgs.racket-lang.org/package/RifL" title="Install this package using `raco pkg install RifL`"><span class="stt">RifL</span></a></span></td></tr></table></p><p>RifL is a tactile auto-imperative esoteric coding language.</p><p>Tactile means that RifL can be fully represented with real-world
 objects: RifL is written in playing cards. You can spread cards out
 on a table and perform RifL code by hand.</p><p>Auto-imperative means that RifL code represents a state, and then
 augments its own state. The cards encode information and
@@ -12,8 +12,10 @@ even complete decks, just make sure you have Jokers), as well
 as masking tape, a sharpie, a coin or token, and the documentation below.</p><p>The first chapter, <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Introduction%29" data-pltdoc="x">Introduction</a>, teaches you how to read,
 write, and execute RifL code both physically and on a computer.
 The second chapter, <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Data%29" data-pltdoc="x">Data</a>, explains how RifL turns cards into
-numbers, words, and references. The final chapter, <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Royal%29" data-pltdoc="x">Royal</a>, thoroughly covers
-how RifL can manipulate that data.</p><h3>1<tt>&nbsp;</tt><a name="(part._.Introduction)"></a>Introduction</h3><p>The best way to start learning RifL is from a top down view.
+numbers, words, and references. The third chapter, <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Royal%29" data-pltdoc="x">Royal</a>, thoroughly covers
+how RifL can manipulate that data. The final chapter, <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Extras%29" data-pltdoc="x">Extras</a>,
+has RifL code examples, past and future development information,
+and acknowledgements.</p><h3>1<tt>&nbsp;</tt><a name="(part._.Introduction)"></a>Introduction</h3><p>The best way to start learning RifL is from a top down view.
 You will need to be familiar with a 52 card deck (along with Jokers),
 so if you are unfamiliar, go and grab one now and look through it.
 This chapter overviews how RifL operates, and teaches you to read,
@@ -29,14 +31,14 @@ The cards are laid out left to right, with the rightmost card representing
 the 1s places, the second card the 10s place, the third card the 100s place,
 and so on.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">As 2s &gt; 12, the number twelve</span></p></td></tr><tr><td><p><span class="stt">As 2s 3s &gt; 123, the number one-hundred and twenty-three</span></p></td></tr><tr><td><p><span class="stt">9s 10s &gt; 90, the number ninety</span></p></td></tr></table></p><p>Leading zeros can be ignored.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">10s &gt; 0</span></p></td></tr><tr><td><p><span class="stt">10s 6s &gt; 6</span></p></td></tr><tr><td><p><span class="stt">10s 5s 10s 6s &gt; 506</span></p></td></tr><tr><td><p><span class="stt">10s 10s &gt; 0</span></p></td></tr></table></p><h4>1.3<tt>&nbsp;</tt><a name="(part._.Decks)"></a>Decks</h4><p>RifL code is separated into decks of cards, with the top card
 written at the left, and the bottom card written on the right.</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">5s, 10s, 6s</span></p></td></tr></table></p><p>In this deck, the Five of spades is the top card, the Six of
-spades is the bottom card. This deck has one argument, the number 506.</p><p>Each deck has a name, writen before the cards of the deck, followed by a ":".
+spades is the bottom card. This deck has one argument, the number 506.</p><p>Each deck has a name, written before the cards of the deck, followed by a ":".
 The name of a deck is a positive whole number and a suit.</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
 0s: 5s, 10s, 6s &gt; The zero spade deck, with the number 506 in it
 1s: 10s, 6s &gt; The 1 spade deck, with the number 6 in it
 3s 2s: 4s, 6s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">The</span><span class="hspace">&nbsp;</span><span class="RktCmt">32</span><span class="hspace">&nbsp;</span><span class="RktCmt">spade</span><span class="hspace">&nbsp;</span><span class="RktCmt">deck,</span><span class="hspace">&nbsp;</span><span class="RktCmt">with</span><span class="hspace">&nbsp;</span><span class="RktCmt">the</span><span class="hspace">&nbsp;</span><span class="RktCmt">number</span><span class="hspace">&nbsp;</span><span class="RktCmt">46</span><span class="hspace">&nbsp;</span><span class="RktCmt">in</span><span class="hspace">&nbsp;</span><span class="RktCmt">it</span><span class="RktMeta"></span></td></tr></table></blockquote><p>The cards in a deck&rsquo;s name must all be of the same suit. Additionally,
 a deck&rsquo;s name cannot use leading zeros.</p><p>Decks can have multiple arguments, each separated
 by face-down cards. Face-down cards work much the same way the
-spaces between words and numbers work, signifying and end to one
+spaces between words and numbers work, signifying an end to one
 piece of information and the beginning of the next.</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">5s</span><span class="RktSym">,</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktSym">,</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">10s</span><span class="RktSym">,</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktSym">,</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">6s</span><span class="RktMeta"></span></td></tr></table></blockquote><p>In this zero spade deck, the Five of spades is the top card, the Six of
 spades is the bottom card. This deck represents the number 5,
 followed by the number 0, followed by the number 6. This deck
@@ -52,7 +54,7 @@ it is almost always best practice to separate everything out with
 face-down cards, but when the <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Kh%29" data-pltdoc="x">Kh</a> is later covered, this flexibility
 will become useful.</p><h4>1.4<tt>&nbsp;</tt><a name="(part._.Jokers)"></a>Jokers</h4><p>Jokers, like the number cards, represent information, but are wild cards, and are interpreted
 differently in different contexts, and are not valid in all contexts.
-Jokers is somewhat combarable to the &rsquo;null value found in other programing languages,
+Jokers is somewhat comparable to the &rsquo;null value found in other programming languages,
 although that comparison sells short the usefulness of the Joker.</p><h4>1.5<tt>&nbsp;</tt><a name="(part._.Instructions)"></a>Instructions</h4><p>Royal cards, that is Jacks, Queens and Kings, are instructions to
 manipulate information in decks. RifL resolves these instructions from
 the top of a deck to the bottom.</p><p>To illustrate this, the <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Qc%29" data-pltdoc="x">Qc</a> will stand as an example.
@@ -89,8 +91,8 @@ RifL stops running when its current deck is empty. Notice
 how the stack holds the information in backwards order. When
 the <a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html#%28part._.Qc%29" data-pltdoc="x">Qc</a> is at the top of the deck, RifL retrieves the first three
 pieces of information from the stack, and reverses them. For
-this reason, multi-digit numbers are reversed in the stack.</p><p>2 * 34 would resolve like this:</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Starts</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Empty</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">2s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">3s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">4s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Ah</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Qc</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta">&#160;</span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Step</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">6</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Ah</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">4s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">3s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">2s</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Qc</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta">&#160;</span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Step</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">7</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">8s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">6s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">The</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">number</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">68</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Empty</span><span class="RktMeta"></span></td></tr></table></blockquote><h4>1.6<tt>&nbsp;</tt><a name="(part._.Structure_of_.Code)"></a>Structure of Code</h4><p>The decks are laid on a table, with the following structure:</p><p><img src="rifl_grid.png" alt="" width="415" height="481"/></p><p>Each space on the table is a deck name, starting at 0 on the bottom
-row and increasing indefinitly upwards. Each deck is given its name
+this reason, multi-digit numbers are reversed in the stack.</p><p>2 * 34 would resolve like this:</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Starts</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Empty</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">2s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">3s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">4s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Ah</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Qc</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta">&#160;</span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Step</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">6</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Ah</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">4s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">3s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">F</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">2s</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Qc</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta">&#160;</span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Step</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">7</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">&gt;Stack:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">8s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">6s</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">The</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">number</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktVal">68</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktSym">0s:</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">&gt;</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktSym">Empty</span><span class="RktMeta"></span></td></tr></table></blockquote><h4>1.6<tt>&nbsp;</tt><a name="(part._.Structure_of_.Code)"></a>Structure of Code</h4><p>The decks are laid on a table, with the following structure:</p><p>Each space on the table is a deck name, starting at 0 on the bottom
+row and increasing indefinitely upwards. Each deck is given its name
 based on which space of the table it occupies. Spaces on the table
 are empty by default until a deck is put there.</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
 0s: 5s 10s 6s &gt; This deck is in the bottom left space of the table
@@ -114,7 +116,21 @@ read by the RifL executor, until either a line break or a &lt;.
 These are called comments. Anything between a ( and a ) is also a comment.</p><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
 &gt;This is a comment
 &gt;This is also a comment&lt; 0s: 3c &gt;That was a deck
-</span><span class="RktCmt">(This</span></td></tr><tr><td><span class="RktCmt">is</span><span class="hspace">&nbsp;</span><span class="RktCmt">also</span></td></tr><tr><td><span class="RktCmt">a</span><span class="hspace">&nbsp;</span><span class="RktCmt">comment)</span><span class="RktMeta"></span></td></tr></table></blockquote><h4>1.8<tt>&nbsp;</tt><a name="(part._.Physically_.Running)"></a>Physically Running</h4><p>All the same rules of RifL apply when running RifL physically.
+</span><span class="RktCmt">(This</span></td></tr><tr><td><span class="RktCmt">is</span><span class="hspace">&nbsp;</span><span class="RktCmt">also</span></td></tr><tr><td><span class="RktCmt">a</span><span class="hspace">&nbsp;</span><span class="RktCmt">comment)</span><span class="RktMeta"></span></td></tr></table></blockquote><h4>1.8<tt>&nbsp;</tt><a name="(part._.Debugging)"></a>Debugging</h4><p>If you are running RifL digitally, it can sometimes be hard
+to figure out what is going wrong when your code is not
+behaving as expected. Three debugging modes have been
+included to help with this. To use one of these modes,
+at the beginning of the RifL code (after "#lang RifL" but
+before any decks), you can type any of the following:</p><p><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">step-by-step</span></p></td></tr><tr><td><p><span class="stt">royal-by-royal</span></p></td></tr><tr><td><p><span class="stt">end-state</span></p></td></tr></table></p><p>Step by step will print out the RifL table after
+every step of running the code. This is the most
+costly of the debugging modes.</p><p>Royal by royal will print out the RifL table when
+the top card of the current deck is a Royal card.</p><p>End state will print out the RifL table when the
+code is done executing or when RifL encounters an
+error. This is the least costly of the debugging modes.</p><p>If you have multiple debugging modes enabled, they
+must be written in the order shown above. Anytime
+multiple debugging modes would print the RifL table
+at the same time, the RifL table is only printed once.
+Commenting out a debugging mode turns it off.</p><h4>1.9<tt>&nbsp;</tt><a name="(part._.Physically_.Running)"></a>Physically Running</h4><p>All the same rules of RifL apply when running RifL physically.
 A good way to run RifL by hand is to draw the table out on
 a large piece of paper, or take masking tape to mark out the grid
 of the table, and a sharpie to write the name of each grid space
@@ -138,7 +154,7 @@ is empty.
 Then follow the instructions of the Royal card.
 Once you are done following the instructions,
 take the Royal card and any cards in that temporary pile
-and put them in a discard to the side.</p><p>If at anytime a Royal card requires an argument from the stack,
+and put them in a discard to the side.</p><p>If at any time a Royal card requires an argument from the stack,
 and there are no more arguments in the stack, the code has
 hit an error and the code stops. If at any time a Royal card
 makes its way into the stack, the code hits an error and stops.</p><h3>2<tt>&nbsp;</tt><a name="(part._.Data)"></a>Data</h3><p>RifL code is broken up into arguments. Each
@@ -159,7 +175,7 @@ into the stack get reversed. To account for this,
 the leading suit
 of an argument in the stack is determined
 by the bottom card of the sequence, not the top.</p><p>Jokers are a special case, and act like a 5th suit.
-When the documentation uses the suit of a
+When the documentation uses the suit of an
 argument, the interpretation of a Joker
 will also be listed. Sometimes a Joker in certain
 contexts will result in an error, which stops the code
@@ -213,7 +229,7 @@ written between square brackets.</p><p>After the form, the instructions, that is
 the digital/physical process to follow is listed.
 Arguments might be written with data types before them,
 which is an instruction to convert the argument
-into that data type.</p><p>Anytime an argument gets put ontop of the stack,
+into that data type.</p><p>Anytime an argument gets put on top of the stack,
 the argument must be reversed in order first.</p><h4>3.2<tt>&nbsp;</tt><a name="(part._.Jacks)"></a>Jacks</h4><h5>3.2.1<tt>&nbsp;</tt><a name="(part._.Js)"></a>Js</h5><p><span style="font-weight: bold">Form: [Deck], Js</span></p><p><span style="font-weight: bold">Instruction:</span> Move the pointer to [Name (stack exclusive) Deck].</p><h5>3.2.2<tt>&nbsp;</tt><a name="(part._.Jc)"></a>Jc</h5><p><span style="font-weight: bold">Form: [X], [Y], Js</span></p><p><span style="font-weight: bold">Instruction:</span> Starting at the current deck space, count to the right
 [Integer X] times, and up [Integer Y] times. Diamonds wrap around to spades.
 Negative [Integer X] moves left. Negative [Integer Y] moves down.
@@ -267,7 +283,7 @@ except the suit of every card in the copy of [Sequence] is the
 same as the leading suit of [Modifier]. Put the copy of [Sequence]
 on top of the stack.</p><p><span style="font-style: italic">This card is likely to be updated in the future,
 such that [Modifier] had multiple functions. Use 10 cards
-for future proofing.</span></p><h4>3.4<tt>&nbsp;</tt><a name="(part._.Kings)"></a>Kings</h4><h5>3.4.1<tt>&nbsp;</tt><a name="(part._.Ks)"></a>Ks</h5><p><span style="font-weight: bold">Form: [Origin], [Destination], [Operation] Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Find the [Integer Operation] argument of [Name (stack inclusive) Origin].
+for [Modifier] for future proofing.</span></p><h4>3.4<tt>&nbsp;</tt><a name="(part._.Kings)"></a>Kings</h4><h5>3.4.1<tt>&nbsp;</tt><a name="(part._.Ks)"></a>Ks</h5><p><span style="font-weight: bold">Form: [Origin], [Destination], [Operation] Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Find the [Integer Operation] argument of [Name (stack inclusive) Origin].
 If there are not enough arguments in [Name (stack inclusive) Origin], throw an error.
 The leading suit of [Operation] changes the function.</p><p><span style="font-style: italic">Spades: Copy One:</span> If [Destination] is a Joker, do nothing.
 Otherwise copy the found argument and the face-down
@@ -279,12 +295,12 @@ Otherwise, copy all the cards above and including
 the found argument, and put it on top of [Name (stack exclusive Destination].
 If [Name (stack inclusive) Origin] is the stack, reverse all of those cards before
 putting it on top of [Name (stack exclusive Destination].</p><p><span style="font-style: italic">Hearts: Move One:</span> Remove the the found argument and the face-down
-cards directly below it from [Name (stack inclusive) Origion]: if [Destination]
+cards directly below it from [Name (stack inclusive) Origin]: if [Destination]
 is a Joker, the removed cards go nowhere, otherwise
 put them on top of [Name (stack exclusive) Destination].
 If [Name (stack inclusive) Origin] is the stack,
 reverse the found cards before moving them.</p><p><span style="font-style: italic">Diamonds: Move Up To:</span> Remove all the cards above and including
-the found argument, as well as the face down cards direcltly below it.
+the found argument, as well as the face down cards directly below it.
 If [Destination] is a Joker, the removed cards go nowhere,
 otherwise put them on top of [Name (stack exclusive) Destination].
 If [Name (stack inclusive) Origin] is the stack, reverse all of those cards before
@@ -293,4 +309,326 @@ putting them on top of [Name (stack exclusive) Destination].</p><p><span style="
 Otherwise copy [Name (stack inclusive) Origin] and put it on top
 of [Name (stack exclusive) Destination].
 If [Name (stack inclusive) Origin] is the stack,
-reverse the copy before putting in on top of [Name (stack exclusive) Destination]</p><h5>3.4.2<tt>&nbsp;</tt><a name="(part._.Kc)"></a>Kc</h5><p><span style="font-style: italic">Currently does nothing. Will be added in the future.</span></p><h5>3.4.3<tt>&nbsp;</tt><a name="(part._.Kh)"></a>Kh</h5><p><span style="font-weight: bold">Form: [Deck], Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Flip [Name (stack inclusive) Deck] over.</p><h5>3.4.4<tt>&nbsp;</tt><a name="(part._.Kd)"></a>Kd</h5><p><span style="font-weight: bold">Form: [Deck], Kd</span></p><p><span style="font-weight: bold">Instruction:</span> Shuffle [Name (stack inclusive) Deck].</p></div></div><div id="contextindicator">&nbsp;</div></body></html>
+reverse the copy before putting in on top of [Name (stack exclusive) Destination]</p><h5>3.4.2<tt>&nbsp;</tt><a name="(part._.Kc)"></a>Kc</h5><p><span style="font-style: italic">Currently does nothing. Will be added in the future.</span></p><h5>3.4.3<tt>&nbsp;</tt><a name="(part._.Kh)"></a>Kh</h5><p><span style="font-weight: bold">Form: [Deck], Ks</span></p><p><span style="font-weight: bold">Instruction:</span> Flip [Name (stack inclusive) Deck] over.</p><h5>3.4.4<tt>&nbsp;</tt><a name="(part._.Kd)"></a>Kd</h5><p><span style="font-weight: bold">Form: [Deck], Kd</span></p><p><span style="font-weight: bold">Instruction:</span> Shuffle [Name (stack inclusive) Deck].</p><h3>4<tt>&nbsp;</tt><a name="(part._.Extras)"></a>Extras</h3><h4>4.1<tt>&nbsp;</tt><a name="(part._.Program_.Examples)"></a>Program Examples</h4><h5>4.1.1<tt>&nbsp;</tt><a name="(part._.Hello_.World_)"></a>Hello World!</h5><p><div class="SIntrapara">Prints out "Hello World!"
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
+&#160;
+0s: 3h 3h F Ah 10h 10h F Ah 10h 8h F Ah Ah 4h F Ah Ah Ah F 8h 7h F &gt; "!dlroW"
+    3h 2h F &gt; space
+    Ah Ah Ah F Ah 10h 8h F Ah 10h 8h F Ah 10h Ah F 7h 2h &gt; "olleh"
+    F R F Ac Jd</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h5>4.1.2<tt>&nbsp;</tt><a name="(part._.Truth_.Machine)"></a>Truth Machine</h5><p><div class="SIntrapara">Takes an input.
+If input starts with 0 or #f, print input &amp; terminate.
+Otherwise print input infinitely.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
+&#160;
+0s: 2s F, 0s, F, &gt; Results of if statement
+    0d, F, &gt; load concatenation
+    2c, F, Ad, Jd &gt; Take data input onto 2c
+    2c, F, 0s, F, 0s, Ks &gt; Copy top arg 2c onto As
+    &gt;0d, F, input,&lt; R, Qc &gt; Concat 0d + input
+    &gt;2s, F, 0s, F, 0d, input,&lt; Qh &gt;If top arg input is not 0, 2c. Else As.
+    &gt;2s or 0s&lt; Js &gt; Move to As or 2s
+    2c, F Ac, Jd &gt; Print deck 2c
+&#160;
+2s: 2s, F, 2s, R, Ks &gt; Copy 2s deck onto 2s deck
+    2c, F, Ac, Jd &gt; Print out deck 2c
+    2s, F, 2s, R, Ks</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">Copy</span><span class="hspace">&nbsp;</span><span class="RktCmt">2s</span><span class="hspace">&nbsp;</span><span class="RktCmt">deck</span><span class="hspace">&nbsp;</span><span class="RktCmt">onto</span><span class="hspace">&nbsp;</span><span class="RktCmt">2s</span><span class="hspace">&nbsp;</span><span class="RktCmt">deck</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h5>4.1.3<tt>&nbsp;</tt><a name="(part._.Fibonacci)"></a>Fibonacci</h5><p><div class="SIntrapara">Takes a positive whole number input,
+and outputs the nth number of the Fibonacci
+sequence, where n0 = 0 and n1=1.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
+&#160;
+0s: 2c, F Ad, Jd &gt; input data to 2c
+    Ah, F, 0s, R Ks &gt; copy Ah onto 0s
+&#160;
+Ac: 0s, F, 1s, F &gt; 0th and 1st term of Fib
+&#160;
+2c: &gt;input deck
+&#160;
+Ah: &gt;(if input less than 2)
+    Ad, F, 2d, F, &gt; load if results
+    2c, F 0s, R Ks &gt; copy input to 0s
+    &gt;input&lt; F 1s, F, As, Qs &gt; greater of input and 1
+    &gt;result&lt; F, 1s, F, Ad Qs &gt; is input less than 2?
+    &gt;Ad, F, 2d, F, result&lt; Qh &gt;if result, Ad, else 2d
+    &gt;result&lt; F, 0s R Ks &gt; copy result deck onto 0s
+&#160;
+Ad: &gt;(true case: print result)
+    Ac, F, 0s, F, &gt; load for Ks
+    2c, F, 0s, R, Ks &gt; copy input to 0s
+    &gt;Ac, F, 0s, F, input&lt; Ks &gt; get input arg of Ac onto 0s
+    R, Ac, Jd &gt; print out input arg of Ac
+&#160;
+2d: Ac, F, 3c, F, 1s Ks &gt; copy 2nd args of Ac onto deck 3c
+    Ac, F, 0s, F, 1d Ks &gt; move full 2s onto 0s
+    &gt;2s args&lt; F, As, Qc &gt; add args of 2s together
+    F, R, Ac F 0h Ks &gt; move result onto Ac
+    3c, F, Ac, F, 0h, Ks &gt; move 3s onto 2s
+    2c, F, 0s, F, 0h, Ks &gt; move input to 0s
+    &gt;input&lt; F, 1s, F Ac Qc &gt; input - 1
+    R, 2c, F, 0h, Ks &gt; move result onto 2c
+    Ah, F, 0s, R Ks</span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">copy</span><span class="hspace">&nbsp;</span><span class="RktCmt">Ah</span><span class="hspace">&nbsp;</span><span class="RktCmt">onto</span><span class="hspace">&nbsp;</span><span class="RktCmt">0s</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h5>4.1.4<tt>&nbsp;</tt><a name="(part._.Quine)"></a>Quine</h5><p><div class="SIntrapara">A RifL program that prints out itself (ignoring "#lang RifL").
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
+10s: 10s FR As R Ks As FR 2s FR 2d Ad Ks As FR 2s R Ks 2s FR As R Ks 3h 2h FR 5h 8h FR Ah Ah 5h FR As 10s FR R Ac Jd As FR As Jd 10s FR As R Ks</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h5>4.1.5<tt>&nbsp;</tt><a name="(part._.Brainfuck)"></a>Brainfuck</h5><p><div class="SIntrapara">An interpreter for the esoteric language Brainfuck.
+This is a very limited interpreter. It does not handle
+errors, so any Brainfuck code that would result in an
+error will have undefined outputs.
+It takes character inputs, but because of RifL&rsquo;s strange
+data input interpretation, numbers and the strings "#t" or "#f"
+will cause errors to the Brainfuck code.
+The interpreter can take multiple input characters at a time,
+and will only ask for a new input when it has run out of
+inputted characters to use.
+Inputting nothing when the interpreter asks for input characters
+will result in an error.
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><a href="file:///C:/Program%20Files/Racket/doc/guide/Module_Syntax.html#%28part._hash-lang%29" class="RktModLink" data-pltdoc="x"><span class="RktMod">#lang</span></a><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><a href="file:///C:/Users/Jesse/Documents/Dr.Racket/RifL/scribblings/RifL.html" class="RktModLink" data-pltdoc="x"><span class="RktSym">RifL</span></a><span class="RktSym">
+&gt;Brainfuck
+&#160;
+&gt;cells
+0s: 0c, Js, 0h &gt; Move to 0c as starting deck, initialize 0 with 0h
+As: 0h &gt; initialize 1 with 0h
+&#160;
+&gt;functions
+0c: 4d, F, Ad, Jd &gt; new start, take data input
+    &gt;If code index = code size, stop
+    1c 0c, F, 2c, F,&gt; load if results
+    4d, Jh &gt; get code size
+    R, 3d, F, 0s Ks &gt; copy code size to 3d
+    F, 2d, F, 0c, R Ks &gt; copy code index to here
+    &gt;code size F code index&lt; F Ad Qs &gt; code size = code index equivalent
+    &gt;0c, F, 2c, F, (index=size)&lt; Qh
+    &gt;0c or 2c&lt; F, 0c, R Ks &gt; copy 2c onto 0c if code index is less than code size
+&#160;
+Ac: &gt;If code index = code size, stop
+    1c 0c, F, 2c F&gt; load if results
+    2d, F, 0c, F 0h, Ks &gt; move code index here
+    &gt;code index,&lt; F, As, F, As, Qc &gt; code index + 1
+    F, R, 2d, F, 0s, Ks &gt; copy code index + 1 to 2d
+    F 3d, F, 0c, R Ks &gt; copy code size to here
+    &gt;index F code size&lt; F Ad Qs &gt; code index = code size equivalent
+    &gt;0c, F, 2c, F, (index=size)&lt; Qh
+    &gt;0c or 2c&lt; F, 0c, R Ks &gt; copy 2c onto here if code index is less than code size
+&#160;
+2c: Ac, F, 3c, F &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    &gt;cur char&lt; F, 4h 3h, F, Ac Qs&gt; lesser of 43 and cur char
+    &gt;result&lt; F, 4h 3h, F, Ah, Qs &gt; greater or equal to 43
+    F,
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    &gt;cur char&lt; F, 4h 6h, F, As Qs&gt; greater of 46 and cur char
+    &gt;result&lt; F, 4h 6h, F, Ah, Qs &gt; less than or equal to 46
+    &gt;greater or equal 43&lt; &gt;F&lt; &gt;less or equal 46&lt; F, Ac Qs&gt; AND
+    &gt;Ac, F, 3c,&lt; &gt;Ad or 0d&lt; Qh &gt; if cur char is between, Ac, else 3c
+    &gt;Ac or 3c&lt; F, 0c, R, Ks &gt; copy Ac or 3c onto 0c
+&#160;
+3c: 4c, F, 5c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 9h 1h, F, Ah, Qs &gt; cur char == 91
+    &gt;4c, F, 5c, F,&lt; &gt;91 or 0d&lt; Qh &gt; if cur char == 91 4c, else 5c
+    &gt;4c or 5c&lt; F, 0c, R, Ks &gt; copy 4c or 5c onto 0c
+&#160;
+4c: 2d, F 0c, R Ks &gt; copy code index to 0c
+    &gt;F, As, F, As, Qc &gt; index + 1
+    F, Ah Qd &gt; index to hearts
+    F, R, 5d, F 0h Ks&gt; move heart index to 5d
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+5c: 6c, F, 7c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 9h 3h, F, Ah, Qs &gt; cur char == 93
+    &gt;6c, F, 7c, F,&lt; &gt;93 or 0d&lt; Qh &gt; if cur char == 93 6c, else 7c
+    &gt;6c or 7c&lt; F, 0c, R, Ks &gt; copy 6c or 7c onto 0c
+&#160;
+6c: 5d, F, 0c, F, 0s, Ks &gt; copy last [ pos onto 0c
+    F, Ah, Qd &gt; to hearts
+    R &gt; load
+    2d, F, 0c, R, Ks F, Ah, Qd &gt; copy ] pos to hearts
+    &gt;R, F, index hearts&lt; F, 0h, Ks &gt; move last [ pos+1 onto deck hearts ]
+    &gt;&gt;&gt;&gt;
+    2d, F, 0c, R, Ks F, Ah, Qd &gt; copy ] pos+1 to hearts
+    R &gt; load
+    5d, F, 0c, F, 0h Ks &gt; move last [ pos to 0c
+    &gt;R&lt; &gt;last [ pos&lt; F, 0h, Ks &gt; copy ] pos+1 to deck [
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+7c: Ac, F, 8c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 6h 0h, F, Ah, Qs &gt; cur char == 60
+    &gt;Ac, F, 8c, F,&lt; &gt;61 or 0d&lt; Qh &gt; if cur char == 61 Ac, else 8c
+    &gt;Ac or 8c&lt; F, 0c, R, Ks &gt; copy Ac or 8c onto 0c
+&#160;
+8c: Ac, F, 9c, F, &gt; load if
+    4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+    F, 6h 2h, F, Ah, Qs &gt; cur char == 62
+    &gt;Ac, F, 9c, F,&lt; &gt;62 or 0d&lt; Qh &gt; if cur char == 62 Ac, else 9c
+    &gt;Ac or 9c&lt; F, 0c, R, Ks &gt; copy Ac or 9c onto 0c
+&#160;
+9c: 4d, F, R, &gt; load deletion
+    2d, F, 0c, R Ks &gt; copy code index
+    &gt;index&lt; F, Ah, Qd &gt; turn index to hearts
+    &gt;4d, F, R,&lt; &gt;index h&lt; Ks &gt; delete cur char
+    2d, F, 0c, F, 0h, Ks &gt; move code index 0c
+    &gt;index&lt; F, As, F, Ac, Qc &gt; index - 1
+    F, R, 2d, F, 0h, Ks &gt; move index - 1 to 2d
+    3d, F, 0c, F 0h, Ks &gt; move code size 0c
+    &gt;index&lt; F, As, F, Ac, Qc &gt; size - 1
+    F, R, 3d, F, 0h, Ks &gt; move size - 1 to 3d
+    Ac, F, 0c, R Ks &gt; copy Ac onto 0c
+&#160;
+1c 0c: 2d, R, 0h Ks &gt; delete code index
+       Ac &gt; -1
+       R, 2d, F, 0h, Ks &gt; set code index = -1
+       1c 1c F, 0c, R Ks &gt; copy 11c onto 0c
+&#160;
+1c 1c: &gt;If code index = code size, stop
+       0c, F, 1c 2c F &gt; load if results
+       2d, F, 0c, F 0h, Ks &gt; move code index here
+       &gt;code index,&lt; F, As, F, As, Qc &gt; code index + 1
+       F, R, 2d, F, 0s, Ks &gt; copy code index + 1 to 2d
+       F 3d, F, 0c, R Ks &gt; copy code size to here
+       &gt;index F code size&lt; F Ad Qs &gt; code index = code size equivalent
+       &gt;0c, F, 1c 2c, F, (index=size)&lt; Qh
+       &gt;0c or 1c 2c&lt; F, 0c, R Ks &gt; copy 1c 2c onto here if code index is less than code size
+&#160;
+1c 2c: 4d, F, 0c, F, 2d, F, 0c, F, R Ks, Ks &gt; copy cur char onto 0c
+       F, Ac, Qd &gt; turn cur char to clubs
+       &gt;cur char as deck,&lt; F, 0c, R, Ks &gt; copy cur char deck onto 0c
+       &gt;cur char happens&lt;
+       1c 1c F, 0c, R, Ks &gt; copy 11c onto 0c
+&#160;
+4c 3c: &gt; + &gt; 43
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index,&lt; F, 0c, F, 0h, Ks &gt; move cell index [data] to 0c
+       &gt;cur data&lt; F, As, F, As, Qc &gt; cur-data++
+       R, &gt; load move
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell-index,&lt; F, 0h, Ks &gt; move top of R to cell index
+&#160;
+4c 2c: 4c 2c, F, 4c 2c, R Ks &gt; copy this onto this
+       5d, R, R, Ks &gt; delete 5d
+       5d, F, Ad, Jd &gt; input data onto 5d
+       0c, Js &gt; move back to 0c
+       4c 2c, F, 4c 2c, R Ks &gt; copy this onto this
+&#160;
+4c 4c: &gt; , &gt; 44
+       4c 2c, F, 0c, F, &gt; load ifs
+       5d, Jh&gt; get # args 5d
+       &gt;5d&lt; F, 0s, F, Ad, Qs &gt; # args = 0
+       &gt;4c 2c, F, 0c, F,&lt; &gt;true or false&lt; Qh &gt; if true, get input, then replace, if false, just replace
+       Js &gt; move to 42c or stay here
+       &gt;replace \/
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index&lt; R, R, Ks &gt; delete cell [index]
+       5d, F, &gt; load
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;5d, F, cell-index&lt; F, 0h, Ks &gt; move top 5d to cell [index]
+&#160;
+4c 5c: &gt; - &gt; 45
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index,&lt; F, 0c, F, 0h, Ks &gt; move cell index [data] to 0c
+       &gt;cur data&lt; F, As, F, Ac, Qc &gt; cur-data--
+       R, &gt; load move
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell-index,&lt; F, 0h, Ks &gt; move top of R to cell index
+&#160;
+4c 6c: &gt; . &gt; 46
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;cell index&lt; F, 0c, F, 0h, Ks &gt; move cell [index] to 0c
+       &gt;cur data&lt; F, Ah, Qd &gt; turn cur-data to heart
+       R, &gt; load
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       &gt;R, cell index,&lt; F, 0h, Ks &gt; move top of Stack to cell index
+       0d, F, 0c, R, Ks &gt; copy cell index to 0c
+       F, Ac, Jd &gt; print cell index
+&#160;
+6c 0c: &gt; &lt; &gt; 60
+       0d, F, 0c, F, 0h, Ks &gt; move cell index to 0c
+       F, As, F, Ac, Qc &gt; cell index--
+       R, 0d, F, 0h, Ks &gt; move top stack onto 0d
+&#160;
+6c 2c: &gt; &gt; &gt; 62
+       0d, F, 0c, F, 0h, Ks &gt; move cell index to 0c
+       F, As, F, As, Qc &gt; cell index++
+       R, 0d, F, 0h, Ks &gt; move top stack onto 0d
+       6c 3c, F, 6c 4c, F,&gt; load if
+       0d, F, 0c, F, R, Ks &gt; Copy cell index to 0c
+       F, 1d, F, 0c, F, R, Ks &gt; Copy max cell index to 0c
+       &gt;cell index, F, max cell,&lt; F, Ad, Qs &gt; max cell = cell index?
+       &gt;6c 3c, F, 6c 4c, F, max=index&lt; Qh &gt; if max=index -63, else -64
+       &gt;-63 or -64&lt; F, 0c, R, Ks &gt; Copy 63 or 64 onto 0c
+&#160;
+6c 3c: 1d, F, 0c, F, 0h, Ks &gt; move max cell index to 0c
+       F, As, F, As, Qc &gt; max cell++
+       R, 1d, F 0h, Ks &gt; move new max cell to 1d
+       0h, R, &gt; load
+       1d, F, 0c, R, Ks &gt; copy max cell to 0c
+       &gt;R, max cell&lt; F, 0h, Ks &gt; move 0h from stack to max-cell
+&#160;
+
+9c 1c: &gt; [ &gt; 91
+       9c 2c F, 9c 0c F, &gt; load
+       0d, F, 0c, R, Ks &gt; get copy of cell index
+       &gt;cell index&lt; F, 0c, R, Ks &gt; get value at deck [cell index]
+       &gt;value&lt; F, 0s, F, Ad Qs &gt; is value = 0
+       &gt;9c 2c F, 9c 0c F, val=0&lt; Qh &gt; if so, 92c, else 90
+       F, 0c, R Ks &gt; copy either 92c or 90c onto 0c
+&#160;
+9c 2c: 2d, F, 0c, F 0h, Ks &gt; move code index to 0c
+       &gt;code index&lt; F, Ah Qd &gt; hearted
+       &gt;[ key&lt; F, 0c, R, Ks &gt; get value at deck [code index]
+       R, 2d, F, 0h, Ks &gt; set code index to resulting number
+&#160;
+9c 3c: &gt; ] &gt; 93
+       9c 5c F, 9c 4c F,
+       0d, F, 0c, R, Ks &gt; get copy of cell index
+       &gt;cell index&lt; F, 0c, R, Ks &gt; get value at deck [cell index]
+       &gt;value&lt; F, 0s, F, Ad Qs &gt; is value = 0
+       &gt;9c 5c F, 9c 4c F, val=0&lt; Qh &gt; if so, 95c, else 94c
+       F, 0c, R Ks &gt; copy either 95c or 94c onto 0c
+&#160;
+9c 4c: 2d, F, 0c, F 0h, Ks &gt; move code index to 0c
+       &gt;code index&lt; F, Ah Qd &gt; hearted
+       &gt;[ key&lt; F, 0c, R, Ks &gt; get value at deck [code index]
+       R, 2d, F, 0h, Ks &gt; set code index to resulting number
+&#160;
+&gt;variables &amp; constants
+0d: 0s &gt; cell index
+1d: As &gt; largest cell tracker. +1 if reach new max
+2d: 0s &gt; code index
+3d:    &gt; code size
+4d:</span><span class="RktSym"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktMeta"></span><span class="hspace">&nbsp;</span><span class="RktMeta"></span><span class="RktCmt">&gt;</span><span class="hspace">&nbsp;</span><span class="RktCmt">bf</span><span class="hspace">&nbsp;</span><span class="RktCmt">code</span><span class="RktMeta"></span></td></tr></table></blockquote></div></p><h4>4.2<tt>&nbsp;</tt><a name="(part._.Development)"></a>Development</h4><p>RifL was started in my Sophomore year of college, with
+the goal of creating an esoteric language that could
+be run physically. It was partially finished there,
+and the first build was completed 3 years later.</p><p>I intend RifL to receive updates in the future, for
+a few reasons:</p><p>First, the functionality of RifL is not complete.
+I intentionally left some Royal cards incomplete
+or not implemented at all. This is the first
+language I have designed, and as such, I know
+that letting some of the functionality grow out
+of user needs rather than design ideas is healthy.
+In a language like RifL that can have only 12 functions,
+leaving myself some open space is required to do this.</p><p>Second, the parser is slow. When running RifL code
+of large enough size, including the Brainfuck interpreter,
+you may find it annoying having to wait a few seconds.
+I used <a href="https://docs.racket-lang.org/brag/">Brag</a> to
+build my interpreter, but it turns out Brag is not efficient
+with run time or memory usage.
+I will rebuild the parser in a future update when I am feeling
+interested in this project again.</p><p>Third, debugging systems. The current debugging systems
+RifL gives you to step through code is crude and inefficient.
+In the future I will provide more natural feeling ways
+to see what RifL code is doing while it is running. Luckily,
+you can just run RifL code physically for yourself to see what is
+happening. That is always the best approach for debugging RifL.</p><h4>4.3<tt>&nbsp;</tt><a name="(part._.Aknowledgments)"></a>Aknowledgments</h4><p><a href="https://drablab.org/keithohara/">Keith O&rsquo;Hara</a>, my
+computer science professor of my design of programming languages,
+as well as my thesis advisor, and all around great guy. If you
+ever get a chance to learn from this man, take that opportunity.
+He is what so few manage to be: a good programer, an excellent teacher,
+and a great person. If you see him, tell him I say hi.</p><p><a href="https://beautifulracket.com/">Matthew Butt&#173;erick</a> and
+his great online textbook, beautiful racket, as well as the
+<a href="https://docs.racket-lang.org/br/">Beautiful Racket</a>
+and <a href="https://docs.racket-lang.org/brag/">Brag</a> libraries.
+If you are interested in building a coding language in Racket,
+I recommend you start here.</p><p><a href="https://www.greghendershott.com/fear-of-macros/index.html">Greg Hendershott</a>,
+a good online teacher and expert in the weird and strange
+world of Racket and Racket macros. I have not yet had the
+pleasure of meeting this Racket wizard in his tower, but
+if you do, listen carefully.</p></div></div><div id="contextindicator">&nbsp;</div></body></html>
