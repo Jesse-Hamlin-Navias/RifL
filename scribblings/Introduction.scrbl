@@ -300,7 +300,7 @@ for the bottom @secref{Qc}.
 
 The @seclink["Decks"]{decks} are laid on a table, with the following structure:
 
-@image{RifL_Grid.png}
+@image{scribblings/RifL_Grid.png}
 
 Each space on the table is a deck name, starting at 0 on the bottom
 row and increasing indefinitely upwards. Each deck is given its name
