@@ -1,7 +1,7 @@
 #lang info
 
 (define collection "RifL")
-(define version "1.0")
+(define version "1.01")
 (define scribblings '(("scribblings/RifL.scrbl")))
 (define deps '("base"
                "beautiful-racket-lib"
