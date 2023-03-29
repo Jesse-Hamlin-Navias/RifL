@@ -11,7 +11,7 @@ write, and execute RifL code both physically and on a computer.
 @section{Card Notation}
 
 To write and read RifL code, a notation system for cards is needed.
-All cards have a pip value, followed by a suit letter (except for Jokers
+All cards have a pip value, followed by a suit letter (except for @seclink["Jokers"]{Jokers}
 which have no suit). The pips are:
 
 @centered{@tabular[#:sep @hspace[2]
@@ -31,7 +31,9 @@ Some example cards:
 As > The Ace of Spades
 10d > The Ten of Diamonds}
 
-Aces can also be written as 1, and Tens can be written as 0:
+@bold{Aces can also be written as 1, and Tens can be written as 0.}
+This documentation will default to using 1 for aces, and 0 for tens,
+so keep this in mind when reading further.
 
 @verbatim{
 1s > The Ace of Spades
@@ -44,7 +46,8 @@ can also be face-down. Face-down cards are written with a F in front.
 FJc > The face-down Jack of Clubs
 F0d > The face-down Ten of Diamonds}
 
-A face-down Joker can be written as FR, or shorthanded as just F.
+A face-down @seclink["Jokers"]{Joker} can be written as FR, or shorthanded as just F.
+This documentation will default to writing a face-down @seclink["Jokers"]{Joker} as F.
 
 @verbatim{
 FR > A face-down Joker
@@ -56,24 +59,25 @@ RifL physically, in most cases you can use whatever extra cards you have
 as face-down cards, except in special cases where the @secref{Kh} is used.
 
 @section{Cards as Numbers}
-RifL represents numbers using the number cards, that is from A-10. Aces will represent the digit 1,
+RifL represents numbers using the number cards, that is from Aces to tens.
+Aces will represent the digit 1,
 Two cards the digit 2, and so on. However Ten cards will represent the digit 0.
 The cards are laid out left to right, with the rightmost card representing
-the 1s places, the second card the 10s place, the third card the 100s place,
+the ones places, the second card the tens place, the third card the hundreds place,
 and so on.
 
 @verbatim{
-As 2s > 12, the number twelve
-As 2s 3s > 123, the number one-hundred and twenty-three
-9s 10s > 90, the number ninety}
+1s 2s > 12, the number twelve
+1s 2s 3s > 123, the number one-hundred and twenty-three
+9s 0s > 90, the number ninety}
 
 Leading zeros can be ignored.
 
 @verbatim{
-10s > 0
-10s 6s > 6
-10s 5s 10s 6s > 506
-10s 10s > 0}
+0s > 0
+0s 6s > 6
+0s 5s 0s 6s > 506
+0s 0s > 0}
 
 @section{Decks}
 
@@ -81,93 +85,113 @@ RifL code is separated into decks of cards, with the top card
 written at the left, and the bottom card written on the right.
 
 @verbatim{
-5s, 10s, 6s}
+5s, 0s, 6s}
 
 In this deck, the Five of spades is the top card, the Six of
-spades is the bottom card. This deck has one argument, the number 506.
+spades is the bottom card. This deck has one @seclink["Arguments"]{argument}, the number 506.
 
-Each deck has a name, written before the cards of the deck, followed by a ":".
-The name of a deck is a positive whole number and a suit.
+Each deck has a name, written as a series of cards, followed by a ":".
+The cards in a deck's name must all be of the same suit, and
+a deck's name cannot use leading zeros, with the exception
+of a name that is a single zero.
+The name must all be written on the same line.
+The name of a deck can be thought of as a number and a suit.
 
 @codeblock|{
 #lang RifL
-0s: 5s, 10s, 6s > The zero spade deck, with the number 506 in it
-1s: 10s, 6s > The 1 spade deck, with the number 6 in it
+0s: 5s, 0s, 6s > The zero spade deck, with the number 506 in it
+1s: 0s, 6s > The 1 spade deck, with the number 6 in it
 3s 2s: 4s, 6s > The 32 spade deck, with the number 46 in it
            }|
 
-The cards in a deck's name must all be of the same suit. Additionally,
-a deck's name cannot use leading zeros.
+Within the naming restrictions,
+each deck's name is up to the programmer, but no two decks
+in a RifL program can have the same name. It is standard to
+start at low deck numbers and proceed upwards as needed.
 
-Decks can have multiple arguments, each separated 
+
+@section{Arguments}
+@secref{Decks} can have multiple arguments, each separated 
 by face-down cards. Face-down cards work much the same way the
 spaces between words and numbers work, signifying an end to one
 piece of information and the beginning of the next.
 
 @codeblock|{
-0s: 5s, F, 10s, F, 6s}|
+#lang RifL
+0s: 5s, F, 0s, F, 6s}|
 
 In this zero spade deck, the Five of spades is the top card, the Six of
-spades is the bottom card. This deck represents the number 5,
-followed by the number 0, followed by the number 6. This deck
+spades is the bottom card. This @seclink["Decks"]{deck} represents the number 5,
+followed by the number 0, followed by the number 6. This @seclink["Decks"]{deck}
 is not the number 506, but three separate and distinct arguments.
 
 The number of face-down cards between arguments does not matter unless
-your code uses the @secref{Kh}. The following two decks are essentially identical:
+your code uses the @secref{Kh}. The following two @seclink["Decks"]{decks} are essentially identical:
 
 @codeblock|{
 #lang RifL
-0s: 5s, F, 10s, F, 6s
-1s: F, 5s, F, F, F, 10s, F, F, 6s F, F}|
+0s: 5s, F, 0s, F, 6s
+1s: F, 5s, F, F, F, 0s, F, F, 6s F, F}|
 
-Royal Cards and Jokers are special in regards to spacing. They don't
+Each argument is either:
+
+@itemlist[@item{A sequence of number cards (Ace to Ten)}
+          @item{A single @seclink["Jokers"]{Joker}}
+          @item{A single @seclink["Royal"]{Royal} card}]
+
+@seclink["Data"]{Data} is a specific type of argument; either
+a sequence of number cards, or a single @seclink["Jokers"]{Joker}.
+Each @seclink["Data"]{data} argument can be @seclink["Interpretations"]{interpreted} in different
+ways, depending on the context.
+
+@seclink["Royal"]{Royal} Cards and @seclink["Jokers"]{Jokers} are special in regards to spacing. They don't
 need face-down cards between them and other arguments.
-The following two decks are essentially identical:
+The following two @seclink["Decks"]{decks} are essentially identical:
 
 @codeblock|{
 #lang RifL
-0s: 5s, F, R, F, R, F, Ks, F, Qc, F, As
-1s: 5s, R, R, Ks, Qc, As}|
+0s: 5s, F, R, F, R, F, Ks, F, Qc, F, 1s
+1s: 5s, R, R, Ks, Qc, 1s}|
 
-Face-down cards between Jokers and Royal cards is optional, however
+Face-down cards between @seclink["Jokers"]{Jokers} and @seclink["Royal"]{Royal} cards is optional, however
 it is almost always best practice to separate everything out with
 face-down cards, but when the @secref{Kh} is later covered, this flexibility
 will become useful.
 
-@section{Jokers}
-Jokers, like the number cards, represent information, but are wild cards, and are interpreted
-differently in different contexts, and are not valid in all contexts.
-Jokers is somewhat comparable to the 'null value found in other programming languages,
-although that comparison sells short the usefulness of the Joker.
-
-@section{Instructions}
-Royal cards, that is Jacks, Queens and Kings, are instructions to
-manipulate information in decks. RifL resolves these instructions from
+@subsection{Instructions}
+@seclink["Royal"]{Royal} cards, that is Jacks, Queens and Kings, are instructions to
+manipulate information in @seclink["Decks"]{decks}. RifL resolves these instructions from
 the top of a deck to the bottom.
 
 To illustrate this, the @secref{Qc} will stand as an example.
-The @secref{Qc} is the math royal card, used to add, subtract, multiply, and
+The @secref{Qc} is the math @seclink["Royal"]{Royal} card, used to add, subtract, multiply, and
 divide numbers. Subtracting the number 3 from 5 in RifL looks as follows:
 
 @codeblock|{
 #lang RifL
-0s: 5s F 3s F Ac F Qc
+0s: 5s F 3s F 1c F Qc
 }|
 
-The @secref{Qc} takes three arguments. From top of the zero spade deck to bottom, the first two arguments
-are numbers (5 and 3 in this example), while the third argument ignores card
-pip and only looks at suit (clubs in this example). This third argument determines
-if the @secref{Qc} adds, subtracts, multiplies, or divides the first two arguments. A club
+The @secref{Qc} takes three @seclink["Data"]{data} @seclink["Arguments"]{arguments}.
+From the top of the 0s deck to bottom, the @secref{Qc} @seclink["Interpretations"]{interprets} the first two @seclink["Arguments"]{arguments}
+are numbers (5 and 3 in this example), while the third @seclink["Arguments"]{argument's} pip is ignored
+and only the suit matters (clubs in this example). This third @seclink["Arguments"]{argument} determines
+if the @secref{Qc} adds, subtracts, multiplies, or divides the first two @seclink["Arguments"]{arguments}. A club
 tells the @secref{Qc} to subtract.
 
 @codeblock|{
 #lang RifL
-0s: 5s F 3s F Ac F Qc > Represents 5 - 3
+0s: 5s F 3s F 1c F Qc > Represents 5 - 3
 }|
+
+Each @seclink["Royal"]{Royal} card requires a certain number of @seclink["Data"]{data} @seclink["Arguments"]{arguments}.
+@seclink["Royal"]{Royal} cards can never use other @seclink["Royal"]{Royal} cards as their @seclink["Arguments"]{arguments}.
+The @seclink["Arguments"]{arguments} given to a @seclink["Royal"]{Royal} card will always be @seclink["Data"]{data}: either
+a series of number cards, or a single @seclink["Jokers"]{Joker}.
 
 @subsection{Postfix Notation}
 
-Most logical operators are usually written in
+The logical operators most people are familiar with are written in
 @hyperlink["https://en.wikipedia.org/wiki/Infix_notation"]{Infix Notation}.
 RifL is coded in what is known as
 @hyperlink["https://en.wikipedia.org/wiki/Reverse_Polish_notation"]{Postfix Notation}.
@@ -185,50 +209,50 @@ With infix notation, parentheses are needed to clarify if the order is
 different than reading left to right. Postfix never encounters this problem,
 and so it is much better for writing code.
 
-The @secref{Qc} interprets a heart in its third argument as multiplication, so
+The @secref{Qc} @seclink["Interpretations"]{interprets} a heart in its third @seclink["Arguments"]{argument} as multiplication, so
 the above three examples written in RifL look like this:
 
 @codeblock|{
 #lang RifL
-0s: 5s F 3s F Ac Qc > 5 3 -
-1s: 2s F 5s F Ah Qc F 3s F Ac Qc > 2 5 * 3 -
-2s: As 3s F 2s F 5s F Ah Qc F Ac Qc > 13 2 5 * -}|
+0s: 5s F 3s F 1c Qc > 5 3 -
+1s: 2s F 5s F 1h Qc F 3s F 1c Qc > 2 5 * 3 -
+2s: 1s 3s F 2s F 5s F 1h Qc F 1c Qc > 13 2 5 * -}|
 
-@subsection{The Stack}
+@section{The Stack}
 
-To resolve instructions, RifL uses a special deck called the stack.
-RifL proceeds in steps. Each step, RifL looks at the top of the current deck,
-and if it is not a Royal card, puts that card on top of the stack.
-If the top card of the current deck is a Royal card, RifL pulls information
-from the top of the stack to fill the Royal card's needed arguments,
-and then follows that Royal
-card's instructions.
-After following the Royal's instructions, none
-of the used arguments nor the Royal card goes on top of the stack.
+To resolve @seclink["Instructions"]{instructions}s, RifL uses a special deck called the stack.
+Programmers can't write code in the stack, its only used durring run time.
+When run, RifL proceeds in steps. Each step, RifL looks at the top of the current deck,
+and if it is not a @seclink["Royal"]{Royal} card, puts that card on top of the stack.
+If the top card of the current deck is a @seclink["Royal"]{Royal} card, RifL pulls @seclink["Arguments"]{arguments}
+from the top of the stack to fill the @seclink["Royal"]{Royal} card's needed @seclink["Arguments"]{arguments},
+and then follows that @seclink["Royal"]{Royal} card's @seclink["Instructions"]{instructions}s.
+After following the @seclink["Royal"]{Royal's} @seclink["Instructions"]{instructions}s, none
+of the used @seclink["Arguments"]{arguments} nor the @seclink["Royal"]{Royal} card goes on top of the stack.
 RifL would process 5 - 3 as follows:
 
 @codeblock|{
 >Stack:  > Starts empty
-0s: 5s F 3s F Ac Qc
+0s: 5s F 3s F 1c Qc
 
 > Step 1
 >Stack: 5s
-0s: F 3s F Ac Qc
+0s: F 3s F 1c Qc
 
 > Step 2
 >Stack: F 5s
-0s: 3s F Ac Qc
+0s: 3s F 1c Qc
 
 > Step 3
 >Stack: 3s F 5s
-0s: F Ac Qc
+0s: F 1c Qc
 
 > Step 4
 >Stack: F 3s F 5s
-0s: Ac Qc
+0s: 1c Qc
 
 > Step 5
->Stack: Ac F 3s F 5s
+>Stack: 1c F 3s F 5s
 0s: Qc
 
 > Step 6
@@ -238,31 +262,45 @@ RifL would process 5 - 3 as follows:
 
 The @secref{Qc} inserts the answer, 2, back onto the stack.
 RifL stops running when its current deck is empty. Notice
-how the stack holds the information in backwards order. When
-the @secref{Qc} is at the top of the deck, RifL retrieves the first three
+how the stack holds the @seclink["Arguments"]{arguments} in backwards order. When
+the @secref{Qc} is at the top of the current deck, RifL retrieves the first three
 pieces of information from the stack, and reverses them. For
 this reason, multi-digit numbers are reversed in the stack.
 
-2 * 34 would resolve like this:
+13 - (2 * 5) would resolve like this:
 
 @codeblock|{
 >Stack: > Starts Empty
-0s: 2s F 3s 4s F Ah Qc
+2s: 1s 3s F 2s F 5s F 1h Qc F 1c Qc
 
-> Step 6
->Stack: Ah F 4s 3s F 2s
-0s: Qc
+> Step 8
+>Stack: 1h F 5s F 2s F 3s 1s
+2s: Qc F 1c Qc
 
-> Step 7
->Stack: 8s 6s > The number 68
-0s: > Empty
-          }|
+> Step 9
+>Stack: 0s 1s F 3s 1s > The number 10 then the number 13
+2s: F 1c Qc
+
+> Step 11
+>Stack: 1c F 0s 1s F 3s 1s
+2s: Qc
+
+> Step 12
+>Stack: 3s > the number 3
+2s: > Empty
+}|
+
+Notice how the top @secref{Qc} resolves before the bottom @secref{Qc}.
+The top @secref{Qc} never goes into the stack, and as such,
+is not used as an @seclink["Arguments"]{argument} for the bottom @secref{Qc}. Instead,
+The result of the top @secref{Qc}, ten (5 * 2), is used as an @seclink["Arguments"]{argument}
+for the bottom @secref{Qc}.
 
 @section{Structure of Code}
 
-The decks are laid on a table, with the following structure:
+The @seclink["Decks"]{decks} are laid on a table, with the following structure:
 
-@;image{scribblings/RifL_Grid.png}
+@image{RifL_Grid.png}
 
 Each space on the table is a deck name, starting at 0 on the bottom
 row and increasing indefinitely upwards. Each deck is given its name
@@ -271,22 +309,22 @@ are empty by default until a deck is put there.
 
 @codeblock|{
 #lang RifL
-0s: 5s 10s 6s > This deck is in the bottom left space of the table
+0s: 5s 0s 6s > This deck is in the bottom left space of the table
 1s: > This deck is one above the 0s deck
 0c: > This deck is one space to the right of the 0s deck
 }|
 
 When running RifL code, the pointer determines the current deck.
 The current deck is the deck which RifL pulls from the top of.
-The pointer always starts at the 10s deck, and
+The pointer always starts at the 0s deck, and
 can change over the runtime of a RifL program.
-If the table starts with an empty 10s deck, the program will
+If the table starts with an empty 0s deck, the program will
 immediately terminate, since RifL programs end when the current deck is empty.
 
-Some Royal cards can refer not only to decks in the table, but also
-the stack. The stack has the card reference R. The @secref{Royal} card
+Some @seclink["Royal"]{Royal} cards can refer not only to @seclink["Decks"]{decks} in the table, but also
+the @seclink["The_Stack"]{stack}. The @seclink["The_Stack"]{stack} has the card reference R. The @secref{Royal} card
 specifications later in the documentation will always declare
-if royal cards that refer to decks can refer to the stack.
+if @seclink["Royal"]{Royal} cards that refer to @seclink["Decks"]{decks} can refer to the @seclink["The_Stack"]{stack}.
 
 @section{Writing RifL Code}
 
@@ -296,21 +334,21 @@ followed by the cards in that deck from top to bottom:
 @codeblock|{
 #lang RifL
 0s: 2c, 4c, Js       > The deck zero of spades, with some cards in it
-2c 4c: 1d, F, As, Jd > The deck 24 of clubs, with some cards in it
+2c 4c: 1d, F, 1s, Jd > The deck 24 of clubs, with some cards in it
 }|
 
 Cards can optionally have a comma after them, depending
 if you find that more readable.
 
-Decks can be broken up into any number of lines, but a new deck
+@seclink["Decks"]{Decks} can be broken up into any number of lines, but a new deck
 must always start on a new line, and a deck's name, including the colon,
 must all be on the same line.
 
 @codeblock|{
-10s: As 3s F 2s F 5s > The number 13, 2, 5
-    F Ah Qc > Multiply
-    F Ac Qc > Subtract
-As: R R R   > The 1 of spades deck
+0s: 1s 3s F 2s F 5s > The number 13, 2, 5
+    F 1h Qc > Multiply
+    F 1c Qc > Subtract
+1s: R R R   > The 1 of spades deck
 }|
 
 Anything that follows a > will not be
@@ -320,7 +358,8 @@ These are called comments. Anything between a ( and a ) is also a comment.
 @codeblock|{
 #lang RifL
 >This is a comment
->This is also a comment< 0s: 3c >That was a deck
+0s: 3c >That was a deck
+>This is also a comment< 1s: 3c >That was a deck
 (This
 is also
 a comment)
@@ -332,7 +371,7 @@ to figure out what is going wrong when your code is not
 behaving as expected. Three debugging modes have been
 included to help with this. To use one of these modes,
 at the beginning of the RifL code (after "#lang RifL" but
-before any decks), you can type any of the following:
+before any @seclink["Decks"]{decks}), you can type any of the following:
 
 @verbatim{
 step-by-step
@@ -341,14 +380,16 @@ end-state
 }
 
 Step by step will print out the RifL table after
-every step of running the code. This is the most
+every step of running the code, or when RifL
+encounters an error. This is the most
 costly of the debugging modes.
 
 Royal by royal will print out the RifL table when
-the top card of the current deck is a Royal card.
+the top card of the current deck is a @seclink["Royal"]{Royal} card,
+after the the last step, or when RifL encounters an error.
 
-End state will print out the RifL table when the
-code is done executing or when RifL encounters an
+End state will print out the RifL table after
+the last step or when RifL encounters an
 error. This is the least costly of the debugging modes.
 
 If you have multiple debugging modes enabled, they
@@ -364,32 +405,33 @@ A good way to run RifL by hand is to draw the table out on
 a large piece of paper, or take masking tape to mark out the grid
 of the table, and a sharpie to write the name of each grid space
 that you delineate on the masking tape. Grid spaces need to be
-large enough to place decks of cards onto.
+large enough to place @seclink["Decks"]{decks} of cards onto.
 You'll need a space to one
-side of the grid to use as your stack. Additionally, a token of some
+side of the grid to use as your @seclink["The_Stack"]{stack}. Additionally, a token of some
 sort is useful to mark which grid space the pointer is at. Finally,
-you will need the list of what each Royal card does.
+you will need the list of what each @seclink["Royal"]{Royal} card does.
 
 To begin, set up all the cards in the code in their corresponding
 deck spaces. Place the token on the 0s deck space.
 Most RifL programs will need extra sets of cards, so keep a
-handful of decks ready. When running physically, Face-down cards
+handful of @seclink["Decks"]{decks} ready. When running physically, Face-down cards
 can be any card, unless the code you are running uses the @secref{Kh}.
 
 At each step of RifL, take the top card of the deck the pointer is at,
-and put it on top of the stack. If the top card of the pointer deck
-is a Royal card, instead look up how many arguments it needs.
+and put it on top of the @seclink["The_Stack"]{stack}. If the top card of the pointer deck
+is a @seclink["Royal"]{Royal} card, instead look up how many @seclink["Arguments"]{arguments} it needs.
 One by one take cards
-from the top of the stack, and put them on top of a temporary pile. Do this
-until you get the required number of arguments for the Royal card, and
-the top card of the stack is a face-down card, a Joker, or the stack
+from the top of the @seclink["The_Stack"]{stack}, and put them on top of a temporary pile. Do this
+until you get the required number of @seclink["Arguments"]{arguments} for the @seclink["Royal"]{Royal} card, and
+the top card of the @seclink["The_Stack"]{stack} is a face-down card, a @seclink["Jokers"]{Joker}, or the @seclink["The_Stack"]{stack}
 is empty.
-Then follow the instructions of the Royal card.
-Once you are done following the instructions,
-take the Royal card and any cards in that temporary pile
+Then follow the @seclink["Instructions"]{instructions}s of the @seclink["Royal"]{Royal} card.
+Once you are done following the @seclink["Instructions"]{instructions}s,
+take the @seclink["Royal"]{Royal} card and any cards in that temporary pile
 and put them in a discard to the side.
 
-If at any time a Royal card requires an argument from the stack,
-and there are no more arguments in the stack, the code has
-hit an error and the code stops. If at any time a Royal card
-makes its way into the stack, the code hits an error and stops.
+If at any time a @seclink["Royal"]{Royal} card requires an @seclink["Arguments"]{argument} from the @seclink["The_Stack"]{stack},
+and there are no more @seclink["Arguments"]{arguments} in the @seclink["The_Stack"]{stack}, or the wrong
+kind of @seclink["Arguments"]{arguments}, the code has
+hit an error and the code stops. If at any time a @seclink["Royal"]{Royal} card
+makes its way into the @seclink["The_Stack"]{stack}, the code hits an error and stops.

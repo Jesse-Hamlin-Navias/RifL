@@ -3,6 +3,9 @@
 @title{Extras}
 
 @section{Program Examples}
+The programs below use both the '1' form of aces as well as the 'A' form,
+and the '0' form of tens as well as the '10' form, depending on the
+programer's preferences.
 
 @subsection{Hello World!}
 Prints out "Hello World!"
@@ -19,21 +22,25 @@ Prints out "Hello World!"
 Takes an input.
 If input starts with 0 or #f, print input & terminate.
 Otherwise print input infinitely.
+
+This example uses the @secref{Kh}. The last three lines
+of the program are actually two functions in one, based
+on if the 10s deck is flipped or not.
 @codeblock|{
 #lang RifL
 
-0s: 2s F, 0s, F, > Results of if statement
-    0d, F, > load concatenation
-    2c, F, Ad, Jd > Take data input onto 2c
-    2c, F, 0s, F, 0s, Ks > Copy top arg 2c onto As
-    >0d, F, input,< R, Qc > Concat 0d + input
-    >2s, F, 0s, F, 0d, input,< Qh >If top arg input is not 0, 2c. Else As.
-    >2s or 0s< Js > Move to As or 2s
-    2c, F Ac, Jd > Print deck 2c
-
-2s: 2s, F, 2s, R, Ks > Copy 2s deck onto 2s deck
-    2c, F, Ac, Jd > Print out deck 2c
-    2s, F, 2s, R, Ks > Copy 2s deck onto 2s deck
+>If input starts with 0 or #f, print input & terminate. Otherwise print input infinitley.
+10s: R F, 10s, F, >Results of if statement
+       10d, F, >for concatenation
+         2c, F, Ad, Jd             >Take data input onto 2c
+         2c, F, 10s, F, 10s, Ks    >Copy top arg 2c onto 10s
+      >10d, F, input,< R, Qc   >Concat 10d + input
+    >R F, 10s, F, 10d, input,< Qh  >If top arg input is not 0, 10s. Else R.
+    >R or 10s< Kh                  > flip either deck 10s or R
+    >If below section is flipped, prints out deck 2c and terminates
+     10s, FJd, 10s, R, Ks > Copy 10s deck onto 10s deck
+     2c, FAc, Ac, Jd      > Print out deck 2c
+     10s, F2c, 10s, R, Ks > Copy 10s deck onto 10s deck
 }|
 
 @subsection{Fibonacci}
@@ -368,3 +375,7 @@ a good online teacher and expert in the weird and strange
 world of Racket and Racket macros. I have not yet had the
 pleasure of meeting this Racket wizard in his tower, but
 if you do, listen carefully.
+
+@hyperlink["https://github.com/corbob"]{Corbob}, for
+taking the time to review the documentation,
+as well as giving suggestions on the debugging functionalities.

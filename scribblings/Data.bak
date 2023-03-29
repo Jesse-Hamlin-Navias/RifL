@@ -9,70 +9,89 @@ argument is either:
           @item{A single Joker}
           @item{A single Royal card}]
 
-Arguments are seperated by face down cards.
 Data is a specific type of argument; either
 a sequence of number cards, or a single Joker.
 Each data argument can be interpreted in different
 ways, depending on the context.
-This chapter will covere all the different ways
+This chapter will cover all the different ways
 data can be interpreted, as well as a guide to the most common
 contexts in which that interpretation will happen.
 
-@section{Card Sequences}
+@section{Leading Suit}
+Many Royal cards rely on the suit of a data argument.
+However, a sequence of number cards can have different
+suits in it:
 
-A datum is made up of a sequence of cards.
-Data in decks is separated by face-down cards,
-unless the data is R, in which case separation
-is optional.
+@verbatim{
+0s 1c 2h 3d
+          }
 
-@section{Leading Suits}
+To resolve this, when the documentation refers to
+the suit of a sequence of number cards, the suit
+of the top card of the sequence is all that matters.
+In the above example, the suit of the sequence
+would be spades, since the top cards is 0s.
 
-The leading suit of a card sequence is the suit of the
-top card of the datum. Most data types that
-use suit only use the leading suit of the datum.
+A detail to remember is that arguments that go
+into the stack get reversed. To account for this,
+the leading suit
+of an argument in the stack is determined
+by the bottom card of the sequence, not the top.
 
-When a card sequence is in the stack, the leading suit
-is the bottom card of that sequence, since the stack
-reverse all data that goes into it.
+Jokers are a special case, and act like a 5th suit.
+When the documentation uses the suit of an
+argument, the interpretation of a Joker
+will also be listed. Sometimes a Joker in certain
+contexts will result in an error, which stops the code
+from running.
 
-@section{Interpretation Types}
+@section{Jokers}
+Jokers, like the number cards, represent information, but are wild cards, and are interpreted
+differently in different contexts, and are not valid in all contexts.
+Jokers is somewhat comparable to the 'null value found in other programming languages,
+although that comparison sells short the usefulness of the Joker.
 
-Royal cards will specify how each of the arguments they
-require are interpreted. Below are the possible interpretations.
+@section{Interpretations}
 
 @subsection{Cards}
-
-No interpretation is made. The data is taken literally
+This is the default interpretation if
+none is listed.
+No interpretation is made.
+The argument is taken literally
 as the cards in the sequence.
+This is most often used when the suit
+of an argument is the only thing that matters.
 
 @subsection{Name}
 
 Interprets the card sequence as the name of a deck space
 on the table. The sequence R represents the stack.
 Name interpretations are either stack inclusive and
-will accept R, others are not stack exclusive and
+will accept R, others are stack exclusive and
 will not accept R.
 
 @verbatim{
-As > the 1 of spades deck
+1s > the 1 of spades deck
 2c 0c 3c > the 203 of clubs deck
 R > the stack
           }
 
 A card sequence that has more than one suit type in
 it is invalid for a name. A card sequence that starts
-with a Ten card is invalid for a name.
+with a Ten card is invalid for a name, unless the
+sequence is a single card.
 
 @verbatim{
-0s As > error
 2c 0s 3s > error
+0s 1s > error
+0s 0s > error
+0s > 0 of spades deck
           }
 
-@subsection{Forced Integer}
-
-Interprets the card sequence as a positive whole number,
+@subsection{Integer}
+Interprets the card sequence as a zero or positive whole number,
 unless the leading suit is clubs, in which case the
-number is a negative whole number.
+number is a negative zero or negative whole number.
 
 @verbatim{
 3s > 3
@@ -81,23 +100,29 @@ number is a negative whole number.
 3d > 3
 0s 4c > 4
 0c 4s > -4
+0s > 0
+0c > -0
           }
 
-R is invalid for forced integers.
+R is invalid for Integers.
 
 @verbatim{
 R > error
           }
 
-@subsection{Forced Number}
+When converting integers into cards, RifL
+converts zero and positive integers
+into all spades, but converts negative
+numbers into all clubs.
 
-Interprets the card sequence as a positive whole number,
+@subsection{Real Number}
+Interprets the card sequence as zero or a positive whole number,
 unless the leading suit is spades or clubs, and the suit
 of a card in the sequence is diamonds. In that case,
 the first diamonds card represents the decimal point
 (and not a digit), and all cards after the first diamonds
 card are the fractional part of the number.
-If the leading suit of a forced number is clubs, the
+If the leading suit of a real number is clubs, the
 number is negative.
 
 @verbatim{
@@ -113,14 +138,21 @@ number is negative.
 0d 0d 1c             > 1
           }
 
-R is invalid for forced numbers.
+R is invalid for a real number.
 
 @verbatim{
 R > error
           }
 
-@subsection{Boolean}
+When converting numbers into cards, RifL
+always converts whole numbers into the @secref{Integer}
+card form. Positive non-whole numbers get
+converted into spades, with the decimal point
+being a 0d. Negative non-whole numbers get
+converted into clubs, with the decimal
+point being a 0d.
 
+@subsection{Boolean}
 All card sequences evaluate as #t, except for
 0d, and any number of repeating zeros that have a
 leading suit of diamonds, which evaluates as #f.
@@ -137,42 +169,29 @@ R evaluates as null.
 R  > null
 }
 
-@subsection{Print}
+When converting booleans into cards, RifL
+converts true into 1d, and false into
+0d.
 
-Interprets each datum differently based on its leading suit.
-This data type is used to turn RifL data into human readable
-information, and vice versa.
-
-Interprets data with leading suit spades or clubs as a forced number.
+@subsection{Character}
+Interprets the argument as zero or a positive
+whole number, and uses that number to reference
+the ascii.
 
 @verbatim{
-3s > 3
-3s 0d > 3
-3s 0d 0s > 3
-3s 0d 1h 4h 1h 5h 9h > 3.14159
-3c 0d 1c 4c 1c 5c 9c > -3.14159
-0s 0d 1c             > 0.1
-0s 0d 0d 1c          > 0.01
-0d 0d 1c             > 1
-          }
-
-Interprets data with leading suit hearts as an ascii character.
-RifL will throw an error if the ascii number it to large.
-@verbatim{
-
-          }
-
-Interprets data with a leading suit of diamonds as a boolean.
-@verbatim{
-0d > #f
-0d 0s 0h 0c > #f
-0d 0s 0h 1c > #t
-1d > #t
-          }
+6h 5h > 'A'
+1h 2h 2h > 'z'
+}
 
 Inteprets R as no character.
 @verbatim{
-R > ""
-          }
+R > ''
+}
 
+Character interpretation is only used with card sequences
+that have a leading suit of hearts, or with Jokers.
 
+When converting characters into cards, RifL
+converts the character into its ascii number,
+and then turns that number into a hearts
+sequence.
