@@ -1,5 +1,5 @@
 #lang brag
-RifL-program: debug (convert-to-deck | RifL-program-sub /NEWLINE convert-to-deck)
+RifL-program: debug (() | (convert-to-deck | RifL-program-sub /NEWLINE convert-to-deck))
 debug: /NEWLINE* [STEP] /NEWLINE* [RSTEP] /NEWLINE* [END] /NEWLINE*
 @RifL-program-sub: convert-to-deck | RifL-program-sub /NEWLINE convert-to-deck
 convert-to-deck: convert-to-name /DIVIDER convert-to-stack
