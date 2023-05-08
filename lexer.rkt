@@ -1,6 +1,6 @@
 #lang br
 (require brag/support)
-
+;NEWLINE COMMA STEP RSTEP END DIVIDER
 (define RifL-lexer
   (lexer-srcloc
    ["\n" (token 'NEWLINE lexeme)]
