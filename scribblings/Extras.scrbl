@@ -326,6 +326,9 @@ RifL was started in my Sophomore year of college, with
 the goal of creating an esoteric language that could
 be run physically. It was partially finished there,
 and the first build was completed 3 years later.
+The parser was built in @hyperlink["https://docs.racket-lang.org/brag/"]{Brag}
+up until 1.02, but was rebuilt 1.2 in plain
+@hyperlink["https://docs.racket-lang.org/br/"]{beautiful racket}.
 
 I intend RifL to receive updates in the future, for
 a few reasons:
@@ -339,21 +342,12 @@ of user needs rather than design ideas is healthy.
 In a language like RifL that can have only 12 functions,
 leaving myself some open space is required to do this.
 
-Second, the parser is slow. When running RifL code
-of large enough size, including the Brainfuck interpreter,
-you may find it annoying having to wait a few seconds.
-I used @hyperlink["https://docs.racket-lang.org/brag/"]{Brag} to
-build my interpreter, but it turns out Brag is not efficient
-with run time or memory usage.
-I will rebuild the parser in a future update when I am feeling
-interested in this project again.
-
-Third, debugging systems. The current debugging systems
+Second, the current debugging systems
 RifL gives you to step through code is crude and inefficient.
 In the future I will provide more natural feeling ways
 to see what RifL code is doing while it is running. Luckily,
 you can just run RifL code physically for yourself to see what is
-happening. That is always the best approach for debugging RifL.
+happening. That is always the best approach for debugging small portions of RifL.
 
 @section{Aknowledgments}
 @hyperlink["https://drablab.org/keithohara/"]{Keith O'Hara}, my
